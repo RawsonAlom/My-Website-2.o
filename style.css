@@ -1,0 +1,97 @@
+.img-shadow-style {
+	display: flex;
+	align-items: center;
+	position: relative;
+	width: 265px;
+	height: 50px;
+	transform: skew(20deg);
+	box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+	animation: rotateShadow 3s infinite linear;
+}
+@keyframes rotateShadow {
+	0% {
+		box-shadow: 1.5px 1.5px 3px rgba(255, 0, 0, 0.5);
+	}
+	12.5% {
+		box-shadow: 0px 1.5px 3px rgba(255, 128, 0, 0.5);
+	}
+	25% {
+		box-shadow: -1.5px 1.5px 3px rgba(0, 255, 0, 0.5);
+	}
+	37.5% {
+		box-shadow: -1.5px 0px 3px rgba(0, 255, 128, 0.5);
+	}
+	50% {
+		box-shadow: -1.5px -1.5px 3px rgba(0, 0, 255, 0.5);
+	}
+	62.5% {
+		box-shadow: 0px -1.5px 3px rgba(128, 0, 255, 0.5);
+	}
+	75% {
+		box-shadow: 1.5px -1.5px 3px rgba(255, 255, 0, 0.5);
+	}
+	87.5% {
+		box-shadow: 1.5px 0px 3px rgba(255, 0, 128, 0.5);
+	}
+	100% {
+		box-shadow: 1.5px 1.5px 3px rgba(255, 0, 0, 0.5);
+	}
+}
+
+
+
+/*bounch animation*
+.wave-text span {
+	display: flex;
+    background-color: red;
+	animation: wave 10.5s infinite ease-in-out;
+}
+
+/* Keyframes Animation for the Wave Effect *
+@keyframes wave {
+	0%,
+	100% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(-10px);
+	}
+}
+
+/* Adding Different Delays for Each Letter *
+.wave-text span:nth-child(1) {
+	animation-delay: 0s;
+}
+.wave-text span:nth-child(2) {
+	animation-delay: 0.4s;
+}
+.wave-text span:nth-child(3) {
+	animation-delay: 0.8s;
+}
+.wave-text span:nth-child(4) {
+	animation-delay: 1.2s;
+}
+.wave-text span:nth-child(5) {
+	animation-delay: 02.4s;
+}
+.wave-text span:nth-child(6) {
+	animation-delay: 04.8s;
+}
+.wave-text span:nth-child(7) {
+	animation-delay: 0.6s;
+}
+.wave-text span:nth-child(8) {
+	animation-delay: 03.5s;
+}
+.wave-text span:nth-child(9) {
+	animation-delay: 08.8s;
+}
+.wave-text span:nth-child(10) {
+	animation-delay: 0.1s;
+}
+.wave-text span:nth-child(11) {
+	animation-delay: 10s;
+}
+.wave-text span:nth-child(12) {
+	animation-delay: 14.1s;
+}
