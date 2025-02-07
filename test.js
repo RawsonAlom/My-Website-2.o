@@ -1,9 +1,23 @@
-// একটি অবজেক্ট {red: "#FF0000", green: "#00FF00", blue: "#0000FF"} তৈরি করো এবং for...in ব্যবহার করে প্রতিটি রঙের নাম এবং তার হেক্স কোড প্রিন্ট করো।
+// Typing Effect
+const texts = ["A Passionate Programmer", "A Web Developer", "A Creative Thinker"];
+let count = 0;
+let index = 0;
+let currentText = "";
+let letter = "";
 
+(function type() {
+    if (count === texts.length) {
+        count = 0;
+    }
+    currentText = texts[count];
+    letter = currentText.slice(0, ++index);
 
-const colors = { red: "#FF0000", green: "#00FF00", blue: "#0000FF" };
-
-for (let colorName in colors) {
-  console.log(`${colorName}: ${colors[colorName]}`);
-}
-
+    document.querySelector(".typing").textContent = letter;
+    if (letter.length === currentText.length) {
+        count++;
+        index = 0;
+        setTimeout(type, 1500);
+    } else {
+        setTimeout(type, 100);
+    }
+})();
