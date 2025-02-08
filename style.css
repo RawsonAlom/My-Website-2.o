@@ -48,6 +48,21 @@
 	transition: .2s;
 }
 
+/* Home Page Hover Controler Start*/
+#Rawson-txt{
+	display: none;
+}
+#Rawson-home{
+	display: flex;
+}
+#Wellcome-txt{
+	display: flex;
+}
+#Wellcome-home{
+    display: none;
+}
+/*Home Page Hover Controler End*/
+
 
 /*option box1 effect*/
 
