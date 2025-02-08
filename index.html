@@ -79,8 +79,7 @@
 											justify-content: center;
 											align-items: center;
 											font-weight: bold;
-											font-family: Arial, Helvetica,
-												sans-serif;
+											font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 											width: 190px;
 											height: 40px;
 											color: rgb(30, 30, 30);
@@ -372,25 +371,26 @@
 				class="home-box"
 				style="
 					background-color: rgb(237, 237, 237);
-					width: 95%;
-					height: 590px;
+					width: 94%;
+					height: 582px;
 					display: flex;
 					align-items: center;
 					justify-content: center;
 					border-radius: 10px;
+					gap: 10px;
 				"
 			>
 				<!--RawsonAlom Section Start-->
 
 				<!--Rawson text Start-->
 				<div
-					class="Rawson-box"
+					class="Rawson-box hidden"
+					onmouseover="Frawson()"
 					id="Rawson-txt"
 					style="
 						background-color: rgb(0, 255, 255);
 						width: 20%;
-						height: 100px;
-						height: 590px;
+						height: 582px;
 						border-top-right-radius: 100px;
 						border-bottom-right-radius: 100px;
 						justify-content: center;
@@ -420,21 +420,21 @@
 					<div
 						class="my-img-box"
 						style="
-							width: 200px;
-							height: 200px;
+							width: 250px;
+							height: 250px;
+							border: 5px solid rgb(222, 224, 229);
 							border-radius: 50%;
-							border: 6px solid #2563eb;
 							background-image: url(Images/405229281_305470439059298_2874007984782025687_n.jpg);
-							background-size: 185px;
-							background-position: 6px -19px;
-							box-shadow: 0px 0px 10px #0066ff;
-							margin-top: -100px;
+							background-size: 220px;
+							background-position: 14px -26px;
+    						box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
+							margin-top: -10px;
 						"
 					></div>
 					<!--my Imgage Box End-->
 
 					<!--my Name and Title Box Start-->
-					<div class="name-box" style="text-align: center">
+					<div class="name-box" style="text-align: center;  ">
 						<h1
 							class="text-5xl font-bold mt-6"
 							style="
@@ -473,13 +473,12 @@
 				<!--Wellcome text Start-->
 				<div
 					class="wellcome-box"
+					onmouseover="(Fwellcome())"
 					id="Wellcome-txt"
-					onmouseover="Fwellcome()"
 					style="
 						background-color: aqua;
 						width: 20%;
-						height: 100px;
-						height: 590px;
+						height: 582px;
 						border-top-left-radius: 100px;
 						border-bottom-left-radius: 100px;
 						justify-content: center;
@@ -496,7 +495,7 @@
 					id="Wellcome-home"
 					style="
 						width: 80%;
-						height: 590px;
+						height: 582px;
 						border-top-right-radius: 10px;
 						border-bottom-right-radius: 10px;
 						border-top-left-radius: 150px;
@@ -514,11 +513,11 @@
 							width: 200px;
 							height: 200px;
 							border-radius: 50%;
-							border: 6px solid #2563eb;
 							background-image: url(Images/Programmer.BD.png);
 							background-size: 209px;
 							background-position: center;
-							box-shadow: 0px 0px 10px #0066ff;
+							box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.3);
+    						animation: shadowMove 2s infinite alternate ease-in-out;
 							margin-top: -100px;
 						"
 					></div>
@@ -561,6 +560,13 @@
 				<!--Wellcome Section End-->
 			</div>
 		</section>
+		<!--Full Home Section End-->
+
+		<div
+			class="etc"
+			style="background-color: yellow; width: 100%; height: 700px"
+		></div>
 	</body>
 	<script src="test.js"></script>
+	</style>
 </html>

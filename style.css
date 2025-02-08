@@ -58,10 +58,24 @@
 #Wellcome-txt{
 	display: flex;
 }
+
 #Wellcome-home{
     display: none;
 }
+
 /*Home Page Hover Controler End*/
+
+
+/* Keyframes for animation */
+@keyframes shadowMove {
+    0% {
+        box-shadow: -10px -10px 30px rgba(0, 0, 0, 0.3);
+    }
+    100% {
+        box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.6);
+    }
+}
+
 
 
 /*option box1 effect*/
