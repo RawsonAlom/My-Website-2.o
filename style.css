@@ -45,94 +45,37 @@
 
 .option-box1 .option1:hover {
 	margin-top: -3px;
-	transition: .2s;
+	transition: 0.2s;
 }
 
 /* Home Page Hover Controler Start*/
-#Rawson-txt{
+#Rawson-txt {
 	display: none;
 }
-#Rawson-home{
+#Rawson-home {
 	display: flex;
 }
-#Wellcome-txt{
+#Wellcome-txt {
 	display: flex;
 }
 
-#Wellcome-home{
-    display: none;
+#Wellcome-home {
+	display: none;
 }
 
 /*Home Page Hover Controler End*/
 
-
 /* Keyframes for animation */
 @keyframes shadowMove {
-    0% {
-        box-shadow: -10px -10px 30px rgba(0, 0, 0, 0.3);
-    }
-    100% {
-        box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.6);
-    }
-}
-
-
-
-/*option box1 effect*/
-
-
-/*bounch animation*
-.wave-text span {
-	display: flex;
-    background-color: red;
-	animation: wave 10.5s infinite ease-in-out;
-}
-
-/* Keyframes Animation for the Wave Effect *
-@keyframes wave {
-	0%,
+	0% {
+		box-shadow: -10px -10px 30px rgba(0, 0, 0, 0.3);
+	}
 	100% {
-		transform: translateY(0);
-	}
-	50% {
-		transform: translateY(-10px);
+		box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.6);
 	}
 }
 
-/* Adding Different Delays for Each Letter *
-.wave-text span:nth-child(1) {
-	animation-delay: 0s;
-}
-.wave-text span:nth-child(2) {
-	animation-delay: 0.4s;
-}
-.wave-text span:nth-child(3) {
-	animation-delay: 0.8s;
-}
-.wave-text span:nth-child(4) {
-	animation-delay: 1.2s;
-}
-.wave-text span:nth-child(5) {
-	animation-delay: 02.4s;
-}
-.wave-text span:nth-child(6) {
-	animation-delay: 04.8s;
-}
-.wave-text span:nth-child(7) {
-	animation-delay: 0.6s;
-}
-.wave-text span:nth-child(8) {
-	animation-delay: 03.5s;
-}
-.wave-text span:nth-child(9) {
-	animation-delay: 08.8s;
-}
-.wave-text span:nth-child(10) {
-	animation-delay: 0.1s;
-}
-.wave-text span:nth-child(11) {
-	animation-delay: 10s;
-}
-.wave-text span:nth-child(12) {
-	animation-delay: 14.1s;
-}
+
+
+
+
