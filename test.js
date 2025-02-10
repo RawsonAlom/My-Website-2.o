@@ -26,28 +26,210 @@ let letter = "";
 	}
 })();
 
-// Troggle effect Controler
+// right to left slide...
+document.getElementById("Wtxt").addEventListener("click", function () {
+	let Wellcome_txt = document.getElementById("Wellcome_txt");
 
-function Fwellcome() {
-	document.getElementById("Rawson-home").style = "display:none;";
-	document.getElementById("Wellcome-txt").style = "display:none;";
-	document.getElementById("Rawson-txt").style =
-		"display:flex;background-color: rgb(0, 255, 255);width: 20%;height: 582px;border-top-right-radius: 100px;border-bottom-right-radius: 100px;justify-content: center;align-items: center; box-shadow: 5px 10px 30px rgba(78, 78, 78, 0.758); z-index: 111; transition: 1s;";
-	document.getElementById("Wellcome-home").style =
-		"display: flex;width: 80%;height: 582px;border-top-right-radius: 10px;border-bottom-right-radius: 10px;border-top-left-radius: 150px;border-bottom-left-radius: 150px;align-items: center;justify-content: center;flex-direction: column;background-color: rgb(234, 234, 234);";
-}
+	// Wtxt Slide Right to Left with animation
+	let animation = Wellcome_txt.animate(
+		[
+			{
+				right: "0%",
+				width: "20%",
+				borderTopLeftRadius: "100px",
+				borderBottomLeftRadius: "100px",
+				zIndex: "11",
+			},
+			{
+				right: "0%",
+				width: "100%",
+				borderTopLeftRadius: "10px",
+				borderBottomLeftRadius: "10px",
+				zIndex: "11",
+			},
+			{
+				right: "80%",
+				width: "20%",
+				borderTopRightRadius: "100px",
+				borderBottomRightRadius: "100px",
+				borderTopLeftRadius: "0px",
+				borderBottomLeftRadius: "0px",
+				zIndex: "11",
+			},
+		],
+		{
+			duration: 1000,
+			fill: "forwards",
+		}
+	);
+	// Hide after animation
+	setTimeout(() => {
+		Wellcome_txt.style.display = "flex";
+	}, 1000);
 
-function Frawson() {
-	document.getElementById("Rawson-home").style =
-		"display:flex;width: 80%;height: 590px;border-top-right-radius: 10px;border-bottom-right-radius: 10px;	border-top-left-radius: 300px;align-items: center;justify-content: center;flex-direction: column;";
-	document.getElementById("Wellcome-txt").style =
-		"display:flex;background-color: aqua;width: 20%;height: 582px;border-top-left-radius: 100px;border-bottom-left-radius: 100px;justify-content: center;align-items: center; box-shadow: -5px 10px 30px rgba(78, 78, 78, 0.758); ";
-	document.getElementById("Rawson-txt").style = "display:none;";
-	document.getElementById("Wellcome-home").style = "display:none;";
-}
-	
+	// Wtxt hide with animation
+	let Wtxt = document.getElementById("Wtxt");
 
+	if (Wtxt.style.display !== "none") {
+		Wtxt.animate([{ opacity: 1 }, { opacity: 0 }], {
+			duration: 500,
+			fill: "forwards",
+		});
+		setTimeout(() => (Wtxt.style.display = "none"), 500);
+	}
 
+	// Rtxt Show with animation
+	let Rtxt = document.getElementById("Rtxt");
 
+	if (Rtxt.style.display !== "flex") {
+		Rtxt.animate([{ opacity: 0 }, { opacity: 1 }], {
+			duration: 1000,
+			fill: "forwards",
+		});
+		setTimeout(() => (Rtxt.style.display = "flex"), 500);
+	}
+
+	// Rawson home hide with animation
+	let Rawson_home = document.getElementById("Rawson_home");
+
+	if (Rawson_home.style.display !== "none") {
+		Rawson_home.animate([{ opacity: 1 }, { opacity: 0 }], {
+			duration: 1100,
+			fill: "forwards",
+		});
+		setTimeout(() => (Rawson_home.style.display = "none"), 500);
+	}
+
+	// Wellcome home Show with animation
+	let Wellcome_home = document.getElementById("Wellcome_home");
+
+	if (Wellcome_home.style.display !== "flex") {
+		Wellcome_home.animate([{ opacity: 0 }, { opacity: 1 }], {
+			duration: 1100,
+			fill: "forwards",
+		});
+		setTimeout(() => (Wellcome_home.style.display = "flex"), 500);
+	}
+
+	// Wellcome home left to right slide animation
+	let animation1 = Wellcome_home.animate(
+		[
+			{
+				left: "0%",
+			},
+			{
+				left: "20%",
+			},
+		],
+		{
+			duration: 1000,
+			fill: "forwards",
+		}
+	);
+});
+
+// left to right slide...
+document.getElementById("Rtxt").addEventListener("click", function () {
+	let Wellcome_txt = document.getElementById("Wellcome_txt");
+
+	// Wtxt Slide Left to Right with animation
+	let animation = Wellcome_txt.animate(
+		[
+			{
+				left: "0%",
+				width: "20%",
+				borderTopRightRadius: "100px",
+				borderBottomRightRadius: "100px",
+				zIndex: "11",
+			},
+			{
+				left: "0%",
+				width: "100%",
+				borderTopLeftRadius: "100px",
+				borderBottomLefttRadius: "100px",
+				zIndex: "11",
+			},
+			{
+				left: "80%",
+				width: "20%",
+				borderTopLeftRadius: "100px",
+				borderBottomLeftRadius: "100px",
+				borderTopRightRadius: "0px",
+				borderBottomRightRadius: "0px",
+				zIndex: "11",
+			},
+		],
+		{
+			duration: 1000,
+			fill: "forwards",
+		}
+	);
+	// Hide after animation
+	setTimeout(() => {
+		Wellcome_txt.style.display = "flex";
+	}, 1000);
+
+	// Rtxt hide with animation
+	let Rtxt = document.getElementById("Rtxt");
+
+	if (Rtxt.style.display !== "none") {
+		Rtxt.animate([{ opacity: 1 }, { opacity: 0 }], {
+			duration: 500,
+			fill: "forwards",
+		});
+		setTimeout(() => (Rtxt.style.display = "none"), 500);
+	}
+
+	// Wtxt Show with animation
+	let Wtxt1 = document.getElementById("Wtxt1");
+
+	if (Wtxt1.style.display !== "flex") {
+		Wtxt1.animate([{ opacity: 0 }, { opacity: 1 }], {
+			duration: 1000,
+			fill: "forwards",
+		});
+		setTimeout(() => (Wtxt1.style.display = "flex"), 500);
+	}
+
+	// Wellcome home hide with animation
+	let Wellcome_home = document.getElementById("Wellcome_home");
+
+	if (Wellcome_home.style.display !== "none") {
+		Wellcome_home.animate([{ opacity: 1 }, { opacity: 0 }], {
+			duration: 1100,
+			fill: "forwards",
+		});
+		setTimeout(() => (Wellcome_home.style.display = "none"), 500);
+	}
+
+	// Rawson home Show with animation
+	let Rawson_home = document.getElementById("Rawson_home");
+
+	if (Rawson_home.style.display !== "flex") {
+		Rawson_home.animate([{ opacity: 0 }, { opacity: 1 }], {
+			duration: 1100,
+			fill: "forwards",
+		});
+		setTimeout(() => (Rawson_home.style.display = "flex"), 500);
+	}
+
+	// Rawson home left to right slide animation
+	let animation2 = Rawson_home.animate(
+		[
+			{ opacity: "0", left: "20%" },
+
+			{ opacity: "1", left: "0%" },
+		],
+		{
+			duration: 1000,
+			fill: "forwards",
+		}
+	);
+});
+
+// Reload Page
+document.getElementById("Wtxt1").addEventListener("click", function () {
+	location.reload(); // Reloads the current page
+});
 
 	

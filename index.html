@@ -361,85 +361,16 @@
 		</header>
 		<!--header part close-->
 
-		<!--Full Home Section start-->
-
-		<section
-			style="
-				width: 100%;
-				height: 635px;
-				display: flex;
-				justify-content: center;
-				align-items: center;
-			"
-		>
-			<div
-				class="home-box"
-				style="
-					background-color: rgb(237, 237, 237);
-					width: 94%;
-					height: 582px;
-					display: flex;
-					align-items: center;
-					justify-content: center;
-					border-radius: 10px;
-					gap: 10px;
-				"
-			>
-				<!--RawsonAlom Section Start-->
-
-				<!--Rawson text Start-->
-				<div
-					class="Rawson-box hidden"
-					onmouseover="Frawson()"
-					id="Rawson-txt"
-					style="
-						background-color: rgb(0, 255, 255);
-						width: 20%;
-						height: 582px;
-						border-top-right-radius: 100px;
-						border-bottom-right-radius: 100px;
-						justify-content: center;
-						align-items: center;
-					"
-				>
-					<h1>Rawson Alom</h1>
-				</div>
-				<!--Rawson text End-->
-
-				<!--Rawson Page Start-->
-				<div
-					class="Rawson-Section"
-					id="Rawson-home"
-					style="
-						width: 80%;
-						height: 590px;
-						border-top-right-radius: 10px;
-						border-bottom-right-radius: 10px;
-						border-top-left-radius: 300px;
-						align-items: center;
-						justify-content: center;
-						flex-direction: column;
-					"
-				>
-					<!--my Imgage Box Start-->
-					<div
-						class="my-img-box"
-						style="
-							width: 200px;
-							height: 200px;
-							border: 5px solid rgb(222, 224, 229);
-							border-radius: 50%;
-							background-image: url(Images/405229281_305470439059298_2874007984782025687_n.jpg);
-							background-size: 180px;
-							background-position: 9px -25px;
-							box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
-							margin-top: -10px;
-						"
-					></div>
-					<!--my Imgage Box End-->
+		<!--Full Home Section Start-->
+		<div class="home-section">
+			<div class="home-page">
+				<!--First Home Section Start-->
+				<div class="Rawson-home" id="Rawson_home">
+					<!--my Imgage Box -->
+					<div class="my-img-box" style=""></div>
 
 					<!--my Name and Title Box Start-->
-					<div class="name-box" style="text-align: center">
+					<div class="name-box" style="">
 						<h1
 							class="text-5xl font-bold mt-6"
 							style="
@@ -470,66 +401,62 @@
 					</div>
 					<!--my Name and Title Box End-->
 				</div>
-				<!--Block End-->
-				<!--RawsonAlom Section End-->
-
-				<!--Wellcome Section Start-->
-
-				<!--Wellcome text Start-->
-				<div
-					class="wellcome-box"
-					onmouseover="(Fwellcome())"
-					id="Wellcome-txt"
-					style="
-						background-color: aqua;
-						width: 20%;
-						height: 582px;
-						box-shadow: -5px 10px 30px rgba(78, 78, 78, 0.758);
-						border-top-left-radius: 100px;
-						border-bottom-left-radius: 100px;
-						justify-content: center;
-						align-items: center;
-					"
-				>
-					<h1>Wellcome</h1>
-				</div>
-				<!--Wellcome text  End-->
-
-				<!--Wellcome page Start-->
-				<div
-					class="Rawson-Section"
-					id="Wellcome-home"
-					style="
-						width: 80%;
-						height: 582px;
-						border-top-right-radius: 10px;
-						border-bottom-right-radius: 10px;
-						border-top-left-radius: 150px;
-						border-bottom-left-radius: 150px;
-						align-items: center;
-						justify-content: center;
-						flex-direction: column;
-						background-color: rgb(234, 234, 234);
-					"
-				>
-					<!--my Imgage Box Start-->
+				<!--Wellcome txt Box-->
+				<div class="Wellcome-txt" id="Wellcome_txt">
 					<div
-						class="my-img-box"
+						class="Wtxt"
+						id="Wtxt"
 						style="
-							width: 200px;
-							height: 200px;
-							border-radius: 50%;
-							border: 5px solid rgb(231, 231, 231);
-							background-image: url(Images/Programmer.BD.png);
-							background-size: 209px;
-							background-position: center;
-							box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.3);
+							width: 100%;
+							height: 400px;
+							display: flex;
+							justify-content: center;
+							align-items: center;
+							cursor: pointer;
 						"
-					></div>
-					<!--my Imgage Box End-->
+					>
+						<h1 class="Txts">Wellcome</h1>
+					</div>
+
+					<div
+						class="Wtxt1"
+						id="Wtxt1"
+						style="
+							display: none;
+							width: 100%;
+							height: 400px;
+							justify-content: center;
+							align-items: center;
+							cursor: pointer;
+						"
+					>
+						<h1 class="Txts">Wellcome</h1>
+					</div>
+
+					<div
+						class="Rtxt"
+						id="Rtxt"
+						style="
+							display: none;
+							width: 100%;
+							height: 400px;
+							justify-content: center;
+							align-items: center;
+							cursor: pointer;
+						"
+					>
+						<h1 class="Txts">Rawson</h1>
+					</div>
+				</div>
+				<!--First Home Section End-->
+
+				<!--Second Home Section Start-->
+				<div class="Wellcome-home-wl" id="Wellcome_home">
+					<!--my Imgage Box -->
+					<div class="my-img-box-wl" style=""></div>
 
 					<!--my Name and Title Box Start-->
-					<div class="name-box" style="text-align: center">
+					<div class="name-box-wl" style="">
 						<h1
 							class="text-5xl font-bold mt-6"
 							style="
@@ -541,9 +468,9 @@
 								color: #141414;
 							"
 						>
-							Wellcome to
-							<span class="text-blue-500" style="color: #ff0000"
-								>Programmer.BD</span
+							Hi, I’m
+							<span class="text-blue-500" style="color: #1288dc"
+								>Rawson Alom</span
 							>
 						</h1>
 						<p class="text-xl mt-3">
@@ -560,11 +487,11 @@
 					</div>
 					<!--my Name and Title Box End-->
 				</div>
-				<!--Wellcome Page End-->
-
-				<!--Wellcome Section End-->
+				<!--Wellcome txt Box-->
+				<div class="Rawson-txt-wl" id="Rawson_txt"></div>
+				<!--Second Home Section End-->
 			</div>
-		</section>
+		</div>
 		<!--Full Home Section End-->
 
 		<div

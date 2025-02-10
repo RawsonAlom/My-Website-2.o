@@ -48,34 +48,129 @@
 	transition: 0.2s;
 }
 
-/* Home Page Hover Controler Start*/
-#Rawson-txt {
-	display: none;
-}
-#Rawson-home {
+/*Full Home Section Start*/
+.home-section {
+	background-color: #ffffff;
+	width: 100%;
+	height: 635px;
 	display: flex;
+	justify-content: center;
+	align-items: center;
 }
-#Wellcome-txt {
+.home-page {
+	width: 94%;
+	height: 570px;
+	border-radius: 10px;
+	background-color: rgb(236, 236, 236);
 	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
 }
+/*First Home Section Start*/
+.Rawson-home {
+	background-color: rgb(236, 236, 236);
+	width: 80%;
+	height: 570px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	border-radius: 10px;
+	position: absolute;
+	left: 0;
+}
+/*my Imgage Box*/
+.my-img-box {
+	width: 200px;
+	height: 200px;
+	border: 5px solid rgb(222, 224, 229);
+	border-radius: 50%;
+	background-image: url(Images/405229281_305470439059298_2874007984782025687_n.jpg);
+	background-size: 180px;
+	background-position: 9px -25px;
+	box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
+	margin-top: -10px;
+}
+/*my Name and Title Box*/
+.name-box {
+	text-align: center;
+	margin-top: 20px;
 
-#Wellcome-home {
+	line-height: 60px;
+}
+.Wellcome-txt {
+	background-color: aqua;
+	width: 20%;
+	height: 570px;
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	right: 0;
+	box-shadow: -5px 10px 30px rgba(78, 78, 78, 0.758);
+	border-top-left-radius: 100px;
+	border-bottom-left-radius: 100px;
+	transition: width 1s ease-in-out, border-radius 1s ease-in-out; /* Smooth animation */
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+		Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+		sans-serif;
+}
+.Txts {
+	color: #ffffff;
+	text-shadow: 2px 2px 5px black;
+}
+/*First Home Section End*/
+
+/*Second Home Section Start*/
+.Wellcome-home-wl {
+	background-color: rgb(236, 236, 236);
+	width: 80%;
+	height: 570px;
 	display: none;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	border-radius: 10px;
+	position: absolute;
+	right: 0;
 }
-
-/*Home Page Hover Controler End*/
-
-/* Keyframes for animation */
-@keyframes shadowMove {
-	0% {
-		box-shadow: -10px -10px 30px rgba(0, 0, 0, 0.3);
-	}
-	100% {
-		box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.6);
-	}
+/*my Imgage Box*/
+.my-img-box-wl {
+	width: 200px;
+	height: 200px;
+	border: 5px solid rgb(222, 224, 229);
+	border-radius: 50%;
+	background-image: url(Images/405229281_305470439059298_2874007984782025687_n.jpg);
+	background-size: 180px;
+	background-position: 9px -25px;
+	box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
+	margin-top: -10px;
 }
+/*my Name and Title Box*/
+.name-box-wl {
+	text-align: center;
+	margin-top: 20px;
 
+	line-height: 60px;
+}
+.Rawson-txt-wl {
+	background-color: aqua;
+	width: 20%;
+	height: 570px;
+	position: absolute;
+	display: none;
+	justify-content: center;
+	align-items: center;
+	left: 0;
+	box-shadow: -5px 10px 30px rgba(78, 78, 78, 0.758);
+	border-top-right-radius: 100px;
+	border-bottom-right-radius: 100px;
+	transition: width 1s ease-in-out, border-radius 1s ease-in-out; /* Smooth animation */
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+		Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+		sans-serif;
+}
+/*Second Home Section End*/
 
-
-
-
+/*Full Home Section End*/
