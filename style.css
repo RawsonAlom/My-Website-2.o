@@ -100,11 +100,12 @@
 	line-height: 60px;
 }
 .Wellcome-txt {
-	background-color: aqua;
+	background-color: rgb(255, 255, 255);
 	width: 20%;
 	height: 570px;
 	position: absolute;
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	right: 0;
@@ -116,10 +117,14 @@
 		Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
 		sans-serif;
 }
-.Txts {
-	color: #ffffff;
-	text-shadow: 2px 2px 5px black;
+
+.Wellcome-txt p {
+	margin-bottom: -30px;
+	text-align: center;
+	color: rgba(37, 37, 37, 0.464);
+	font-weight: bold;
 }
+
 /*First Home Section End*/
 
 /*Second Home Section Start*/
@@ -141,9 +146,9 @@
 	height: 200px;
 	border: 5px solid rgb(222, 224, 229);
 	border-radius: 50%;
-	background-image: url(Images/405229281_305470439059298_2874007984782025687_n.jpg);
-	background-size: 180px;
-	background-position: 9px -25px;
+	background-image: url(Images/Programmer.BD.png);
+	background-size: 206px;
+	background-position: -3px ;
 	box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
 	margin-top: -10px;
 }
@@ -172,5 +177,153 @@
 		sans-serif;
 }
 /*Second Home Section End*/
+
+/*Txt Buttons Design Start*/
+.button-div {
+	display: inline-block;
+	padding: 12px 50px;
+	font-size: 20px;
+	font-weight: bold;
+	text-align: center;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	color: white;
+	background: linear-gradient(45deg, #ff00ff, #7700ff, #00d4ff, #ff00ff);
+	background-size: 300%;
+	border-top-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+	cursor: pointer;
+	position: relative;
+	overflow: hidden;
+	transition: all 0.4s ease-in-out;
+	box-shadow: 0 15px 30px rgba(255, 0, 255, 0.3), 0 8px 8px rgba(0, 0, 0, 0.2);
+	border: 2px solid rgba(255, 255, 255, 0.2);
+	backdrop-filter: blur(15px);
+	animation: gradientMove 4s ease infinite;
+}
+
+/* Background Animation */
+@keyframes gradientMove {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+/* Glowing Pulse Effect */
+@keyframes glow {
+	0% {
+		box-shadow: 0 0 10px rgba(255, 0, 255, 0.5),
+			0 0 20px rgba(0, 212, 255, 0.4);
+	}
+	50% {
+		box-shadow: 0 0 20px rgba(255, 0, 255, 0.8),
+			0 0 30px rgba(0, 212, 255, 0.6);
+	}
+	100% {
+		box-shadow: 0 0 10px rgba(255, 0, 255, 0.5),
+			0 0 20px rgba(0, 212, 255, 0.4);
+	}
+}
+
+.button-div:hover {
+	transform: scale(1.1);
+	animation: glow 2s infinite alternate;
+}
+
+/* Floating Liquid Effect */
+.button-div::before {
+	content: "";
+	position: absolute;
+	top: -50%;
+	left: -50%;
+	width: 200%;
+	height: 200%;
+	background: radial-gradient(
+		circle,
+		rgba(255, 255, 255, 0.2) 10%,
+		transparent 70%
+	);
+	transform: rotate(25deg);
+	transition: all 0.5s ease-in-out;
+}
+
+.button-div:hover::before {
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%) scale(1.5);
+}
+
+/* Click Effect */
+.button-div:active {
+	transform: scale(0.95);
+	filter: brightness(1.2);
+}
+
+/*Txt Buttons Design End*/
+
+/*Txt Button-Div1 Design Start*/
+.button-div1 {
+	display: none;
+	padding: 12px 50px;
+	font-size: 20px;
+	font-weight: bold;
+	text-align: center;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	color: white;
+	background: linear-gradient(45deg, #ff00ff, #7700ff, #00d4ff, #ff00ff);
+	background-size: 300%;
+	border-top-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+	cursor: pointer;
+	position: relative;
+	overflow: hidden;
+	transition: all 0.4s ease-in-out;
+	box-shadow: 0 15px 30px rgba(255, 0, 255, 0.3), 0 8px 8px rgba(0, 0, 0, 0.2);
+	border: 2px solid rgba(255, 255, 255, 0.2);
+	backdrop-filter: blur(15px);
+	animation: gradientMove 4s ease infinite;
+}
+
+.button-div1:hover {
+	transform: scale(1.1);
+	animation: glow 2s infinite alternate;
+}
+
+/* Floating Liquid Effect */
+.button-div1::before {
+	content: "";
+	position: absolute;
+	top: -50%;
+	left: -50%;
+	width: 200%;
+	height: 200%;
+	background: radial-gradient(
+		circle,
+		rgba(255, 255, 255, 0.2) 10%,
+		transparent 70%
+	);
+	transform: rotate(25deg);
+	transition: all 0.5s ease-in-out;
+}
+
+.button-div1:hover::before {
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%) scale(1.5);
+}
+
+/* Click Effect */
+.button-div1:active {
+	transform: scale(0.95);
+	filter: brightness(1.2);
+}
+/*Txt Button-Div1 Design End*/
 
 /*Full Home Section End*/

@@ -64,7 +64,7 @@ document.getElementById("Wtxt").addEventListener("click", function () {
 	);
 	// Hide after animation
 	setTimeout(() => {
-		Wellcome_txt.style.display = "flex";
+		Wellcome_txt.style.display = "inlineBlock";
 	}, 1000);
 
 	// Wtxt hide with animation
