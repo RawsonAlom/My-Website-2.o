@@ -1,52 +1,166 @@
+/*Full Header Section Start*/
+header {
+	width: 100%;
+	height: 80px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+header nav {
+	background-color: rgb(236, 240, 244);
+	width: 100%;
+	height: 60px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	box-shadow: 0.5px 2px 10px rgb(99, 99, 100);
+}
+/*top Logo Part Start*/
+header .logo .logo-box {
+	display: flex;
+	width: 400px;
+	height: 70px;
+	margin-left: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/*Header Logo box with animation*/
 .img-shadow-style {
 	display: flex;
 	align-items: center;
 	position: relative;
-	width: 265px;
-	height: 50px;
+	width: 260px;
+	height: 53px;
+	background-color: rgb(249, 249, 249);
 	transform: skew(20deg);
 	box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-	animation: rotateShadow 3s infinite linear;
+	animation: rotateShadow 1s infinite linear;
 }
 @keyframes rotateShadow {
 	0% {
-		box-shadow: 1px 1px 2px rgba(255, 0, 0, 0.5);
+		box-shadow: 1px 1px 2px rgb(255, 0, 0);
 	}
 	12.5% {
-		box-shadow: 0px 1px 2px rgba(255, 128, 0, 0.5);
+		box-shadow: 0px 1px 2px rgb(255, 128, 0);
 	}
 	25% {
-		box-shadow: -1px 1px 2px rgba(0, 255, 0, 0.5);
+		box-shadow: -1px 1px 2px rgb(0, 255, 0);
 	}
 	37.5% {
-		box-shadow: -1px 0px 2px rgba(0, 255, 128, 0.5);
+		box-shadow: -1px 0px 2px rgb(0, 255, 128);
 	}
 	50% {
-		box-shadow: -1px -1px 2px rgba(0, 0, 255, 0.5);
+		box-shadow: -1px -1px 2px rgb(0, 0, 255);
 	}
 	62.5% {
-		box-shadow: 0px -1px 2px rgba(128, 0, 255, 0.5);
+		box-shadow: 0px -1px 2px rgb(128, 0, 255);
 	}
 	75% {
-		box-shadow: 1px -1px 2px rgba(255, 255, 0, 0.5);
+		box-shadow: 1px -1px 2px rgb(255, 255, 0);
 	}
 	87.5% {
-		box-shadow: 1px 0px 2px rgba(255, 0, 128, 0.5);
+		box-shadow: 1px 0px 2px rgb(255, 0, 128);
 	}
 	100% {
-		box-shadow: 1px 1px 2px rgba(255, 0, 0, 0.5);
+		box-shadow: 1px 1px 2px rgb(255, 0, 0);
 	}
 }
 
-/*option box1 effect*/
-.option-box1 .option1 {
-	cursor: pointer;
+header .logo .logo-png {
+	background-image: url(Images/Programmer.BD.png);
+	width: 60px;
+	height: 60px;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 45px;
+	transform: skew(-20deg);
+	margin-left: 10px;
 }
+header .logo .text {
+	margin-left: 60px;
+	margin-top: -4px;
+	display: flex;
+	align-items: center;
+	background-color: green;
+}
+header .logo .wave-text {
+	display: flex;
+	margin-top: 13px;
+	font-size: 23px;
+	justify-content: center;
+	align-items: center;
+	font-weight: bold;
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+		Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+		sans-serif;
+	width: 190px;
+	height: 40px;
+	color: rgb(30, 30, 30);
+}
+/*top Logo Part End*/
 
+/*top option part Start*/
+header .option-box {
+	display: flex;
+	width: 75%;
+	height: 60px;
+	justify-content: center;
+	align-items: center;
+}
+header .option-box .option-box1 {
+	width: 100px;
+	height: 40px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+}
+header .option-box .option1 {
+	width: 70px;
+	height: 25px;
+	cursor: pointer;
+	transform: skew(20deg);
+	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+}
+/*Option box hover effect*/
 .option-box1 .option1:hover {
 	margin-top: -3px;
 	transition: 0.2s;
 }
+header .option-box .home {
+	transform: skew(-20deg);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 5px;
+}
+header .option-box .home a {
+	text-decoration: none;
+	font-weight: bold;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #0404ee;
+	font-size: 13px;
+}
+
+/* All option box effect Start*/
+#option-Home {
+	box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.3);
+}
+#option-Skill:hover {
+	background-color: rgb(77, 255, 0);
+}
+#option-Skill:active {
+	transform: scale(1.5);
+	filter: brightness(8.2);
+	box-shadow: 0px 1px 10px rgb(255, 0, 0);
+}
+/* All option box effect End*/
+/*top option part End*/
+
+/*Full Header Section End*/
 
 /*Full Home Section Start*/
 .home-section {
@@ -140,6 +254,7 @@
 	position: absolute;
 	right: 0;
 }
+
 /*my Imgage Box*/
 .my-img-box-wl {
 	width: 200px;
@@ -148,16 +263,168 @@
 	border-radius: 50%;
 	background-image: url(Images/Programmer.BD.png);
 	background-size: 206px;
-	background-position: -3px ;
+	background-position: -3px;
 	box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
-	margin-top: -10px;
+	margin-left: -40%;
+	margin-top: -70px;
 }
+/*Quote Box Design Start*/
+.Quots {
+	position: absolute;
+	text-align: center;
+	width: 300px;
+	height: 100px;
+	border-radius: 10px;
+	border: 2px solid rgb(214, 214, 214);
+	background-color: rgb(255, 255, 255);
+	box-shadow: 2px 2px 10px black;
+	margin-top: -220px;
+	margin-left: 270px;
+	color: rgb(32, 32, 32);
+}
+
+.premium-box {
+	background: linear-gradient(145deg, #082b4e, #37054e); /* Soft gradient */
+	color: #333; /* Dark text for contrast */
+	padding: 30px;
+	border-top-right-radius: 30px;
+	border-bottom-left-radius: 30px;
+	box-shadow: 0 20px 50px rgb(0, 0, 0); /* Subtle shadow */
+	text-align: center;
+	max-width: 500px;
+	width: 220px;
+	border: 2px solid rgb(145, 145, 145); /* Light border */
+	position: absolute;
+	overflow: hidden;
+	transform-style: preserve-3d;
+	transition: transform 0.5s ease, box-shadow 0.5s ease;
+	margin-top: -210px;
+	margin-left: 260px;
+}
+
+/* First Look: Creative Design */
+.premium-box::before {
+	content: "";
+	position: absolute;
+	top: -25%;
+	left: -54%;
+	width: 208%;
+	height: 150%;
+	background: radial-gradient(
+		circle,
+		rgba(242, 0, 255, 0.337),
+		transparent 70%
+	);
+	transform: rotate(45deg);
+	opacity: 0.8;
+	animation: rotateGradient 10s linear infinite;
+}
+
+@keyframes rotateGradient {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+.premium-box h1 {
+	font-size: 1.6rem;
+	margin-bottom: 20px;
+	font-weight: 700;
+	background: linear-gradient(45deg, #ffffff, #ffffff); /* Gradient text */
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	animation: textGradient 5s ease infinite;
+	font-weight: bold;
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+		Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+		sans-serif;
+}
+
+@keyframes textGradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+.premium-box p {
+	font-size: 0.9rem;
+	margin: 0;
+	font-style: italic;
+	color: #fffefe; /* Slightly darker text */
+	animation: floatText 3s ease-in-out infinite;
+	font-weight: bold;
+}
+
+@keyframes floatText {
+	0%,
+	100% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(-10px);
+	}
+}
+
+/* Hover Effects */
+.premium-box:hover {
+	transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+	box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2); /* Slightly stronger shadow */
+}
+
+.premium-box:hover::before {
+	opacity: 1;
+}
+
+.premium-box::after {
+	content: "";
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 5px;
+	background: linear-gradient(90deg, #6a11cb, #2575fc); /* Gradient border */
+	transform: scaleX(0);
+	transform-origin: left;
+	transition: transform 0.8s ease;
+}
+
+.premium-box:hover::after {
+	transform: scaleX(1);
+}
+
+.glow {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	border-radius: 30px;
+	box-shadow: 0 0 20px rgba(106, 17, 203, 0.2),
+		0 0 40px rgba(37, 117, 252, 0.1); /* Subtle glow */
+	opacity: 0;
+	transition: opacity 0.5s ease;
+}
+
+.premium-box:hover .glow {
+	opacity: 1;
+}
+/*Quote Box Design End*/
+
 /*my Name and Title Box*/
 .name-box-wl {
 	text-align: center;
 	margin-top: 20px;
-
 	line-height: 60px;
+	margin-left: -50px;
 }
 .Rawson-txt-wl {
 	background-color: aqua;
@@ -187,7 +454,7 @@
 	text-align: center;
 	text-transform: uppercase;
 	letter-spacing: 2px;
-	color: white;
+	color: rgb(255, 255, 255);
 	background: linear-gradient(45deg, #ff00ff, #7700ff, #00d4ff, #ff00ff);
 	background-size: 300%;
 	border-top-left-radius: 20px;

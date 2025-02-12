@@ -232,4 +232,19 @@ document.getElementById("Wtxt1").addEventListener("click", function () {
 	location.reload(); // Reloads the current page
 });
 
-	
+
+// Button click to page show
+document.getElementById('btn_home').addEventListener('click', () => {
+    const HomePage = document.getElementById('HomePage');
+    HomePage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+  
+  document.getElementById('btn_skill').addEventListener('click', () => {
+    const SkillPage = document.getElementById('SkillPage');
+    SkillPage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+  
+  document.getElementById('btn3').addEventListener('click', () => {
+    const div3 = document.getElementById('div3');
+    div3.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
