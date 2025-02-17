@@ -232,21 +232,31 @@ document.getElementById("Wtxt1").addEventListener("click", function () {
 	location.reload(); // Reloads the current page
 });
 
-
 // Button click to page show
-/*
-document.getElementById('btn_home').addEventListener('click', () => {
-    const HomePage = document.getElementById('HomePage');
-    HomePage.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  });
-  
-  document.getElementById('btn_skill').addEventListener('click', () => {
-    const SkillPage = document.getElementById('SkillPage');
-    SkillPage.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  });
-  
-  document.getElementById('btn3').addEventListener('click', () => {
-    const div3 = document.getElementById('div3');
-    div3.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  });
-  */
+document.getElementById("btn_home").addEventListener("click", () => {
+	const HomePage = document.getElementById("HomePage");
+	HomePage.scrollIntoView({ behavior: "smooth", block: "center" });
+});
+
+document.getElementById("btn_skill").addEventListener("click", () => {
+	const SkillPage = document.getElementById("SkillPage");
+	SkillPage.scrollIntoView({ behavior: "smooth", block: "center" });
+});
+
+// Scroll to hide navbar
+const targetDiv = document.getElementById("targetDiv");
+const home = document.getElementById("home");
+
+// Add a scroll event listener to the window
+window.addEventListener("scroll", () => {
+	// Get the current scroll position
+	const scrollPosition = window.scrollY;
+
+	// Change the opacity based on scroll position
+	if (scrollPosition > 100) {
+		// Adjust 100 to your desired scroll threshold
+		targetDiv.style.boxShadow = "5px 5px 15px 1px rgb(99, 99, 100)";
+	} else {
+		targetDiv.style.boxShadow = "0.5px 2px 10px rgb(99, 99, 100)";
+	}
+});
