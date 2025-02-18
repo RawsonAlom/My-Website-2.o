@@ -28,6 +28,86 @@ let letter = "";
 
 /*NavBar Start*/
 
+/*Bars Design Start*/
+const bars = document.querySelector(".particle-bars");
+
+// Particle Explosion Effect
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particlesArray = [];
+
+class Particle {
+	constructor(x, y, size, color, velocity) {
+		this.x = x;
+		this.y = y;
+		this.size = size;
+		this.color = color;
+		this.velocity = velocity;
+	}
+
+	update() {
+		this.x += this.velocity.x;
+		this.y += this.velocity.y;
+		this.size *= 0.96;
+	}
+
+	draw() {
+		ctx.beginPath();
+		ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+		ctx.fillStyle = this.color;
+		ctx.fill();
+	}
+}
+
+// Create Particle Explosion
+function createParticles(x, y) {
+	const colors = ["#00ffff", "#ff00ff", "#ffff00", "#ff6600"];
+	for (let i = 0; i < 15; i++) {
+		let size = Math.random() * 6 + 2;
+		let velocity = {
+			x: (Math.random() - 0.5) * 4,
+			y: (Math.random() - 0.5) * 4,
+		};
+		let color = colors[Math.floor(Math.random() * colors.length)];
+		particlesArray.push(new Particle(x, y, size, color, velocity));
+	}
+}
+
+// Animate Particles
+function animateParticles() {
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	particlesArray.forEach((particle, index) => {
+		particle.update();
+		particle.draw();
+		if (particle.size < 0.5) {
+			particlesArray.splice(index, 1);
+		}
+	});
+	requestAnimationFrame(animateParticles);
+}
+
+// Resize Canvas
+window.addEventListener("resize", () => {
+	canvas.width = window.innerWidth;
+	canvas.height = window.innerHeight;
+});
+
+// Trigger Particle Explosion on Hover
+bars.addEventListener("mouseenter", (event) => {
+	const rect = bars.getBoundingClientRect();
+	const x = rect.left + rect.width / 2;
+	const y = rect.top + rect.height / 2;
+	createParticles(x, y);
+});
+
+// Start Animation
+animateParticles();
+
+/*Bars Design End*/
+
 document.getElementById("show_mbna").addEventListener("click", function () {
 	let mbna = document.getElementById("mbna");
 

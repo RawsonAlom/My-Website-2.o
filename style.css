@@ -21,7 +21,7 @@ header nav {
 	align-items: center;
 	box-shadow: 0.5px 2px 10px rgb(99, 99, 100);
 	position: fixed;
-	z-index: 1000;
+	z-index: 10000;
 	transition: opacity 0.5s ease, box-shadow 0.5s ease;
 }
 /*top Logo Part Start*/
@@ -168,13 +168,85 @@ header .option-box .home a {
 /*top option part End*/
 
 /*Mobile friendly navbar Start*/
-#show_mbna {
-	display: none;
+
+/*Bars Design Start*/
+
+/* Google Font */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
+
+/* Particle Canvas */
+#particles {
 	position: absolute;
-	z-index: 1111;
-	margin: 7px;
-	font-size: 20px;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 11;
 }
+
+/* Particle Bars Button */
+.particle-bars {
+	width: 25px;
+	height: 25px;
+	display: none;
+	flex-direction: column;
+	justify-content: space-between;
+	cursor: pointer;
+	position: absolute;
+	background: radial-gradient(circle, #08080800, #000000bc);
+	border: 2px solid rgb(255, 255, 255);
+	border-radius: 30%;
+	backdrop-filter: blur(15px);
+	box-shadow: 0 10px 25px rgba(0, 255, 255, 0.3);
+	padding: 12px;
+	transition: all 0.3s ease-in-out;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+	margin: 10px;
+	z-index: 1000;
+}
+
+/* Bars */
+.particle-bars span {
+	display: block;
+	width: 29px;
+	height: 6px;
+	background: linear-gradient(90deg, rgb(0, 255, 255), magenta, yellow);
+	border-radius: 5px;
+	transition: all 0.4s ease-in-out;
+	box-shadow: 0px 0px 15px rgba(0, 255, 255, 0.8);
+	margin: 1px;
+}
+
+/* Middle Line Effect */
+.particle-bars span:nth-child(2) {
+	width: 29px;
+	align-self: flex-start;
+}
+
+/* Hover Effect */
+.particle-bars:hover {
+	transform: scale(1.15);
+	background: rgba(255, 255, 255, 0.1);
+	box-shadow: 0 0 40px rgba(0, 255, 255, 0.8),
+		inset 0 0 25px rgba(255, 0, 255, 0.5);
+}
+
+/* Hover Animation (Magnetic Effect) */
+.particle-bars:hover span:nth-child(1) {
+	transform: translateY(-7px) rotate(-10deg);
+}
+
+.particle-bars:hover span:nth-child(2) {
+	transform: scaleX(1.1);
+}
+
+.particle-bars:hover span:nth-child(3) {
+	transform: translateY(7px) rotate(10deg);
+}
+
+/*Bars Design End*/
 
 .mbna {
 	width: 55%;
@@ -187,7 +259,7 @@ header .option-box .home a {
 	display: none; /* শুরুতে লুকানো থাকবে */
 	transform: translateX(-100%); /* বাম থেকে শুরু */
 	transition: transform 0.5s ease-in-out;
-	position: absolute;
+	position: fixed;
 	z-index: 1111;
 }
 /*Top Logo Part*/
@@ -294,17 +366,6 @@ header .option-box .home a {
 }
 /* Mobile friendly navbar End */
 
-/* ✅ Mobile Mode (ছোট স্ক্রিনে div1 লুকাবে, divA দেখাবে) */
-@media (max-width: 768px) {
-	header {
-		display: none; /* মোবাইলে div1 লুকানো হবে */
-	}
-
-	#show_mbna {
-		display: flex; /* মোবাইলে divA দেখানো হবে */
-	}
-}
-
 /*Full Header Section End*/
 
 /*Full Home Section Start*/
@@ -350,6 +411,15 @@ header .option-box .home a {
 	background-position: 9px -25px;
 	box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
 	margin-top: -10px;
+	animation: my-img-box 2s infinite alternate;
+}
+@keyframes my-img-box {
+	0% {
+		box-shadow: 0 0 10px #ff00ff, 0 0 30px #ff00ff, 0 0 60px #ff00ff;
+	}
+	100% {
+		box-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff, 0 0 80px #00ffff;
+	}
 }
 /*my Name and Title Box*/
 .name-box {
@@ -375,6 +445,7 @@ header .option-box .home a {
 	font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
 		Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
 		sans-serif;
+	z-index: 1111;
 }
 
 .Wellcome-txt p {
@@ -865,3 +936,36 @@ header .option-box .home a {
 }
 
 /*Full Skill Section End*/
+
+/* ✅ Mobile Mode Start */
+@media (max-width: 768px) {
+	header {
+		display: none; /* মোবাইলে div1 লুকানো হবে */
+	}
+
+	#show_mbna {
+		display: flex; /* মোবাইলে divA দেখানো হবে */
+		position: fixed;
+	}
+	.my-img-box {
+		width: 150px !important;
+		height: 150px !important;
+		background-size: 140px !important;
+		background-position: 5px -20px !important;
+	}
+	.name-box h1 {
+		font-size: 30px !important;
+	}
+	.name-box p span {
+		font-size: 18px !important;
+	}
+	.Wellcome-txt {
+		display: none;
+	}
+	.Wellcome-txt .button-div {
+		width: 2px !important;
+		height: 10px !important;
+		font-size: 10px !important;
+	}
+}
+/* ✅ Mobile Mode End */
