@@ -26,6 +26,43 @@ let letter = "";
 	}
 })();
 
+/*NavBar Start*/
+
+document.getElementById("show_mbna").addEventListener("click", function () {
+	let mbna = document.getElementById("mbna");
+
+	// NavBar দেখানো হবে এবং স্লাইড ইন হবে
+	mbna.style.display = "flex";
+	setTimeout(() => {
+		mbna.style.transform = "translateX(0)";
+	}, 100);
+
+	// ধাপে ধাপে child div গুলো অ্যানিমেশন করবে
+	let children = document.querySelectorAll("#mbna_boxes .mbna1");
+	children.forEach((div, index) => {
+		setTimeout(() => {
+			div.style.opacity = "1";
+			div.style.transform = "skewX(20deg)";
+		}, (index + 2) * 200); // Customize animation Speed...
+	});
+
+	// Click event bubbling থামানোর জন্য
+	event.stopPropagation();
+});
+
+// mbna এর বাইরে ক্লিক করলে hide করে দিবে
+document.addEventListener("click", function (event) {
+	let mbna = document.getElementById("mbna");
+
+	// যদি ক্লিক করা যায়গাটি mbna বা তার ভিতরের কিছু না হয়, তাহলে hide করো
+	if (!mbna.contains(event.target) && event.target.id !== "showDivA") {
+		mbna.style.transform = "translateX(-100%)"; // আবার লুকানোর জন্য
+		mbna.style.display = "none";
+	}
+});
+
+/*NavBar End*/
+
 // right to left slide...
 document.getElementById("Wtxt").addEventListener("click", function () {
 	let Wellcome_txt = document.getElementById("Wellcome_txt");
