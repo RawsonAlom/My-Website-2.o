@@ -187,18 +187,17 @@ header .option-box .home a {
 /* Particle Bars Button */
 .particle-bars {
 	width: 25px;
-	height: 25px;
+	height: 21px;
 	display: none;
 	flex-direction: column;
 	justify-content: space-between;
 	cursor: pointer;
 	position: absolute;
-	background: radial-gradient(circle, #08080800, #000000bc);
-	border: 2px solid rgb(255, 255, 255);
+	background: linear-gradient(45deg, rgb(215, 215, 215), rgb(255, 243, 254));
 	border-radius: 30%;
 	backdrop-filter: blur(15px);
-	box-shadow: 0 10px 25px rgba(0, 255, 255, 0.3);
-	padding: 12px;
+	box-shadow: 0 7px 20px rgb(0, 123, 255);
+	padding: 8px;
 	transition: all 0.3s ease-in-out;
 	align-items: center;
 	justify-content: center;
@@ -210,18 +209,23 @@ header .option-box .home a {
 /* Bars */
 .particle-bars span {
 	display: block;
-	width: 29px;
-	height: 6px;
-	background: linear-gradient(90deg, rgb(0, 255, 255), magenta, yellow);
+	width: 26px;
+	height: 5px;
+	background: linear-gradient(
+		90deg,
+		rgb(0, 0, 255),
+		rgb(25, 0, 255),
+		rgb(116, 24, 255)
+	);
 	border-radius: 5px;
 	transition: all 0.4s ease-in-out;
-	box-shadow: 0px 0px 15px rgba(0, 255, 255, 0.8);
+	box-shadow: 0px 0px 15px rgba(251, 255, 0, 0.771);
 	margin: 1px;
 }
 
 /* Middle Line Effect */
 .particle-bars span:nth-child(2) {
-	width: 29px;
+	width: 28px;
 	align-self: flex-start;
 }
 
@@ -235,15 +239,15 @@ header .option-box .home a {
 
 /* Hover Animation (Magnetic Effect) */
 .particle-bars:hover span:nth-child(1) {
-	transform: translateY(-7px) rotate(-10deg);
+	transform: translateY(-4px) rotate(-8deg);
 }
 
 .particle-bars:hover span:nth-child(2) {
-	transform: scaleX(1.1);
+	transform: scaleX(1);
 }
 
 .particle-bars:hover span:nth-child(3) {
-	transform: translateY(7px) rotate(10deg);
+	transform: translateY(4px) rotate(8deg);
 }
 
 /*Bars Design End*/
@@ -365,6 +369,18 @@ header .option-box .home a {
 	font-weight: bold;
 }
 /* Mobile friendly navbar End */
+
+/* Quality-Box */
+.quality-box {
+	background: linear-gradient(90deg, #f7fffe, #ecfffb); /* Soft gradient */
+	box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.4); /* Subtle shadow */
+	width: 100%;
+	height: 50px;
+	display: none;
+	position: fixed;
+	top: 5px;
+	z-index: 10;
+}
 
 /*Full Header Section End*/
 
@@ -809,6 +825,91 @@ header .option-box .home a {
 }
 /*Txt Button-Div1 Design End*/
 
+/* Mobile Page Button design Start */
+
+/* Button Container */
+.mobile-page-btn {
+	position: relative;
+	display: inline-block;
+	z-index: 1;
+}
+
+/* AI-Powered Button */
+.AI-btn {
+	z-index: 1;
+	position: relative;
+	padding: 7px 27px;
+	font-size: 15px;
+	font-weight: bold;
+	color: white;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	border: none;
+	border-radius: 50px;
+	background: linear-gradient(135deg, #ff00ff, #ff9900, #00ffff, #0072ff);
+	background-size: 400%;
+	cursor: pointer;
+	overflow: hidden;
+	transition: all 0.4s ease-in-out;
+	text-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
+	animation: glow 2s infinite alternate-reverse, colorShift 4s infinite linear, liquidPulse 5s infinite linear;
+	box-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
+}
+
+/* Glow Pulse Animation */
+@keyframes glow {
+	0% {
+		box-shadow: 0 0 20px rgba(255, 131, 255, 0.6);
+	}
+	100% {
+		box-shadow: 0 0 50px rgba(255, 0, 255, 1);
+	}
+}
+
+
+        /* Liquid Pulse Effect */
+        @keyframes liquidPulse {
+            0% { border-radius: 50px; transform: scale(1); }
+            50% { border-radius: 60px 30px 60px 30px; transform: scale(1.05); }
+            100% { border-radius: 50px; transform: scale(1); }
+        }
+
+/* AI Dynamic Color Shift */
+@keyframes colorShift {
+	0% {
+		background-position: 0% 50%;
+	}
+	100% {
+		background-position: 100% 50%;
+	}
+}
+
+/* Liquid Energy Wave */
+.AI-btn::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: -100%;
+	width: 200%;
+	height: 200%;
+	background: radial-gradient(
+		circle,
+		rgba(255, 255, 255, 0.3) 10%,
+		transparent 70%
+	);
+	transition: transform 0.5s;
+}
+
+.AI-btn:hover::before {
+	left: 100%;
+}
+
+/* Black Hole Distortion */
+.mobile-page-btn:hover .AI-btn {
+	transform: perspective(800px) rotateX(15deg) rotateY(15deg) scale(1.1);
+}
+/* Mobile Page Button Design End */
+
 /*Full Home Section End*/
 
 /*Full Skill Section Start*/
@@ -939,6 +1040,7 @@ header .option-box .home a {
 
 /* ✅ Mobile Mode Start */
 @media (max-width: 768px) {
+	/*Full Header Section Start*/
 	header {
 		display: none; /* মোবাইলে div1 লুকানো হবে */
 	}
@@ -946,6 +1048,18 @@ header .option-box .home a {
 	#show_mbna {
 		display: flex; /* মোবাইলে divA দেখানো হবে */
 		position: fixed;
+	}
+	.quality-box {
+		display: flex;
+	}
+	/*Full Header Section End*/
+
+	/*Full Home Section Start*/
+	.home-page {
+		top: 38px;
+	}
+	.Rawson-home {
+		width: 100% !important;
 	}
 	.my-img-box {
 		width: 150px !important;
@@ -967,5 +1081,6 @@ header .option-box .home a {
 		height: 10px !important;
 		font-size: 10px !important;
 	}
+	/*Full Home Section End*/
 }
 /* ✅ Mobile Mode End */

@@ -377,3 +377,105 @@ window.addEventListener("scroll", () => {
 		targetDiv.style.boxShadow = "0.5px 2px 10px rgb(99, 99, 100)";
 	}
 });
+
+// Supernova Click Explosion Effect
+document.getElementById("ai_btn").addEventListener("click", (e) => {
+	for (let i = 0; i < 30; i++) {
+		let particle = document.createElement("div");
+		particle.classList.add("particle");
+		document.body.appendChild(particle);
+
+		let x = e.clientX + (Math.random() - 0.5) * 200;
+		let y = e.clientY + (Math.random() - 0.5) * 200;
+		let size = Math.random() * 8 + 5;
+		let duration = Math.random() * 1 + 0.5;
+
+		particle.style.width = `${size}px`;
+		particle.style.height = `${size}px`;
+		particle.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
+		particle.style.position = "absolute";
+		particle.style.borderRadius = "50%";
+		particle.style.left = `${e.clientX}px`;
+		particle.style.top = `${e.clientY}px`;
+		particle.style.transition = `transform ${duration}s ease-out, opacity ${duration}s ease-out`;
+		particle.style.transform = `translate(${x - e.clientX}px, ${
+			y - e.clientY
+		}px) scale(0)`;
+		particle.style.opacity = 0;
+
+		setTimeout(() => {
+			particle.remove();
+		}, duration * 1000);
+	}
+});
+
+// Create particle explosion CSS
+let style = document.createElement("style");
+style.innerHTML = `
+.particle {
+	position: absolute;
+	width: 5px;
+	height: 5px;
+	background: white;
+	border-radius: 50%;
+	pointer-events: none;
+	animation: particleFade 1s ease-out;
+}
+
+@keyframes particleFade {
+	from { opacity: 1; transform: scale(1); }
+	to { opacity: 0; transform: scale(3); }
+}
+`;
+document.head.appendChild(style);
+
+
+// Light Trail Effect
+document.addEventListener('mousemove', (e) => {
+	let trail = document.createElement('div');
+	trail.classList.add('light-trail');
+	document.body.appendChild(trail);
+
+	trail.style.left = `${e.clientX}px`;
+	trail.style.top = `${e.clientY}px`;
+
+	setTimeout(() => {
+		trail.remove();
+	}, 500);
+
+
+        // Create light trail CSS
+        let style = document.createElement('style');
+        style.innerHTML = `
+            .light-trail {
+                position: absolute;
+                width: 10px;
+                height: 10px;
+                background: radial-gradient(circle, rgba(0, 255, 255, 0.8) 10%, transparent 70%);
+                border-radius: 50%;
+                pointer-events: none;
+                animation: fadeOut 0.5s ease-out;
+            }
+
+            @keyframes fadeOut {
+                from { opacity: 1; transform: scale(1); }
+                to { opacity: 0; transform: scale(2); }
+            }
+
+            .spark {
+                position: absolute;
+                width: 5px;
+                height: 5px;
+                background: white;
+                border-radius: 50%;
+                pointer-events: none;
+                animation: sparkFade 1s ease-out;
+            }
+
+            @keyframes sparkFade {
+                from { opacity: 1; transform: scale(1); }
+                to { opacity: 0; transform: scale(3); }
+            }
+        `;
+        document.head.appendChild(style);
+});
