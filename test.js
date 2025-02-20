@@ -360,9 +360,11 @@ document.getElementById("btn_skill").addEventListener("click", () => {
 	SkillPage.scrollIntoView({ behavior: "smooth", block: "center" });
 });
 
-// Scroll to hide navbar
+// Scroll to Animate navbar
 const targetDiv = document.getElementById("targetDiv");
 const home = document.getElementById("home");
+const quality_box = document.getElementById("quality_box");
+const show_mbna = document.getElementById("show_mbna");
 
 // Add a scroll event listener to the window
 window.addEventListener("scroll", () => {
@@ -370,11 +372,21 @@ window.addEventListener("scroll", () => {
 	const scrollPosition = window.scrollY;
 
 	// Change the opacity based on scroll position
-	if (scrollPosition > 100) {
+	if (scrollPosition > 50) {
 		// Adjust 100 to your desired scroll threshold
 		targetDiv.style.boxShadow = "5px 5px 15px 1px rgb(99, 99, 100)";
+		targetDiv.style.top = "0";
+		quality_box.style.top = "0";
+		quality_box.style.boxShadow =
+			"0px 1px 15px rgba(0, 0, 0, 0.53)"; /* Subtle shadow */
+		show_mbna.style.marginTop = "5px";
 	} else {
 		targetDiv.style.boxShadow = "0.5px 2px 10px rgb(99, 99, 100)";
+		targetDiv.style.top = "10px";
+		quality_box.style.top = "5px";
+		quality_box.style.boxShadow =
+			"0px 1px 15px rgba(0, 0, 0, 0.4)"; /* Subtle shadow */
+		show_mbna.style.marginTop = "10px";
 	}
 });
 
@@ -387,7 +399,7 @@ document.getElementById("ai_btn").addEventListener("click", (e) => {
 
 		let x = e.clientX + (Math.random() - 0.5) * 200;
 		let y = e.clientY + (Math.random() - 0.5) * 200;
-		let size = Math.random() * 8 + 5;
+		let size = Math.random() * 8 + 3;
 		let duration = Math.random() * 1 + 0.5;
 
 		particle.style.width = `${size}px`;
@@ -420,6 +432,7 @@ style.innerHTML = `
 	border-radius: 50%;
 	pointer-events: none;
 	animation: particleFade 1s ease-out;
+	z-index: 7;
 }
 
 @keyframes particleFade {
@@ -429,11 +442,10 @@ style.innerHTML = `
 `;
 document.head.appendChild(style);
 
-
 // Light Trail Effect
-document.addEventListener('mousemove', (e) => {
-	let trail = document.createElement('div');
-	trail.classList.add('light-trail');
+document.addEventListener("mousemove", (e) => {
+	let trail = document.createElement("div");
+	trail.classList.add("light-trail");
 	document.body.appendChild(trail);
 
 	trail.style.left = `${e.clientX}px`;
@@ -443,10 +455,9 @@ document.addEventListener('mousemove', (e) => {
 		trail.remove();
 	}, 500);
 
-
-        // Create light trail CSS
-        let style = document.createElement('style');
-        style.innerHTML = `
+	// Create light trail CSS
+	let style = document.createElement("style");
+	style.innerHTML = `
             .light-trail {
                 position: absolute;
                 width: 10px;
@@ -455,6 +466,7 @@ document.addEventListener('mousemove', (e) => {
                 border-radius: 50%;
                 pointer-events: none;
                 animation: fadeOut 0.5s ease-out;
+				z-index: 10;
             }
 
             @keyframes fadeOut {
@@ -477,5 +489,69 @@ document.addEventListener('mousemove', (e) => {
                 to { opacity: 0; transform: scale(3); }
             }
         `;
-        document.head.appendChild(style);
+	document.head.appendChild(style);
+});
+
+// AI-btn Press Effect...
+document.getElementById("ai_btn").addEventListener("click", function () {
+	// Rawson home hide with animation
+	let Rawson_home = document.getElementById("Rawson_home");
+	let ai_btn = document.getElementById("ai_btn");
+	let ai_btn1 = document.getElementById("ai_btn1");
+
+	if (Rawson_home.style.display !== "none") {
+		Rawson_home.animate([{ opacity: 1 }, { opacity: 0 }], {
+			duration: 1100,
+			fill: "forwards",
+		});
+		setTimeout(() => (Rawson_home.style.display = "none"), 500),
+			(ai_btn.style.display = "none");
+	}
+
+	// Wellcome home Show with animation
+	let Wellcome_home = document.getElementById("Wellcome_home");
+
+	if (Wellcome_home.style.display !== "flex") {
+		Wellcome_home.animate([{ opacity: 0 }, { opacity: 1 }], {
+			duration: 1100,
+			fill: "forwards",
+		});
+		setTimeout(
+			() => (Wellcome_home.style.display = "flex"),
+			(ai_btn1.style.display = "flex"),
+			500
+		);
+	}
+});
+
+// AI-btn1 Press Effect...
+document.getElementById("ai_btn1").addEventListener("click", function () {
+	// Rawson home hide with animation
+	let Wellcome_home = document.getElementById("Wellcome_home");
+	let ai_btn = document.getElementById("ai_btn");
+	let ai_btn1 = document.getElementById("ai_btn1");
+
+	if (Wellcome_home.style.display !== "none") {
+		Wellcome_home.animate([{ opacity: 1 }, { opacity: 0 }], {
+			duration: 1100,
+			fill: "forwards",
+		});
+		setTimeout(() => (Wellcome_home.style.display = "none"), 500),
+			(ai_btn1.style.display = "none");
+	}
+
+	// Wellcome home Show with animation
+	let Rawson_home = document.getElementById("Rawson_home");
+
+	if (Rawson_home.style.display !== "flex") {
+		Rawson_home.animate([{ opacity: 0 }, { opacity: 1 }], {
+			duration: 1100,
+			fill: "forwards",
+		});
+		setTimeout(
+			() => (Rawson_home.style.display = "flex"),
+			(ai_btn.style.display = "flex"),
+			500
+		);
+	}
 });
