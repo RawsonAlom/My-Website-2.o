@@ -26,6 +26,13 @@ let letter = "";
 	}
 })();
 
+// Qulity Button for web...
+const bars1 = document.getElementById("bars1");
+
+bars1.addEventListener("click", function () {
+	bars1.classList.toggle("active");
+});
+
 /*NavBar Start*/
 
 /*Bars Design Start*/
@@ -155,14 +162,14 @@ document.getElementById("Wtxt").addEventListener("click", function () {
 				width: "20%",
 				borderTopLeftRadius: "100px",
 				borderBottomLeftRadius: "100px",
-				zIndex: "11",
+				zIndex: "6",
 			},
 			{
 				right: "0%",
 				width: "100%",
 				borderTopLeftRadius: "10px",
 				borderBottomLeftRadius: "10px",
-				zIndex: "11",
+				zIndex: "6",
 			},
 			{
 				right: "80%",
@@ -171,7 +178,7 @@ document.getElementById("Wtxt").addEventListener("click", function () {
 				borderBottomRightRadius: "100px",
 				borderTopLeftRadius: "0px",
 				borderBottomLeftRadius: "0px",
-				zIndex: "11",
+				zIndex: "6",
 			},
 		],
 		{
@@ -257,14 +264,14 @@ document.getElementById("Rtxt").addEventListener("click", function () {
 				width: "20%",
 				borderTopRightRadius: "100px",
 				borderBottomRightRadius: "100px",
-				zIndex: "11",
+				zIndex: "6",
 			},
 			{
 				left: "0%",
 				width: "100%",
 				borderTopLeftRadius: "100px",
 				borderBottomLefttRadius: "100px",
-				zIndex: "11",
+				zIndex: "6",
 			},
 			{
 				left: "80%",
@@ -273,7 +280,7 @@ document.getElementById("Rtxt").addEventListener("click", function () {
 				borderBottomLeftRadius: "100px",
 				borderTopRightRadius: "0px",
 				borderBottomRightRadius: "0px",
-				zIndex: "11",
+				zIndex: "6",
 			},
 		],
 		{
@@ -407,8 +414,8 @@ document.getElementById("ai_btn").addEventListener("click", (e) => {
 		particle.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
 		particle.style.position = "absolute";
 		particle.style.borderRadius = "50%";
-		particle.style.left = `${e.clientX}px`;
-		particle.style.top = `${e.clientY}px`;
+		particle.style.left = `${e.pageX}px`;
+		particle.style.top = `${e.pageY}px`;
 		particle.style.transition = `transform ${duration}s ease-out, opacity ${duration}s ease-out`;
 		particle.style.transform = `translate(${x - e.clientX}px, ${
 			y - e.clientY
@@ -421,75 +428,18 @@ document.getElementById("ai_btn").addEventListener("click", (e) => {
 	}
 });
 
-// Create particle explosion CSS
-let style = document.createElement("style");
-style.innerHTML = `
-.particle {
-	position: absolute;
-	width: 5px;
-	height: 5px;
-	background: white;
-	border-radius: 50%;
-	pointer-events: none;
-	animation: particleFade 1s ease-out;
-	z-index: 7;
-}
-
-@keyframes particleFade {
-	from { opacity: 1; transform: scale(1); }
-	to { opacity: 0; transform: scale(3); }
-}
-`;
-document.head.appendChild(style);
-
 // Light Trail Effect
 document.addEventListener("mousemove", (e) => {
 	let trail = document.createElement("div");
 	trail.classList.add("light-trail");
 	document.body.appendChild(trail);
 
-	trail.style.left = `${e.clientX}px`;
-	trail.style.top = `${e.clientY}px`;
+	trail.style.left = `${e.pageX}px`;
+	trail.style.top = `${e.pageY}px`;
 
 	setTimeout(() => {
 		trail.remove();
 	}, 500);
-
-	// Create light trail CSS
-	let style = document.createElement("style");
-	style.innerHTML = `
-            .light-trail {
-                position: absolute;
-                width: 10px;
-                height: 10px;
-                background: radial-gradient(circle, rgba(0, 255, 255, 0.8) 10%, transparent 70%);
-                border-radius: 50%;
-                pointer-events: none;
-                animation: fadeOut 0.5s ease-out;
-				z-index: 10;
-            }
-
-            @keyframes fadeOut {
-                from { opacity: 1; transform: scale(1); }
-                to { opacity: 0; transform: scale(2); }
-            }
-
-            .spark {
-                position: absolute;
-                width: 5px;
-                height: 5px;
-                background: white;
-                border-radius: 50%;
-                pointer-events: none;
-                animation: sparkFade 1s ease-out;
-            }
-
-            @keyframes sparkFade {
-                from { opacity: 1; transform: scale(1); }
-                to { opacity: 0; transform: scale(3); }
-            }
-        `;
-	document.head.appendChild(style);
 });
 
 // AI-btn Press Effect...
@@ -555,3 +505,28 @@ document.getElementById("ai_btn1").addEventListener("click", function () {
 		);
 	}
 });
+
+// Qulity box effect...
+
+let selectedIndex = 0;
+const buttons = document.querySelectorAll(".toggle-button");
+const highlight = document.querySelector(".highlight");
+
+function changeSelection(index) {
+	selectedIndex = index;
+	highlight.style.left = `${index * 33.3}%`;
+	buttons.forEach((btn, i) => {
+		btn.classList.toggle("active", i === index);
+	});
+
+	// Enhanced gradient color based on selection
+	const colors = [
+		"linear-gradient(to right, #e0e0e0, #83fffd))",
+		"linear-gradient(to right, #33ccff, #3366ff)",
+		"linear-gradient( 45deg ,rgb(255, 0, 234),rgb(255, 255, 0))",
+	];
+	highlight.style.background = colors[index];
+	highlight.style.boxShadow = `0px 0px 30px ${colors[index]
+		.split(",")[0]
+		.replace("linear-gradient(to right, ", "")}`;
+}

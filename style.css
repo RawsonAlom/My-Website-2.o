@@ -167,6 +167,72 @@ header .option-box .home a {
 }
 /*top option part End*/
 
+/* 3D Bars Button */
+.bars1 {
+	width: 18px;
+	height: 18px;
+	right: 30px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	cursor: pointer;
+	position: relative;
+	background: rgba(255, 255, 255, 0.05);
+	border-radius: 50%;
+	backdrop-filter: blur(15px);
+	box-shadow: 0 10px 25px rgb(0, 123, 255), inset 0 0 10px rgb(0, 255, 255);
+	padding: 15px;
+	transition: all 0.3s ease-in-out;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* Bars Lines */
+.bars1 span {
+	display: block;
+	width: 20px;
+	height: 6px;
+	background: rgb(0, 4, 255);
+	border-radius: 5px;
+	transition: all 0.4s ease-in-out;
+	box-shadow: 0px 0px 10px rgba(0, 255, 255, 0.8);
+}
+
+/* Line Spacing */
+.bars1 span:nth-child(2) {
+	margin: 7px 0;
+}
+
+/* Hover Effect */
+.bars1:hover {
+	box-shadow: 0 0 25px rgb(246, 255, 0), inset 0 0 15px rgb(153, 255, 0);
+	transform: scale(1.1);
+}
+
+/* Active (Clicked) Animation */
+.bars1.active {
+	background: rgba(255, 0, 100, 0.1);
+	box-shadow: 0 10px 30px rgba(255, 0, 100, 0.5),
+		inset 0 0 15px rgba(255, 0, 100, 0.3);
+}
+
+.bars1.active span:nth-child(1) {
+	transform: translateY(8.3px) rotate(45deg);
+	background: #ff0099;
+	box-shadow: 0px 0px 10px rgba(255, 0, 153, 0.8);
+}
+
+.bars1.active span:nth-child(2) {
+	opacity: 0;
+}
+
+.bars1.active span:nth-child(3) {
+	transform: translateY(-8.3px) rotate(-45deg);
+	background: #ff0099;
+	box-shadow: 0px 0px 10px rgba(255, 0, 153, 0.8);
+}
+
 /*Mobile friendly navbar Start*/
 
 /*Bars Design Start*/
@@ -202,7 +268,8 @@ header .option-box .home a {
 	align-items: center;
 	justify-content: center;
 	overflow: hidden;
-	margin: 10px;
+	margin-left: 22px;
+	margin-top: 10px;
 	z-index: 8;
 }
 
@@ -378,11 +445,57 @@ header .option-box .home a {
 	height: 50px;
 	display: none;
 	position: fixed;
+	align-items: center;
 	top: 5px;
 	z-index: 7;
 	transition: opacity 0.5s ease, box-shadow 0.5s ease, top 0.2s ease;
 }
-
+.toggle-container {
+	position: relative;
+	display: flex;
+	background: #e0e0e0;
+	border-radius: 50px;
+	width: 230px;
+	border: 2px solid #888;
+	box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.3);
+	overflow: hidden;
+	margin-left: 25%;
+}
+.toggle-button {
+	flex: 1;
+	padding: 10px;
+	font-size: 12px;
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+		Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+		sans-serif;
+	font-weight: bold;
+	color: #444;
+	text-align: center;
+	cursor: pointer;
+	position: relative;
+	z-index: 10;
+	transition: color 0.3s ease-in-out;
+}
+.toggle-button.active {
+	color: white;
+}
+.highlight {
+	top: 0px;
+	position: absolute;
+	bottom: 0px;
+	width: 33.3%;
+	background: linear-gradient(to right, #e0e0e0, #00bfff);
+	border-radius: 50px;
+	transition: left 0.3s ease-in-out, background 0.3s ease-in-out;
+	box-shadow: 0px 0px 30px rgba(255, 0, 102, 0.6);
+}
+.background-glow {
+	position: absolute;
+	inset: 0;
+	background: rgba(0, 0, 0, 0.1);
+	border-radius: 50px;
+	filter: blur(14px);
+}
 /*Full Header Section End*/
 
 /*Full Home Section Start*/
@@ -493,7 +606,7 @@ header .option-box .home a {
 .my-img-box-wl {
 	width: 200px;
 	height: 200px;
-	border: 5px solid rgb(222, 224, 229);
+	border: 3px solid rgb(220, 220, 220);
 	border-radius: 50%;
 	background-image: url(Images/Programmer.BD.png);
 	background-size: 206px;
@@ -501,6 +614,7 @@ header .option-box .home a {
 	box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
 	margin-left: -40%;
 	margin-top: -70px;
+	animation: my-img-box 2s infinite alternate;
 }
 /*Quote Box Design Start*/
 .Quots {
@@ -676,6 +790,7 @@ header .option-box .home a {
 	font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
 		Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
 		sans-serif;
+	z-index: 6;
 }
 
 .quote-box {
@@ -1052,6 +1167,56 @@ header .option-box .home a {
 }
 
 /*Full Skill Section End*/
+
+/*Light Trail effect*/
+.light-trail {
+	position: absolute;
+	width: 10px;
+	height: 10px;
+	background: radial-gradient(
+		circle,
+		rgba(0, 255, 255, 0.8) 10%,
+		transparent 70%
+	);
+	border-radius: 50%;
+	pointer-events: none;
+	animation: fadeOut 0.5s ease-out;
+	z-index: 10;
+}
+
+@keyframes fadeOut {
+	from {
+		opacity: 1;
+		transform: scale(1);
+	}
+	to {
+		opacity: 0;
+		transform: scale(2);
+	}
+}
+
+/*Supernova press effect*/
+.particle {
+	position: absolute;
+	width: 5px;
+	height: 5px;
+	background: white;
+	border-radius: 50%;
+	pointer-events: none;
+	animation: particleFade 1s ease-out;
+	z-index: 7;
+}
+
+@keyframes particleFade {
+	from {
+		opacity: 1;
+		transform: scale(1);
+	}
+	to {
+		opacity: 0;
+		transform: scale(3);
+	}
+}
 
 /* ✅ Mobile Mode Start */
 @media (max-width: 768px) {
