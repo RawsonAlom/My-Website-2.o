@@ -42,40 +42,51 @@ header .logo .logo-box {
 	position: relative;
 	width: 260px;
 	height: 53px;
-	background: linear-gradient(45deg, #00d0ff17, #f7efff);
+	background: linear-gradient(90deg, #00ffd9c3, #ffea00c9, #09ff00b8, #4395ffb5);
+	background-size: 300%;
 	transform: skew(20deg);
 	box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-	animation: rotateShadow 1s infinite linear;
+	transition: all 3s ease-in-out;
+	animation: gradientMove 7s ease infinite, shadowRotate 5s infinite ease-in-out;
 }
-@keyframes rotateShadow {
-	0% {
-		box-shadow: 1px 1px 2px rgb(255, 0, 0);
-	}
-	12.5% {
-		box-shadow: 0px 1px 2px rgb(255, 128, 0);
-	}
-	25% {
-		box-shadow: -1px 1px 2px rgb(0, 255, 0);
-	}
-	37.5% {
-		box-shadow: -1px 0px 2px rgb(0, 255, 128);
-	}
-	50% {
-		box-shadow: -1px -1px 2px rgb(0, 0, 255);
-	}
-	62.5% {
-		box-shadow: 0px -1px 2px rgb(128, 0, 255);
-	}
-	75% {
-		box-shadow: 1px -1px 2px rgb(255, 255, 0);
-	}
-	87.5% {
-		box-shadow: 1px 0px 2px rgb(255, 0, 128);
-	}
-	100% {
-		box-shadow: 1px 1px 2px rgb(255, 0, 0);
-	}
+
+
+@keyframes shadowRotate {
+    0% {
+        box-shadow: 5px 5px 15px rgba(255, 0, 0, 0.741); /* Red */
+    }
+    10% {
+        box-shadow: 7px 3px 15px rgba(255, 166, 0, 0.699); /* Orange */
+    }
+    20% {
+        box-shadow: 3px 7px 15px rgba(255, 255, 0, 0.693); /* Yellow */
+    }
+    30% {
+        box-shadow: -5px 7px 15px rgba(0, 255, 0, 0.743); /* Green */
+    }
+    40% {
+        box-shadow: -7px 3px 15px rgba(0, 255, 255, 0.68); /* Cyan */
+    }
+    50% {
+        box-shadow: -3px -3px 15px rgba(0, 0, 255, 0.718); /* Blue */
+    }
+    60% {
+        box-shadow: 0px -7px 15px rgba(170, 0, 170, 0.764); /* Purple */
+    }
+    70% {
+        box-shadow: 5px -5px 15px rgba(255, 0, 255, 0.696); /* Magenta */
+    }
+    80% {
+        box-shadow: 7px 0px 15px rgba(255, 20, 145, 0.728); /* Deep Pink */
+    }
+    90% {
+        box-shadow: 5px 5px 15px rgba(255, 105, 180, 0.729); /* Light Pink */
+    }
+    100% {
+        box-shadow: 5px 5px 15px rgba(255, 0, 0, 0.765); /* Back to Red */
+    }
 }
+
 
 header .logo .logo-png {
 	background-image: url(Images/Programmer.BD.png);
@@ -843,6 +854,7 @@ header .option-box .home a {
 	backdrop-filter: blur(15px);
 	animation: gradientMove 4s ease infinite, glow 2s infinite alternate;
 }
+
 
 /* Background Animation */
 @keyframes gradientMove {
