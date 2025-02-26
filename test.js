@@ -381,18 +381,18 @@ window.addEventListener("scroll", () => {
 	// Change the opacity based on scroll position
 	if (scrollPosition > 50) {
 		// Adjust 100 to your desired scroll threshold
-		targetDiv.style.boxShadow = "5px 5px 15px 1px rgb(99, 99, 100)";
+		targetDiv.style.boxShadow = "5px 5px 15px 1px rgba(27, 27, 27, 0.7)";
 		targetDiv.style.top = "0";
 		quality_box.style.top = "0";
 		quality_box.style.boxShadow =
-			"0px 1px 15px rgba(0, 0, 0, 0.53)"; /* Subtle shadow */
+			"0px 1px 15px rgba(27, 27, 27, 0.7)"; /* Subtle shadow */
 		show_mbna.style.marginTop = "5px";
 	} else {
-		targetDiv.style.boxShadow = "0.5px 2px 10px rgb(99, 99, 100)";
+		targetDiv.style.boxShadow = "0.5px 2px 10px rgba(27, 27, 27, 0.7)";
 		targetDiv.style.top = "10px";
 		quality_box.style.top = "5px";
 		quality_box.style.boxShadow =
-			"0px 1px 15px rgba(0, 0, 0, 0.4)"; /* Subtle shadow */
+			"0px 1px 15px rgba(27, 27, 27, 0.7)"; /* Subtle shadow */
 		show_mbna.style.marginTop = "10px";
 	}
 });
@@ -530,3 +530,25 @@ function changeSelection(index) {
 		.split(",")[0]
 		.replace("linear-gradient(to right, ", "")}`;
 }
+
+// Nav Top Logo Animation...
+function animateBackground() {
+	const colors = [
+		["#ff0000", "#ff7300", "#ffcc00"],
+		["#00ff99", "#007bff", "#6610f2"],
+		["#ff00ff", "#ff1493", "#ff4500"],
+		["#0099ff", "#00ffcc", "#33ff00"],
+	];
+
+	let index = 0;
+	const bgElement = document.querySelector(".background-animation");
+
+	setInterval(() => {
+		let gradient = `linear-gradient(45deg, ${colors[index][0]}, ${colors[index][1]}, ${colors[index][2]})`;
+		bgElement.style.background = gradient;
+		bgElement.style.transition = "background 1.5s ease-in-out";
+		index = (index + 1) % colors.length;
+	}, 3000);
+}
+
+animateBackground();
