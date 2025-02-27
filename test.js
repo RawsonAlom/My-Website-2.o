@@ -367,20 +367,22 @@ document.getElementById("btn_skill").addEventListener("click", () => {
 	SkillPage.scrollIntoView({ behavior: "smooth", block: "center" });
 });
 
-// Scroll to Animate navbar
-const targetDiv = document.getElementById("targetDiv");
-const home = document.getElementById("home");
-const quality_box = document.getElementById("quality_box");
-const show_mbna = document.getElementById("show_mbna");
+let ticking = false; // Prevent multiple redundant calls
 
-// Add a scroll event listener to the window
 window.addEventListener("scroll", () => {
-	// Get the current scroll position
+	if (!ticking) {
+		requestAnimationFrame(() => {
+			updateScrollEffects();
+			ticking = false;
+		});
+		ticking = true;
+	}
+});
+
+function updateScrollEffects() {
 	const scrollPosition = window.scrollY;
 
-	// Change the opacity based on scroll position
 	if (scrollPosition > 50) {
-		// Adjust 100 to your desired scroll threshold
 		targetDiv.style.boxShadow = "5px 5px 15px 1px rgba(27, 27, 27, 0.7)";
 		targetDiv.style.top = "0";
 		quality_box.style.top = "0";
@@ -395,38 +397,7 @@ window.addEventListener("scroll", () => {
 			"0px 1px 15px rgba(27, 27, 27, 0.7)"; /* Subtle shadow */
 		show_mbna.style.marginTop = "10px";
 	}
-});
-
-// Supernova Click Explosion Effect
-document.getElementById("ai_btn").addEventListener("click", (e) => {
-	for (let i = 0; i < 30; i++) {
-		let particle = document.createElement("div");
-		particle.classList.add("particle");
-		document.body.appendChild(particle);
-
-		let x = e.clientX + (Math.random() - 0.5) * 200;
-		let y = e.clientY + (Math.random() - 0.5) * 200;
-		let size = Math.random() * 8 + 3;
-		let duration = Math.random() * 1 + 0.5;
-
-		particle.style.width = `${size}px`;
-		particle.style.height = `${size}px`;
-		particle.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
-		particle.style.position = "absolute";
-		particle.style.borderRadius = "50%";
-		particle.style.left = `${e.pageX}px`;
-		particle.style.top = `${e.pageY}px`;
-		particle.style.transition = `transform ${duration}s ease-out, opacity ${duration}s ease-out`;
-		particle.style.transform = `translate(${x - e.clientX}px, ${
-			y - e.clientY
-		}px) scale(0)`;
-		particle.style.opacity = 0;
-
-		setTimeout(() => {
-			particle.remove();
-		}, duration * 1000);
-	}
-});
+}
 
 // Light Trail Effect
 document.addEventListener("mousemove", (e) => {
@@ -531,24 +502,14 @@ function changeSelection(index) {
 		.replace("linear-gradient(to right, ", "")}`;
 }
 
-// Nav Top Logo Animation...
-function animateBackground() {
-	const colors = [
-		["#ff0000", "#ff7300", "#ffcc00"],
-		["#00ff99", "#007bff", "#6610f2"],
-		["#ff00ff", "#ff1493", "#ff4500"],
-		["#0099ff", "#00ffcc", "#33ff00"],
-	];
+// Animate Skill Circles
+document.addEventListener("DOMContentLoaded", function () {
+	let circles = document.querySelectorAll(".progress");
 
-	let index = 0;
-	const bgElement = document.querySelector(".background-animation");
-
-	setInterval(() => {
-		let gradient = `linear-gradient(45deg, ${colors[index][0]}, ${colors[index][1]}, ${colors[index][2]})`;
-		bgElement.style.background = gradient;
-		bgElement.style.transition = "background 1.5s ease-in-out";
-		index = (index + 1) % colors.length;
-	}, 3000);
-}
-
-animateBackground();
+	circles.forEach((circle) => {
+		let percent = circle.getAttribute("data-fill");
+		let circumference = 314;
+		let offset = circumference - (percent / 100) * circumference;
+		circle.style.strokeDashoffset = offset;
+	});
+});
