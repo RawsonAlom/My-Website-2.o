@@ -115,6 +115,48 @@ animateParticles();
 
 /*Bars Design End*/
 
+// Scroll to Animate navbar
+
+const targetDiv = document.getElementById("targetDiv");
+
+const home = document.getElementById("home");
+
+const quality_box = document.getElementById("quality_box");
+
+const show_mbna = document.getElementById("show_mbna");
+
+let ticking = false; // Prevent multiple redundant calls
+
+window.addEventListener("scroll", () => {
+	if (!ticking) {
+		requestAnimationFrame(() => {
+			updateScrollEffects();
+			ticking = false;
+		});
+		ticking = true;
+	}
+});
+
+function updateScrollEffects() {
+	const scrollPosition = window.scrollY;
+
+	if (scrollPosition > 50) {
+		targetDiv.style.boxShadow = "5px 5px 15px 1px rgba(27, 27, 27, 0.7)";
+		targetDiv.style.top = "0";
+		quality_box.style.top = "0";
+		quality_box.style.boxShadow =
+			"0px 1px 15px rgba(27, 27, 27, 0.7)"; /* Subtle shadow */
+		show_mbna.style.marginTop = "5px";
+	} else {
+		targetDiv.style.boxShadow = "0.5px 2px 10px rgba(27, 27, 27, 0.7)";
+		targetDiv.style.top = "10px";
+		quality_box.style.top = "5px";
+		quality_box.style.boxShadow =
+			"0px 1px 15px rgba(27, 27, 27, 0.7)"; /* Subtle shadow */
+		show_mbna.style.marginTop = "10px";
+	}
+}
+
 document.getElementById("show_mbna").addEventListener("click", function () {
 	let mbna = document.getElementById("mbna");
 
@@ -355,49 +397,6 @@ document.getElementById("Rtxt").addEventListener("click", function () {
 document.getElementById("Wtxt1").addEventListener("click", function () {
 	location.reload(); // Reloads the current page
 });
-
-// Button click to page show
-document.getElementById("btn_home").addEventListener("click", () => {
-	const HomePage = document.getElementById("HomePage");
-	HomePage.scrollIntoView({ behavior: "smooth", block: "center" });
-});
-
-document.getElementById("btn_skill").addEventListener("click", () => {
-	const SkillPage = document.getElementById("SkillPage");
-	SkillPage.scrollIntoView({ behavior: "smooth", block: "center" });
-});
-
-let ticking = false; // Prevent multiple redundant calls
-
-window.addEventListener("scroll", () => {
-	if (!ticking) {
-		requestAnimationFrame(() => {
-			updateScrollEffects();
-			ticking = false;
-		});
-		ticking = true;
-	}
-});
-
-function updateScrollEffects() {
-	const scrollPosition = window.scrollY;
-
-	if (scrollPosition > 50) {
-		targetDiv.style.boxShadow = "5px 5px 15px 1px rgba(27, 27, 27, 0.7)";
-		targetDiv.style.top = "0";
-		quality_box.style.top = "0";
-		quality_box.style.boxShadow =
-			"0px 1px 15px rgba(27, 27, 27, 0.7)"; /* Subtle shadow */
-		show_mbna.style.marginTop = "5px";
-	} else {
-		targetDiv.style.boxShadow = "0.5px 2px 10px rgba(27, 27, 27, 0.7)";
-		targetDiv.style.top = "10px";
-		quality_box.style.top = "5px";
-		quality_box.style.boxShadow =
-			"0px 1px 15px rgba(27, 27, 27, 0.7)"; /* Subtle shadow */
-		show_mbna.style.marginTop = "10px";
-	}
-}
 
 // Light Trail Effect
 document.addEventListener("mousemove", (e) => {

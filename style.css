@@ -53,7 +53,7 @@ header .logo-box {
 	box-shadow: inset 0px 0px 6px rgb(255, 0, 225);
 }
 header .logo-box .logo-png {
-	background-image: url(Images/Programmer.BD-200px);
+	background-image: url(Images/Programmer.BD-200px.png);
 	background-size: cover;
 	background-position: center;
 	width: 46px;
@@ -330,7 +330,7 @@ header .option-box .home a {
 }
 
 .mbna-logo {
-	background-image: url(Images/Programmer.BD-200px);
+	background-image: url(Images/Programmer.BD-200px.png);
 	border: 2px solid rgb(255, 255, 255);
 	background-size: cover;
 	width: 33px;
@@ -391,13 +391,14 @@ header .option-box .home a {
 .mbna1:hover {
 	color: red;
 }
-.mbna1 h4 {
+.mbna1 a {
 	transform: skew(-20deg);
 	background-color: rgb(212, 235, 255);
 	font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
 		Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
 		sans-serif;
 	font-weight: bold;
+	text-decoration: none;
 }
 /* Mobile friendly navbar End */
 
@@ -1774,6 +1775,34 @@ header .option-box .home a {
 	margin-right: -140px;
 	cursor: pointer;
 }
+footer {
+	position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+	height: 65px;
+	display: flex;
+    align-items: center;
+	z-index: 7;
+}
+footer .feedback-box {
+    height: 50px;
+    color: white;
+    font-size: 18px;
+	width: 300px;
+}
+footer .feedback-box input:hover {
+	opacity: 1;
+}
+footer .feedback-box input {
+	width: 60%;
+	padding: 5px;
+    border-radius: 9px;
+    margin-top: 10px;
+	margin-left: 20px;
+	opacity: .1;
+    transition: background 0.3s;
+}
 /*Full Contact Section End*/
 
 /*Light Trail effect*/
@@ -1834,6 +1863,7 @@ header .option-box .home a {
 	html,
 	body {
 		overflow: auto;
+		scroll-behavior: smooth;
 	}
 
 	/*Full Header Section End*/

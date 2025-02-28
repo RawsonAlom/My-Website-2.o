@@ -37,7 +37,7 @@
 					<div class="option-box1">
 						<div class="option1" id="optionHome">
 							<div class="home" id="home">
-								<a href="#" id="btn_home">
+								<a href="#HomePage">
 									<i
 										class="fa-solid fa-house-chimney"
 										style="
@@ -56,7 +56,7 @@
 					<div class="option-box1">
 						<div class="option1" id="optionAbout">
 							<div class="home">
-								<a id="btn_skill" href="#">About</a>
+								<a id="btn_skill" href="#AboutSection">About</a>
 							</div>
 						</div>
 					</div>
@@ -65,7 +65,7 @@
 					<div class="option-box1">
 						<div class="option1" id="optionSkill">
 							<div class="home">
-								<a href="#">Skill</a>
+								<a href="#SkillSection">Skill</a>
 							</div>
 						</div>
 					</div>
@@ -73,7 +73,7 @@
 					<div class="option-box1">
 						<div class="option1" id="optionProjects">
 							<div class="home">
-								<a href="#">Projects</a>
+								<a href="#ProjectSection">Projects</a>
 							</div>
 						</div>
 					</div>
@@ -82,7 +82,7 @@
 					<div class="option-box1">
 						<div class="option1" id="optionContact">
 							<div class="home">
-								<a href="#">Contact</a>
+								<a href="#ContactSection">Contact</a>
 							</div>
 						</div>
 					</div>
@@ -119,11 +119,11 @@
 			</div>
 			<!--Button Menu Part-->
 			<div class="mbna-boxes" id="mbna_boxes">
-				<div class="mbna1 home"><h4>Home</h4></div>
-				<div class="mbna1 skill"><h4>Skill</h4></div>
-				<div class="mbna1 project"><h4>Project</h4></div>
-				<div class="mbna1 contact"><h4>Contact</h4></div>
-				<div class="mbna1 about"><h4>About</h4></div>
+				<div class="mbna1 home"><a href="#HomePage">Home</a></div>
+				<div class="mbna1 skill"><a href="#AboutSection">About</a></div>
+				<div class="mbna1 project"><a href="#SkillSection">Skill</a></div>
+				<div class="mbna1 contact"><a href="#ProjectSection">Project</a></div>
+				<div class="mbna1 about"><a href="#ContactSection">Contact</a></div>
 			</div>
 		</div>
 		<!--Mobile friendly navbar End-->
@@ -300,7 +300,7 @@
 		<!--Full About Section End-->
 
 		<!--Full Skill Section Start-->
-		<section class="Skill-Section">
+		<section class="Skill-Section" id="SkillSection">
 			<section id="skills-section">
 				<h2>My Skills</h2>
 
@@ -395,7 +395,7 @@
 		<!--Full Skill Section End-->
 
 		<!--Full Project Section Start-->
-		<div class="bodyy">
+		<div class="bodyy" id="ProjectSection">
 			<section class="project-section">
 				<div class="background-svg1">
 					<svg
@@ -448,7 +448,7 @@
 		<!--Full Project Section End-->
 
 		<!--Full Contact Section Start-->
-		<div class="body1">
+		<div class="body1" id="ContactSection">
 			<section class="contact-section">
 				<div class="background">
 					<div class="layer"></div>
@@ -481,7 +481,11 @@
 				</div>
 			</section>
 		</div>
-
+		<footer>
+			<div class="feedback-box">
+				<input type="text">
+			</div>
+		</footer>
 		<!--Full Contact Section End-->
 
 		<script src="test.js"></script>
