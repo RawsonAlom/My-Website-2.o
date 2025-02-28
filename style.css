@@ -722,8 +722,9 @@ header .option-box .home a {
 	font-weight: 700;
 	background: linear-gradient(45deg, #e10ca5, #ffcc00); /* Gradient text */
 	text-shadow: 0px 0px 3px rgb(255, 0, 0);
-	/*-webkit-background-clip: text;*/
+	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
+	color: #fff; /* ফলব্যাক রঙ */
 	animation: textGradient 5s ease infinite;
 	font-weight: bold;
 	font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
@@ -1346,8 +1347,9 @@ header .option-box .home a {
 	font-size: 3rem;
 	text-transform: uppercase;
 	background: linear-gradient(90deg, #12c2e9, #c471ed, #f64f59);
-	/*-webkit-background-clip: text;*/
+	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
+	color: #fff; /* ফলব্যাক রঙ */
 	margin-bottom: 50px;
 	margin-top: 10px;
 }
@@ -1699,8 +1701,9 @@ header .option-box .home a {
 	margin-bottom: 15px;
 	margin-top: 0px;
 	background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
-	/*-webkit-background-clip: text;*/
+	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
+	color: #fff; /* ফলব্যাক রঙ */
 }
 .contact-links {
 	display: flex;
