@@ -1791,6 +1791,8 @@ footer .feedback-box {
 	color: white;
 	width: 220px;
 	position: relative;
+	display: flex;
+	align-items: center;
 }
 footer .feedback-box input {
 	width: 18px;
@@ -1799,35 +1801,28 @@ footer .feedback-box input {
 	border-radius: 19px;
 	margin-top: 0;
 	margin-left: 20px;
-	opacity: .3;
-	transition: background ease-in-out 0.3s, width .5s;
+	opacity: 0.3;
+	transition: background ease-in-out 0.3s, width 0.5s;
 	background: linear-gradient(45deg, rgb(50, 132, 231), rgb(0, 0, 255));
-	cursor: pointer;
+	cursor: text;
 	outline: none;
 	padding: 9px;
 	font-size: 17px;
 	box-shadow: inset 0px 0px 10px rgb(0, 255, 247);
-
 }
-footer .feedback-box input:hover {
-	opacity: 1;
-	width: 180px;
-	background: rgb(177, 177, 177);
-}
-.feedback-box input:focus {
-	width: 180px;
-	transition: none;
-}
-.feedback-box button {
-	width: 10px;
-	height: 13px;
+.feedback-box i {
+	font-size: 18px;
+	margin-left: 210px;
 	position: absolute;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	top: -4px;
-	right: 1px;
-	border-radius: 3px;
+	color: #1c1c1c;
+	text-shadow: 0px 0px 2px;
+	cursor: pointer;
+	display: none;
+	transition: opacity 0.3 ease-in-out;
+}
+footer .feedback-box i.show {
+	display: inline;
+	opacity: 1;
 }
 /*Full Contact Section End*/
 

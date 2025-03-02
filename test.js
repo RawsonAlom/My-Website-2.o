@@ -479,34 +479,107 @@ function changeSelection(index) {
 document.addEventListener("DOMContentLoaded", function () {
 	const feedbackInput = document.getElementById("fdbtn");
 	const closeButton = document.getElementById("fdcbtn");
-  
+
 	let isFocused = false;
-  
+	let hoverTimeout;
+
 	feedbackInput.addEventListener("mouseover", function () {
-	  if (!isFocused) {
-		feedbackInput.style.width = "180px";
-		setTimeout(function () {
-		  if (!isFocused) {
-			feedbackInput.style.width = "18px";
-		  }
-		}, 3000);
-	  }
+		if (!isFocused) {
+			feedbackInput.style.width = "169px";
+			feedbackInput.style.opacity = "0.8";
+			feedbackInput.style.paddingLeft = "13px";
+			feedbackInput.style.paddingRight = "38px";
+			feedbackInput.style.background = "rgb(230, 230, 230)";
+			feedbackInput.style.transition =
+				"width 0.5s, opacity 0.5s, padding .5s";
+			closeButton.style.display = "inline";
+
+			clearTimeout(hoverTimeout);
+			hoverTimeout = setTimeout(function () {
+				if (!isFocused) {
+					feedbackInput.style.width = "20px";
+					feedbackInput.style.opacity = "0.3";
+					feedbackInput.style.background =
+						"linear-gradient(45deg, rgb(50, 132, 231), rgb(0, 0, 255))";
+					feedbackInput.style.padding = "9px";
+					feedbackInput.style.transition =
+						"width 0.5s, opacity 0.5s, background .5s, padding .5s";
+					closeButton.style.display = "none";
+				}
+			}, 2000);
+		}
 	});
-  
+
+	feedbackInput.addEventListener("mouseout", function () {
+		if (!isFocused) {
+			clearTimeout(hoverTimeout);
+			hoverTimeout = setTimeout(function () {
+				if (!isFocused) {
+					feedbackInput.style.width = "20px";
+					feedbackInput.style.opacity = "0.3";
+					feedbackInput.style.padding = "9px";
+					feedbackInput.style.background =
+						"linear-gradient(45deg, rgb(50, 132, 231), rgb(0, 0, 255))";
+					feedbackInput.style.transition =
+						"width 0.5s, opacity 0.5s, background .5s, padding .5s";
+					closeButton.style.display = "none";
+				}
+			}, 2000);
+		}
+	});
+
 	feedbackInput.addEventListener("focus", function () {
-	  isFocused = true;
-	  feedbackInput.style.width = "180px";
+		isFocused = true;
+		feedbackInput.style.width = "169px";
+		feedbackInput.style.opacity = "0.8";
+		feedbackInput.style.paddingLeft = "13px";
+		feedbackInput.style.paddingRight = "38px";
+		feedbackInput.style.background = "rgb(230, 230, 230)";
+		closeButton.style.display = "inline";
 	});
-  
+
 	feedbackInput.addEventListener("blur", function () {
-	  if (!isFocused) {
-		feedbackInput.style.width = "18px";
-	  }
+		if (!isFocused) {
+			feedbackInput.style.width = "20px";
+			feedbackInput.style.opacity = "0.3";
+			feedbackInput.style.padding = "9px";
+			feedbackInput.style.background =
+				"linear-gradient(45deg, rgb(50, 132, 231), rgb(0, 0, 255))";
+			closeButton.style.display = "none";
+		}
 	});
-  
-	closeButton.addEventListener("click", function () {
-	  isFocused = false;
-	  feedbackInput.style.width = "18px";
-	  feedbackInput.style.transition = "width 0.5s";
+
+	closeButton.addEventListener("click", function (event) {
+		event.stopPropagation();
 	});
-  });
+
+	document.addEventListener("click", function (event) {
+		if (
+			!feedbackInput.contains(event.target) &&
+			event.target !== feedbackInput &&
+			event.target !== closeButton
+		) {
+			isFocused = false;
+			feedbackInput.style.width = "20px";
+			feedbackInput.style.opacity = "0.3";
+			feedbackInput.style.padding = "9px";
+			feedbackInput.style.background =
+				"linear-gradient(45deg, rgb(50, 132, 231), rgb(0, 0, 255))";
+			feedbackInput.style.transition =
+				"width 0.5s, opacity 0.5s, background .5s, padding .5s";
+			closeButton.style.display = "none";
+		}
+	});
+
+	window.addEventListener("scroll", function () {
+		isFocused = false;
+		feedbackInput.style.width = "20px";
+		feedbackInput.style.opacity = "0.3";
+		feedbackInput.style.padding = "9px";
+		feedbackInput.style.background =
+			"linear-gradient(45deg, rgb(50, 132, 231), rgb(0, 0, 255))";
+		feedbackInput.style.transition =
+			"width 0.5s, opacity 0.5s, background .5s, padding .5s";
+		closeButton.style.display = "none";
+	});
+});
