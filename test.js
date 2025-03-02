@@ -8,8 +8,9 @@ let count = 0;
 let index = 0;
 let currentText = "";
 let letter = "";
+let typingInterval;
 
-(function type() {
+function type() {
 	if (count === texts.length) {
 		count = 0;
 	}
@@ -20,11 +21,44 @@ let letter = "";
 	if (letter.length === currentText.length) {
 		count++;
 		index = 0;
-		setTimeout(type, 1500);
+		typingInterval = setTimeout(type, 1500);
 	} else {
-		setTimeout(type, 100);
+		typingInterval = setTimeout(type, 100);
 	}
-})();
+}
+
+function startTypingEffect() {
+	if (!typingInterval) {
+		type();
+	}
+}
+
+function stopTypingEffect() {
+	clearTimeout(typingInterval);
+	typingInterval = null;
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+	const homeSection = document.getElementById("HomePage");
+
+	const observerOptions = {
+		root: null,
+		rootMargin: "0px",
+		threshold: 0.1, // 10% এলিমেন্ট ভিউপোর্টে প্রবেশ করলে ট্রিগার হবে
+	};
+
+	const observer = new IntersectionObserver((entries) => {
+		entries.forEach((entry) => {
+			if (entry.isIntersecting) {
+				startTypingEffect();
+			} else {
+				stopTypingEffect();
+			}
+		});
+	}, observerOptions);
+
+	observer.observe(homeSection);
+});
 
 // Qulity Button for web...
 const bars1 = document.getElementById("bars1");
@@ -33,96 +67,37 @@ bars1.addEventListener("click", function () {
 	bars1.classList.toggle("active");
 });
 
-/*NavBar Start*/
+// Animate Skill Circle
+document.addEventListener("DOMContentLoaded", function () {
+	const circles = document.querySelectorAll(".progress");
 
-/*Bars Design Start*/
-const bars = document.querySelector(".particle-bars");
+	const observerOptions = {
+		root: null,
+		rootMargin: "0px",
+		threshold: 0.1, // 10% এলিমেন্ট ভিউপোর্টে প্রবেশ করলে ট্রিগার হবে
+	};
 
-// Particle Explosion Effect
-const canvas = document.getElementById("particles");
-const ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+	const observer = new IntersectionObserver((entries, observer) => {
+		entries.forEach((entry) => {
+			if (entry.isIntersecting) {
+				let circle = entry.target;
+				let percent = circle.getAttribute("data-fill");
+				let circumference = 314;
+				let offset = circumference - (percent / 100) * circumference;
+				circle.style.strokeDashoffset = offset;
+				observer.unobserve(circle); // একবার রান করার পর পর্যবেক্ষণ বন্ধ করা
+			}
+		});
+	}, observerOptions);
 
-let particlesArray = [];
-
-class Particle {
-	constructor(x, y, size, color, velocity) {
-		this.x = x;
-		this.y = y;
-		this.size = size;
-		this.color = color;
-		this.velocity = velocity;
-	}
-
-	update() {
-		this.x += this.velocity.x;
-		this.y += this.velocity.y;
-		this.size *= 0.96;
-	}
-
-	draw() {
-		ctx.beginPath();
-		ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-		ctx.fillStyle = this.color;
-		ctx.fill();
-	}
-}
-
-// Create Particle Explosion
-function createParticles(x, y) {
-	const colors = ["#00ffff", "#ff00ff", "#ffff00", "#ff6600"];
-	for (let i = 0; i < 15; i++) {
-		let size = Math.random() * 6 + 2;
-		let velocity = {
-			x: (Math.random() - 0.5) * 4,
-			y: (Math.random() - 0.5) * 4,
-		};
-		let color = colors[Math.floor(Math.random() * colors.length)];
-		particlesArray.push(new Particle(x, y, size, color, velocity));
-	}
-}
-
-// Animate Particles
-function animateParticles() {
-	ctx.clearRect(0, 0, canvas.width, canvas.height);
-	particlesArray.forEach((particle, index) => {
-		particle.update();
-		particle.draw();
-		if (particle.size < 0.5) {
-			particlesArray.splice(index, 1);
-		}
+	circles.forEach((circle) => {
+		observer.observe(circle);
 	});
-	requestAnimationFrame(animateParticles);
-}
-
-// Resize Canvas
-window.addEventListener("resize", () => {
-	canvas.width = window.innerWidth;
-	canvas.height = window.innerHeight;
 });
 
-// Trigger Particle Explosion on Hover
-bars.addEventListener("mouseenter", (event) => {
-	const rect = bars.getBoundingClientRect();
-	const x = rect.left + rect.width / 2;
-	const y = rect.top + rect.height / 2;
-	createParticles(x, y);
-});
-
-// Start Animation
-animateParticles();
-
-/*Bars Design End*/
-
-// Scroll to Animate navbar
-
+// NavBar Scroll Effect
 const targetDiv = document.getElementById("targetDiv");
-
-const home = document.getElementById("home");
-
 const quality_box = document.getElementById("quality_box");
-
 const show_mbna = document.getElementById("show_mbna");
 
 let ticking = false; // Prevent multiple redundant calls
@@ -189,8 +164,6 @@ document.addEventListener("click", function (event) {
 		mbna.style.display = "none";
 	}
 });
-
-/*NavBar End*/
 
 // right to left slide...
 document.getElementById("Wtxt").addEventListener("click", function () {
@@ -501,14 +474,39 @@ function changeSelection(index) {
 		.replace("linear-gradient(to right, ", "")}`;
 }
 
-// Animate Skill Circles
-document.addEventListener("DOMContentLoaded", function () {
-	let circles = document.querySelectorAll(".progress");
+// FeedBack Option's Effect
 
-	circles.forEach((circle) => {
-		let percent = circle.getAttribute("data-fill");
-		let circumference = 314;
-		let offset = circumference - (percent / 100) * circumference;
-		circle.style.strokeDashoffset = offset;
+document.addEventListener("DOMContentLoaded", function () {
+	const feedbackInput = document.getElementById("fdbtn");
+	const closeButton = document.getElementById("fdcbtn");
+  
+	let isFocused = false;
+  
+	feedbackInput.addEventListener("mouseover", function () {
+	  if (!isFocused) {
+		feedbackInput.style.width = "180px";
+		setTimeout(function () {
+		  if (!isFocused) {
+			feedbackInput.style.width = "18px";
+		  }
+		}, 3000);
+	  }
 	});
-});
+  
+	feedbackInput.addEventListener("focus", function () {
+	  isFocused = true;
+	  feedbackInput.style.width = "180px";
+	});
+  
+	feedbackInput.addEventListener("blur", function () {
+	  if (!isFocused) {
+		feedbackInput.style.width = "18px";
+	  }
+	});
+  
+	closeButton.addEventListener("click", function () {
+	  isFocused = false;
+	  feedbackInput.style.width = "18px";
+	  feedbackInput.style.transition = "width 0.5s";
+	});
+  });
