@@ -451,28 +451,23 @@ document.getElementById("ai_btn1").addEventListener("click", function () {
 
 // Qulity box effect...
 
-let selectedIndex = 0;
-const buttons = document.querySelectorAll(".toggle-button");
-const highlight = document.querySelector(".highlight");
+let selectedIndex = 1;
+        const toggleBtn = document.getElementById("toggle-btn");
+        const options = document.querySelectorAll(".option");
 
-function changeSelection(index) {
-	selectedIndex = index;
-	highlight.style.left = `${index * 33.3}%`;
-	buttons.forEach((btn, i) => {
-		btn.classList.toggle("active", i === index);
-	});
-
-	// Enhanced gradient color based on selection
-	const colors = [
-		"linear-gradient(to right, #e0e0e0, #83fffd))",
-		"linear-gradient(to right, #33ccff, #3366ff)",
-		"linear-gradient( 45deg ,rgb(255, 0, 234),rgb(255, 255, 0))",
-	];
-	highlight.style.background = colors[index];
-	highlight.style.boxShadow = `0px 0px 30px ${colors[index]
-		.split(",")[0]
-		.replace("linear-gradient(to right, ", "")}`;
-}
+        function toggleSwitch(index) {
+            selectedIndex = index;
+            toggleBtn.style.left = `${index * 78}px`;
+            options.forEach((opt, i) => {
+                if (i === index) {
+                    opt.classList.add("selected");
+                    opt.classList.remove("unselected");
+                } else {
+                    opt.classList.add("unselected");
+                    opt.classList.remove("selected");
+                }
+            });
+        }
 
 // FeedBack Option's Effect
 

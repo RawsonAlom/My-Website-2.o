@@ -137,17 +137,10 @@
 		<!--Quality-Box-->
 		<div class="quality-box" id="quality_box">
 			<div class="toggle-container">
-				<div class="background-glow"></div>
-				<div class="highlight"></div>
-				<div class="toggle-button" onclick="changeSelection(0)">
-					Smooth
-				</div>
-				<div class="toggle-button" onclick="changeSelection(1)">
-					Standard
-				</div>
-				<div class="toggle-button" onclick="changeSelection(2)">
-					Ultra
-				</div>
+				<div class="toggle-btn" id="toggle-btn"></div>
+				<div class="option" id="smoothbtn" onclick="toggleSwitch(0)">Smooth</div>
+				<div class="option selected" id="standardbtn" onclick="toggleSwitch(1)">Standard</div>
+				<div class="option" id="ultrabtn" onclick="toggleSwitch(2)">Ultra</div>
 			</div>
 		</div>
 
