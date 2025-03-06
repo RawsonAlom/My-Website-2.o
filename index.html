@@ -90,11 +90,39 @@
 
 				<!--top option part End-->
 
-				<!-- Creative 3D Bars Button -->
-				<div class="bars1" id="bars1">
-					<span></span>
-					<span></span>
-					<span></span>
+				<div class="right-brs">
+					<div class="rrbrs">
+						<!-- Creative 3D Bars Button -->
+						<div class="bars1" id="bars1">
+							<span></span>
+							<span></span>
+							<span></span>
+						</div>
+					</div>
+					<div class="toggle-container1" id="toggleContainer1">
+						<div class="toggle-btn1" id="toggle-btn1"></div>
+						<div
+							class="option1"
+							id="smoothbtn1"
+							onclick="toggleSwitch(0)"
+						>
+							Smooth
+						</div>
+						<div
+							class="option1 selected1"
+							id="standardbtn1"
+							onclick="toggleSwitch(1)"
+						>
+							Standard
+						</div>
+						<div
+							class="option1"
+							id="ultrabtn1"
+							onclick="toggleSwitch(2)"
+						>
+							Ultra
+						</div>
+					</div>
 				</div>
 			</nav>
 		</header>
@@ -138,9 +166,19 @@
 		<div class="quality-box" id="quality_box">
 			<div class="toggle-container">
 				<div class="toggle-btn" id="toggle-btn"></div>
-				<div class="option" id="smoothbtn" onclick="toggleSwitch(0)">Smooth</div>
-				<div class="option selected" id="standardbtn" onclick="toggleSwitch(1)">Standard</div>
-				<div class="option" id="ultrabtn" onclick="toggleSwitch(2)">Ultra</div>
+				<div class="option" id="smoothbtn" onclick="toggleSwitch(0)">
+					Smooth
+				</div>
+				<div
+					class="option selected"
+					id="standardbtn"
+					onclick="toggleSwitch(1)"
+				>
+					Standard
+				</div>
+				<div class="option" id="ultrabtn" onclick="toggleSwitch(2)">
+					Ultra
+				</div>
 			</div>
 		</div>
 
@@ -481,7 +519,7 @@
 			</section>
 		</div>
 		<footer>
-			<div class="feedback-box">
+			<div class="feedback-box keep-animation">
 				<input type="text" id="fdbtn" /><i
 					id="fdcbtn"
 					class="fa-solid fa-paper-plane"

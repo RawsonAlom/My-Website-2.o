@@ -61,9 +61,30 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // Qulity Button for web...
+
 const bars1 = document.getElementById("bars1");
+const toggleContainer1 = document.getElementById("toggleContainer1");
 
 bars1.addEventListener("click", function () {
+	if (toggleContainer1.style.display === "flex") {
+		// Slide into bars1 (hide)
+		toggleContainer1.style.transform = "scaleX(0)";
+		toggleContainer1.style.opacity = "0";
+
+		// Animation শেষ হলে display: none;
+		setTimeout(() => {
+			toggleContainer1.style.display = "none";
+		}, 400);
+	} else {
+		// Display flex করে একটু পরে animation trigger করবো
+		toggleContainer1.style.display = "flex";
+		setTimeout(() => {
+			toggleContainer1.style.transform = "scaleX(1)";
+			toggleContainer1.style.opacity = "1";
+		}, 10);
+	}
+
+	// bars1 animation toggle
 	bars1.classList.toggle("active");
 });
 
@@ -371,20 +392,6 @@ document.getElementById("Wtxt1").addEventListener("click", function () {
 	location.reload(); // Reloads the current page
 });
 
-// Light Trail Effect
-document.addEventListener("mousemove", (e) => {
-	let trail = document.createElement("div");
-	trail.classList.add("light-trail");
-	document.body.appendChild(trail);
-
-	trail.style.left = `${e.pageX}px`;
-	trail.style.top = `${e.pageY}px`;
-
-	setTimeout(() => {
-		trail.remove();
-	}, 500);
-});
-
 // AI-btn Press Effect...
 document.getElementById("ai_btn").addEventListener("click", function () {
 	// Rawson home hide with animation
@@ -452,22 +459,34 @@ document.getElementById("ai_btn1").addEventListener("click", function () {
 // Qulity box effect...
 
 let selectedIndex = 1;
-        const toggleBtn = document.getElementById("toggle-btn");
-        const options = document.querySelectorAll(".option");
+const toggleBtn = document.getElementById("toggle-btn");
+const options = document.querySelectorAll(".option");
+const toggleBtn1 = document.getElementById("toggle-btn1");
+const options1 = document.querySelectorAll(".option1");
 
-        function toggleSwitch(index) {
-            selectedIndex = index;
-            toggleBtn.style.left = `${index * 78}px`;
-            options.forEach((opt, i) => {
-                if (i === index) {
-                    opt.classList.add("selected");
-                    opt.classList.remove("unselected");
-                } else {
-                    opt.classList.add("unselected");
-                    opt.classList.remove("selected");
-                }
-            });
-        }
+function toggleSwitch(index) {
+	selectedIndex = index;
+	toggleBtn.style.left = `${index * 78}px`;
+	toggleBtn1.style.left = `${index * 78}px`;
+	options.forEach((opt, i) => {
+		if (i === index) {
+			opt.classList.add("selected");
+			opt.classList.remove("unselected");
+		} else {
+			opt.classList.add("unselected");
+			opt.classList.remove("selected");
+		}
+	});
+	options1.forEach((opt, i) => {
+		if (i === index) {
+			opt.classList.add("selected");
+			opt.classList.remove("unselected");
+		} else {
+			opt.classList.add("unselected");
+			opt.classList.remove("selected");
+		}
+	});
+}
 
 // FeedBack Option's Effect
 
@@ -577,4 +596,101 @@ document.addEventListener("DOMContentLoaded", function () {
 			"width 0.5s, opacity 0.5s, background .5s, padding .5s";
 		closeButton.style.display = "none";
 	});
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+	const smoothBtn = document.getElementById("smoothbtn");
+	const standardBtn = document.getElementById("standardbtn");
+	const ultraBtn = document.getElementById("ultrabtn");
+	const smoothBtn1 = document.getElementById("smoothbtn1");
+	const standardBtn1 = document.getElementById("standardbtn1");
+	const ultraBtn1 = document.getElementById("ultrabtn1");
+	const body = document.body;
+
+	let ultraModeActive = false;
+
+	// By default Standard Mode active (animations & Light Trail off)
+	body.classList.add("no-animation"); // সব animation বন্ধ
+	standardBtn.classList.add("selected");
+	standardBtn1.classList.add("selected");
+
+	// Light Trail Effect function
+	function createLightTrail(e) {
+		if (!ultraModeActive) return; // Ultra Mode ছাড়া কাজ করবে না
+
+		let trail = document.createElement("div");
+		trail.classList.add("light-trail");
+		document.body.appendChild(trail);
+
+		trail.style.left = `${e.pageX}px`;
+		trail.style.top = `${e.pageY}px`;
+
+		setTimeout(() => {
+			trail.remove();
+		}, 500);
+	}
+
+	// Ultra Mode: সব animation চালু + Light Trail Effect চালু
+	ultraBtn.addEventListener("click", function () {
+		body.classList.remove("no-animation", "black-white");
+		ultraModeActive = true;
+		updateActiveButton(ultraBtn);
+
+		// Light Trail Effect চালু করা
+		document.addEventListener("mousemove", createLightTrail);
+	});
+	ultraBtn1.addEventListener("click", function () {
+		body.classList.remove("no-animation", "black-white");
+		ultraModeActive = true;
+		updateActiveButton(ultraBtn1);
+
+		// Light Trail Effect চালু করা
+		document.addEventListener("mousemove", createLightTrail);
+	});
+
+	// Smooth Mode: সব animation বন্ধ + Black & White + Light Trail Off
+	smoothBtn.addEventListener("click", function () {
+		body.classList.add("no-animation", "black-white");
+		ultraModeActive = false;
+		updateActiveButton(smoothBtn);
+
+		// Light Trail Effect বন্ধ করা
+		document.removeEventListener("mousemove", createLightTrail);
+	});
+	smoothBtn1.addEventListener("click", function () {
+		body.classList.add("no-animation", "black-white");
+		ultraModeActive = false;
+		updateActiveButton(smoothBtn1);
+
+		// Light Trail Effect বন্ধ করা
+		document.removeEventListener("mousemove", createLightTrail);
+	});
+
+	// Standard Mode: সব animation বন্ধ + Light Trail Off
+	standardBtn.addEventListener("click", function () {
+		body.classList.add("no-animation");
+		body.classList.remove("black-white");
+		ultraModeActive = false;
+		updateActiveButton(standardBtn);
+
+		// Light Trail Effect বন্ধ করা
+		document.removeEventListener("mousemove", createLightTrail);
+	});
+	standardBtn1.addEventListener("click", function () {
+		body.classList.add("no-animation");
+		body.classList.remove("black-white");
+		ultraModeActive = false;
+		updateActiveButton(standardBtn1);
+
+		// Light Trail Effect বন্ধ করা
+		document.removeEventListener("mousemove", createLightTrail);
+	});
+
+	// Active button highlight করার জন্য ফাংশন
+	function updateActiveButton(activeBtn) {
+		[smoothBtn, standardBtn, ultraBtn].forEach((btn) =>
+			btn.classList.remove("selected")
+		);
+		activeBtn.classList.add("selected");
+	}
 });
