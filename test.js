@@ -465,45 +465,43 @@ const toggleBtn1 = document.getElementById("toggle-btn1");
 const options1 = document.querySelectorAll(".option1");
 
 function animateToggle(element, targetPosition) {
-    let startPosition = parseInt(element.style.left) || 0;
-    let distance = targetPosition - startPosition;
-    let startTime;
+	let startPosition = parseInt(element.style.left) || 0;
+	let distance = targetPosition - startPosition;
+	let startTime;
 
-    function step(timestamp) {
-        if (!startTime) startTime = timestamp;
-        let progress = (timestamp - startTime) / 300; // Animation duration: 300ms
+	function step(timestamp) {
+		if (!startTime) startTime = timestamp;
+		let progress = (timestamp - startTime) / 300; // Animation duration: 300ms
 
-        if (progress < 1) {
-            element.style.left = `${startPosition + distance * progress}px`;
-            requestAnimationFrame(step);
-        } else {
-            element.style.left = `${targetPosition}px`; // Ensure it lands on exact position
-        }
-    }
+		if (progress < 1) {
+			element.style.left = `${startPosition + distance * progress}px`;
+			requestAnimationFrame(step);
+		} else {
+			element.style.left = `${targetPosition}px`; // Ensure it lands on exact position
+		}
+	}
 
-    requestAnimationFrame(step);
+	requestAnimationFrame(step);
 }
 
 function toggleSwitch(index) {
-    let targetPosition = index * 78;
+	let targetPosition = index * 78;
 
-    // Animate toggle buttons
-    animateToggle(toggleBtn, targetPosition);
-    animateToggle(toggleBtn1, targetPosition);
+	// Animate toggle buttons
+	animateToggle(toggleBtn, targetPosition);
+	animateToggle(toggleBtn1, targetPosition);
 
-    // Update class for options
-    options.forEach((opt, i) => {
-        opt.classList.toggle("selected", i === index);
-        opt.classList.toggle("unselected", i !== index);
-    });
+	// Update class for options
+	options.forEach((opt, i) => {
+		opt.classList.toggle("selected", i === index);
+		opt.classList.toggle("unselected", i !== index);
+	});
 
-    options1.forEach((opt, i) => {
-        opt.classList.toggle("selected", i === index);
-        opt.classList.toggle("unselected", i !== index);
-    });
+	options1.forEach((opt, i) => {
+		opt.classList.toggle("selected", i === index);
+		opt.classList.toggle("unselected", i !== index);
+	});
 }
-
-
 
 // FeedBack Option's Effect
 
@@ -615,167 +613,317 @@ document.addEventListener("DOMContentLoaded", function () {
 	});
 });
 
-
-
-
 // Menu Dropdown Effect
 
 document.addEventListener("DOMContentLoaded", function () {
-    const body = document.body;
-    const toggleContainer1 = document.querySelector(".toggle-container1");
+	const body = document.body;
+	const toggleContainer1 = document.querySelector(".toggle-container1");
 
-    const smoothBtn = document.getElementById("smoothbtn");
-    const standardBtn = document.getElementById("standardbtn");
-    const ultraBtn = document.getElementById("ultrabtn");
-    const smoothBtn1 = document.getElementById("smoothbtn1");
-    const standardBtn1 = document.getElementById("standardbtn1");
-    const ultraBtn1 = document.getElementById("ultrabtn1");
+	const smoothBtn = document.getElementById("smoothbtn");
+	const standardBtn = document.getElementById("standardbtn");
+	const ultraBtn = document.getElementById("ultrabtn");
+	const smoothBtn1 = document.getElementById("smoothbtn1");
+	const standardBtn1 = document.getElementById("standardbtn1");
+	const ultraBtn1 = document.getElementById("ultrabtn1");
 
-    let ultraModeActive = false;
+	let ultraModeActive = false;
 
-    // By default Standard Mode active (animations & Light Trail off)
-    body.classList.add("no-animation"); // Disable global animations
-    standardBtn.classList.add("selected");
-    standardBtn1.classList.add("selected");
+	// By default Standard Mode active (animations & Light Trail off)
+	body.classList.add("no-animation"); // Disable global animations
+	standardBtn.classList.add("selected");
+	standardBtn1.classList.add("selected");
 
-    // Light Trail Effect
-    function createLightTrail(event) {
-        const trail = document.createElement("div");
-        trail.className = "light-trail";
-        trail.style.left = `${event.clientX}px`;
-        trail.style.top = `${event.clientY}px`;
-        document.body.appendChild(trail);
-        setTimeout(() => {
-            trail.remove();
-        }, 500); // Adjust the duration as needed
-    }
+	// Light Trail Effect
+	function createLightTrail(event) {
+		const trail = document.createElement("div");
+		trail.className = "light-trail";
+		trail.style.left = `${event.pageX}px`;
+		trail.style.top = `${event.pageY}px`;
+		document.body.appendChild(trail);
+		setTimeout(() => {
+			trail.remove();
+		}, 500); // Adjust the duration as needed
+	}
 
-    function enableLightTrail() {
-        document.addEventListener("mousemove", createLightTrail);
-    }
+	function enableLightTrail() {
+		document.addEventListener("mousemove", createLightTrail);
+	}
 
-    function disableLightTrail() {
-        document.removeEventListener("mousemove", createLightTrail);
-    }
+	function disableLightTrail() {
+		document.removeEventListener("mousemove", createLightTrail);
+	}
 
-    // Ultra Mode: All animations on + Light Trail Effect on
-    ultraBtn.addEventListener("click", function () {
-        body.classList.remove("no-animation", "black-white");
-        ultraModeActive = true;
-        updateActiveButton(ultraBtn);
+	// Ultra Mode: All animations on + Light Trail Effect on
+	ultraBtn.addEventListener("click", function () {
+		body.classList.remove("no-animation", "black-white");
+		ultraModeActive = true;
+		updateActiveButton(ultraBtn);
 
-        enableLightTrail();
-        toggleContainer1.style.transition = "transform 0.4s ease-in-out, opacity 0.4s ease-in-out";
-    });
+		// ✅ Reset Colors to Default
+		resetColors();
 
-    ultraBtn1.addEventListener("click", function () {
-        body.classList.remove("no-animation", "black-white");
-        ultraModeActive = true;
-        updateActiveButton(ultraBtn1);
+		enableLightTrail();
+		toggleContainer1.style.transition =
+			"transform 0.4s ease-in-out, opacity 0.4s ease-in-out";
+	});
 
-        enableLightTrail();
-        toggleContainer1.style.transition = "transform 0.4s ease-in-out, opacity 0.4s ease-in-out";
-    });
+	ultraBtn1.addEventListener("click", function () {
+		body.classList.remove("no-animation", "black-white");
+		ultraModeActive = true;
+		updateActiveButton(ultraBtn1);
 
-    // Smooth Mode: Animations Off + Light Trail Off + Custom Colors
-    smoothBtn.addEventListener("click", function () {
-        body.classList.add("no-animation");
-        ultraModeActive = false;
-        updateActiveButton(smoothBtn);
-        disableLightTrail();
+		// ✅ Reset Colors to Default
+		resetColors();
 
-        // ✅ New Colors for Smooth Mode
-        applySmoothModeColors();
+		enableLightTrail();
+		toggleContainer1.style.transition =
+			"transform 0.4s ease-in-out, opacity 0.4s ease-in-out";
+	});
 
-        toggleContainer1.style.transition = "transform 0.4s ease-in-out, opacity 0.4s ease-in-out";
-    });
+	// Smooth Mode: Animations Off + Light Trail Off + Custom Colors
+	smoothBtn.addEventListener("click", function () {
+		body.classList.add("no-animation");
+		ultraModeActive = false;
+		updateActiveButton(smoothBtn);
+		disableLightTrail();
 
-    smoothBtn1.addEventListener("click", function () {
-        body.classList.add("no-animation");
-        ultraModeActive = false;
-        updateActiveButton(smoothBtn1);
-        disableLightTrail();
+		// ✅ New Colors for Smooth Mode
+		applySmoothModeColors();
 
-        // ✅ New Colors for Smooth Mode
-        applySmoothModeColors();
+		toggleContainer1.style.transition =
+			"transform 0.4s ease-in-out, opacity 0.4s ease-in-out";
+	});
 
-        toggleContainer1.style.transition = "transform 0.4s ease-in-out, opacity 0.4s ease-in-out";
-    });
+	smoothBtn1.addEventListener("click", function () {
+		body.classList.add("no-animation");
+		ultraModeActive = false;
+		updateActiveButton(smoothBtn1);
+		disableLightTrail();
 
-    // Standard Mode: Reset colors to default
-    standardBtn.addEventListener("click", function () {
-        body.classList.add("no-animation");
-        body.classList.remove("black-white");
-        ultraModeActive = false;
-        updateActiveButton(standardBtn);
-        disableLightTrail();
+		// ✅ New Colors for Smooth Mode
+		applySmoothModeColors();
 
-        // ✅ Reset Colors to Default
-        resetColors();
+		toggleContainer1.style.transition =
+			"transform 0.4s ease-in-out, opacity 0.4s ease-in-out";
+	});
 
-        toggleContainer1.style.transition = "transform 0.4s ease-in-out, opacity 0.4s ease-in-out";
-    });
+	// Standard Mode: Reset colors to default
+	standardBtn.addEventListener("click", function () {
+		body.classList.add("no-animation");
+		body.classList.remove("black-white");
+		ultraModeActive = false;
+		updateActiveButton(standardBtn);
+		disableLightTrail();
 
-    standardBtn1.addEventListener("click", function () {
-        body.classList.add("no-animation");
-        body.classList.remove("black-white");
-        ultraModeActive = false;
-        updateActiveButton(standardBtn1);
-        disableLightTrail();
+		// ✅ Reset Colors to Default
+		resetColors();
 
-        // ✅ Reset Colors to Default
-        resetColors();
+		toggleContainer1.style.transition =
+			"transform 0.4s ease-in-out, opacity 0.4s ease-in-out";
+	});
 
-        toggleContainer1.style.transition = "transform 0.4s ease-in-out, opacity 0.4s ease-in-out";
-    });
+	standardBtn1.addEventListener("click", function () {
+		body.classList.add("no-animation");
+		body.classList.remove("black-white");
+		ultraModeActive = false;
+		updateActiveButton(standardBtn1);
+		disableLightTrail();
 
-    // Active button highlight function
-    function updateActiveButton(activeBtn) {
-        [smoothBtn, standardBtn, ultraBtn, smoothBtn1, standardBtn1, ultraBtn1].forEach((btn) =>
-            btn.classList.remove("selected")
-        );
-        activeBtn.classList.add("selected");
-    }
+		// ✅ Reset Colors to Default
+		resetColors();
 
-    // ✅ Function to Apply Smooth Mode Colors (New)
-    function applySmoothModeColors() {
+		toggleContainer1.style.transition =
+			"transform 0.4s ease-in-out, opacity 0.4s ease-in-out";
+	});
 
-        document.querySelector(".home-page").style.background = "#fff"; // Light Brown
-        document.querySelector(".home-page").style.color = "#FFFF";
+	// Active button highlight function
+	function updateActiveButton(activeBtn) {
+		[
+			smoothBtn,
+			standardBtn,
+			ultraBtn,
+			smoothBtn1,
+			standardBtn1,
+			ultraBtn1,
+		].forEach((btn) => btn.classList.remove("selected"));
+		activeBtn.classList.add("selected");
+	}
 
-        document.querySelector(".about-section").style.background = "#d1e8e2"; // Light Green
-        document.querySelector(".about-section").style.color = "#ffff";
+	// ✅ Function to Apply Smooth Mode Colors (New)
+	function applySmoothModeColors() {
+		document.querySelector(".logo-box").style.background =
+			"linear-gradient(135deg,rgb(254, 243, 255),rgba(183, 193, 255, 0.415))";
+		document.querySelector(".logo-box").style.boxShadow =
+			"inset 0px 0px 6px rgb(6, 39, 172)";
 
-        document.querySelector(".contact-section").style.background = "#cce7ff"; // Light Blue
+		document.querySelector(".wave-text").style.color = "rgb(50, 50, 50)";
 
+		document.querySelector(".option1").style.background =
+			"linear-gradient(45deg, rgb(240, 255, 241), rgb(255, 220, 242))";
 
-        // ✅ Buttons inside Smooth Mode
-        document.querySelectorAll("button").forEach((btn) => {
-            btn.style.backgroundColor = "#666";
-            btn.style.color = "white";
-        });
-    }
+		document.querySelector(".home-page").style.background =
+			" rgb(220, 250, 248)";
 
-    // ✅ Function to Reset Colors to Default
-    function resetColors() {
-        document.querySelector("nav").style.backgroundColor = "";
-        document.querySelector("nav").style.color = "";
+		document.querySelector("#designShape1").style.background = "none";
+		document.querySelector("#designShape2").style.background = "none";
+		document.querySelector("#designShape3").style.background = "none";
 
-        document.querySelector(".home-page").style.backgroundColor = "";
-        document.querySelector(".home-page").style.color = "";
+		document.querySelector(".my-img-box").style.boxShadow =
+			" 0 0 50px rgb(0, 0, 0)";
 
-        document.querySelector(".about-section").style.background = "";
-        document.querySelector(".about-section").style.color = "";
+		document.querySelector(".Wellcome-txt").style.background =
+			" linear-gradient(45deg, #ffe5ed, #def2ff)";
+		document.querySelector(".Wellcome-txt").style.boxShadow =
+			" 0 10px 25px rgb(0, 0, 0), inset 0 0 20px rgb(139, 139, 139)";
+		document.querySelector(".Wellcome-txt").style.border =
+			" 5px solid rgba(208, 210, 225, 0.772)";
 
-        document.querySelector(".contact-section").style.backgroundColor = "";
-        document.querySelector(".contact-section").style.color = "";
+		document.querySelector(".my-img-box-wl").style.boxShadow =
+			" 0 0 50px rgb(0, 0, 0)";
 
-        // ✅ Reset button styles
-        document.querySelectorAll("button").forEach((btn) => {
-            btn.style.backgroundColor = "";
-            btn.style.color = "";
-        });
-    }
+		document.querySelector(".about-section").style.background =
+			" linear-gradient(135deg, #f6ff0033, #00ffee41)";
+
+		document.querySelector(".aimg").style.boxShadow =
+			" 0 0 50px rgb(0, 0, 0)";
+
+		document.querySelector(".aboutRightH2").style.color =
+			" rgb(21, 68, 235)";
+
+		document.querySelector(".aboutRightP").style.color = " rgb(49, 49, 49)";
+
+		document.querySelector(".floating-shape1").style.background = "none";
+		document.querySelector(".floating-shape2").style.background = "none";
+		document.querySelector(".floating-shape3").style.background = "none";
+
+		document.querySelector(".Skill-Section").style.background =
+			" rgb(235, 243, 243)";
+
+		document.querySelector(".skills-box").style.background =
+			" rgb(51, 51, 51)";
+		document.querySelector(".skills-box").style.boxShadow =
+			" 0 0 20px rgba(0, 149, 255, 0.579)";
+
+		document.querySelector("#skillsBox").style.background =
+			" rgb(51, 51, 51)";
+		document.querySelector("#skillsBox").style.boxShadow =
+			" 0 0 20px rgba(0, 149, 255, 0.579)";
+
+		// document.querySelector(".floating-shape").style.background =
+		// " rgb(191, 22, 22)";
+
+		document.querySelector("#ProjectSection").style.background =
+			" linear-gradient(135deg, #332c7459, #8afb8a38, #4c7b8889)";
+
+		document.querySelector(".title").style.color = " rgb(171, 36, 255)";
+
+		document.querySelector("#projectCard1").style.background =
+			" rgba(13, 39, 235, 0.836)";
+		document.querySelector("#projectCard2").style.background =
+			" rgba(13, 39, 235, 0.836)";
+		document.querySelector("#projectCard3").style.background =
+			" rgba(13, 39, 235, 0.836)";
+
+		document.querySelector("#btn11").style.background =
+			" linear-gradient(45deg, #db3f8d80, #ffceae85)";
+		document.querySelector("#btn22").style.background =
+			" linear-gradient(45deg, #db3f8d80, #ffceae85)";
+		document.querySelector("#btn33").style.background =
+			" linear-gradient(45deg, #db3f8d80, #ffceae85)";
+
+		document.querySelector(".githubL").style.color = " #0062ff";
+
+		document.querySelector("#ContactSection").style.background =
+			" rgb(229, 252, 255)";
+
+		document.querySelector("#layer1").style.background =
+			" rgba(255, 0, 0, 0.123)";
+		document.querySelector("#layer2").style.background =
+			" rgba(255, 0, 0, 0.123)";
+		document.querySelector("#layer3").style.background =
+			" rgba(255, 0, 0, 0.123)";
+
+		document.querySelector(".contact-box").style.background =
+			" rgb(40, 40, 40)";
+
+		// ✅ Buttons inside Smooth Mode
+		document.querySelectorAll("button").forEach((btn) => {
+			btn.style.backgroundColor = "#666";
+			btn.style.color = "white";
+		});
+	}
+
+	// ✅ Function to Reset Colors to Default
+	function resetColors() {
+		document.querySelector(".logo-box").style.background = "";
+		document.querySelector(".logo-box").style.boxShadow = "";
+
+		document.querySelector(".wave-text").style.color = "";
+
+		document.querySelector(".option1").style.background = "";
+
+		document.querySelector(".home-page").style.background = "";
+
+		document.querySelector("#designShape1").style.background = "";
+		document.querySelector("#designShape2").style.background = "";
+		document.querySelector("#designShape3").style.background = "";
+
+		document.querySelector(".my-img-box").style.boxShadow = "";
+
+		document.querySelector(".Wellcome-txt").style.background = "";
+		document.querySelector(".Wellcome-txt").style.boxShadow = "";
+		document.querySelector(".Wellcome-txt").style.border = "";
+
+		document.querySelector(".my-img-box-wl").style.boxShadow = "";
+
+		document.querySelector(".about-section").style.background = "";
+
+		document.querySelector(".aimg").style.boxShadow = "";
+
+		document.querySelector(".aboutRightH2").style.color = "";
+
+		document.querySelector(".aboutRightP").style.color = "";
+
+		document.querySelector(".floating-shape1").style.background = "";
+		document.querySelector(".floating-shape2").style.background = "";
+		document.querySelector(".floating-shape3").style.background = "";
+
+		document.querySelector(".Skill-Section").style.background = "";
+
+		document.querySelector(".skills-box").style.background = "";
+		document.querySelector(".skills-box").style.boxShadow = "";
+
+		document.querySelector("#skillsBox").style.background = "";
+		document.querySelector("#skillsBox").style.boxShadow = "";
+
+		// document.querySelector(".floating-shape").style.background = "";
+
+		document.querySelector("#ProjectSection").style.background = "";
+
+		document.querySelector(".title").style.color = "";
+
+		document.querySelector("#projectCard1").style.background = "";
+		document.querySelector("#projectCard2").style.background = "";
+		document.querySelector("#projectCard3").style.background = "";
+
+		document.querySelector("#btn11").style.background = "";
+		document.querySelector("#btn22").style.background = "";
+		document.querySelector("#btn33").style.background = "";
+
+		document.querySelector(".githubL").style.color = "";
+
+		document.querySelector("#ContactSection").style.background = "";
+
+		document.querySelector("#layer1").style.background = "";
+		document.querySelector("#layer2").style.background = "";
+		document.querySelector("#layer3").style.background = "";
+
+		document.querySelector(".contact-box").style.background = "";
+
+		// ✅ Reset button styles
+		document.querySelectorAll("button").forEach((btn) => {
+			btn.style.backgroundColor = "";
+			btn.style.color = "";
+		});
+	}
 });
-
-
