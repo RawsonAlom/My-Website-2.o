@@ -464,29 +464,46 @@ const options = document.querySelectorAll(".option");
 const toggleBtn1 = document.getElementById("toggle-btn1");
 const options1 = document.querySelectorAll(".option1");
 
-function toggleSwitch(index) {
-	selectedIndex = index;
-	toggleBtn.style.left = `${index * 78}px`;
-	toggleBtn1.style.left = `${index * 78}px`;
-	options.forEach((opt, i) => {
-		if (i === index) {
-			opt.classList.add("selected");
-			opt.classList.remove("unselected");
-		} else {
-			opt.classList.add("unselected");
-			opt.classList.remove("selected");
-		}
-	});
-	options1.forEach((opt, i) => {
-		if (i === index) {
-			opt.classList.add("selected");
-			opt.classList.remove("unselected");
-		} else {
-			opt.classList.add("unselected");
-			opt.classList.remove("selected");
-		}
-	});
+function animateToggle(element, targetPosition) {
+    let startPosition = parseInt(element.style.left) || 0;
+    let distance = targetPosition - startPosition;
+    let startTime;
+
+    function step(timestamp) {
+        if (!startTime) startTime = timestamp;
+        let progress = (timestamp - startTime) / 300; // Animation duration: 300ms
+
+        if (progress < 1) {
+            element.style.left = `${startPosition + distance * progress}px`;
+            requestAnimationFrame(step);
+        } else {
+            element.style.left = `${targetPosition}px`; // Ensure it lands on exact position
+        }
+    }
+
+    requestAnimationFrame(step);
 }
+
+function toggleSwitch(index) {
+    let targetPosition = index * 78;
+
+    // Animate toggle buttons
+    animateToggle(toggleBtn, targetPosition);
+    animateToggle(toggleBtn1, targetPosition);
+
+    // Update class for options
+    options.forEach((opt, i) => {
+        opt.classList.toggle("selected", i === index);
+        opt.classList.toggle("unselected", i !== index);
+    });
+
+    options1.forEach((opt, i) => {
+        opt.classList.toggle("selected", i === index);
+        opt.classList.toggle("unselected", i !== index);
+    });
+}
+
+
 
 // FeedBack Option's Effect
 
@@ -598,99 +615,167 @@ document.addEventListener("DOMContentLoaded", function () {
 	});
 });
 
+
+
+
+// Menu Dropdown Effect
+
 document.addEventListener("DOMContentLoaded", function () {
-	const smoothBtn = document.getElementById("smoothbtn");
-	const standardBtn = document.getElementById("standardbtn");
-	const ultraBtn = document.getElementById("ultrabtn");
-	const smoothBtn1 = document.getElementById("smoothbtn1");
-	const standardBtn1 = document.getElementById("standardbtn1");
-	const ultraBtn1 = document.getElementById("ultrabtn1");
-	const body = document.body;
+    const body = document.body;
+    const toggleContainer1 = document.querySelector(".toggle-container1");
 
-	let ultraModeActive = false;
+    const smoothBtn = document.getElementById("smoothbtn");
+    const standardBtn = document.getElementById("standardbtn");
+    const ultraBtn = document.getElementById("ultrabtn");
+    const smoothBtn1 = document.getElementById("smoothbtn1");
+    const standardBtn1 = document.getElementById("standardbtn1");
+    const ultraBtn1 = document.getElementById("ultrabtn1");
 
-	// By default Standard Mode active (animations & Light Trail off)
-	body.classList.add("no-animation"); // সব animation বন্ধ
-	standardBtn.classList.add("selected");
-	standardBtn1.classList.add("selected");
+    let ultraModeActive = false;
 
-	// Light Trail Effect function
-	function createLightTrail(e) {
-		if (!ultraModeActive) return; // Ultra Mode ছাড়া কাজ করবে না
+    // By default Standard Mode active (animations & Light Trail off)
+    body.classList.add("no-animation"); // Disable global animations
+    standardBtn.classList.add("selected");
+    standardBtn1.classList.add("selected");
 
-		let trail = document.createElement("div");
-		trail.classList.add("light-trail");
-		document.body.appendChild(trail);
+    // Light Trail Effect
+    function createLightTrail(event) {
+        const trail = document.createElement("div");
+        trail.className = "light-trail";
+        trail.style.left = `${event.clientX}px`;
+        trail.style.top = `${event.clientY}px`;
+        document.body.appendChild(trail);
+        setTimeout(() => {
+            trail.remove();
+        }, 500); // Adjust the duration as needed
+    }
 
-		trail.style.left = `${e.pageX}px`;
-		trail.style.top = `${e.pageY}px`;
+    function enableLightTrail() {
+        document.addEventListener("mousemove", createLightTrail);
+    }
 
-		setTimeout(() => {
-			trail.remove();
-		}, 500);
-	}
+    function disableLightTrail() {
+        document.removeEventListener("mousemove", createLightTrail);
+    }
 
-	// Ultra Mode: সব animation চালু + Light Trail Effect চালু
-	ultraBtn.addEventListener("click", function () {
-		body.classList.remove("no-animation", "black-white");
-		ultraModeActive = true;
-		updateActiveButton(ultraBtn);
+    // Ultra Mode: All animations on + Light Trail Effect on
+    ultraBtn.addEventListener("click", function () {
+        body.classList.remove("no-animation", "black-white");
+        ultraModeActive = true;
+        updateActiveButton(ultraBtn);
 
-		// Light Trail Effect চালু করা
-		document.addEventListener("mousemove", createLightTrail);
-	});
-	ultraBtn1.addEventListener("click", function () {
-		body.classList.remove("no-animation", "black-white");
-		ultraModeActive = true;
-		updateActiveButton(ultraBtn1);
+        enableLightTrail();
+        toggleContainer1.style.transition = "transform 0.4s ease-in-out, opacity 0.4s ease-in-out";
+    });
 
-		// Light Trail Effect চালু করা
-		document.addEventListener("mousemove", createLightTrail);
-	});
+    ultraBtn1.addEventListener("click", function () {
+        body.classList.remove("no-animation", "black-white");
+        ultraModeActive = true;
+        updateActiveButton(ultraBtn1);
 
-	// Smooth Mode: সব animation বন্ধ + Black & White + Light Trail Off
-	smoothBtn.addEventListener("click", function () {
-		body.classList.add("no-animation", "black-white");
-		ultraModeActive = false;
-		updateActiveButton(smoothBtn);
+        enableLightTrail();
+        toggleContainer1.style.transition = "transform 0.4s ease-in-out, opacity 0.4s ease-in-out";
+    });
 
-		// Light Trail Effect বন্ধ করা
-		document.removeEventListener("mousemove", createLightTrail);
-	});
-	smoothBtn1.addEventListener("click", function () {
-		body.classList.add("no-animation", "black-white");
-		ultraModeActive = false;
-		updateActiveButton(smoothBtn1);
+    // Smooth Mode: Animations Off + Light Trail Off + Custom Colors
+    smoothBtn.addEventListener("click", function () {
+        body.classList.add("no-animation");
+        ultraModeActive = false;
+        updateActiveButton(smoothBtn);
+        disableLightTrail();
 
-		// Light Trail Effect বন্ধ করা
-		document.removeEventListener("mousemove", createLightTrail);
-	});
+        // ✅ New Colors for Smooth Mode
+        applySmoothModeColors();
 
-	// Standard Mode: সব animation বন্ধ + Light Trail Off
-	standardBtn.addEventListener("click", function () {
-		body.classList.add("no-animation");
-		body.classList.remove("black-white");
-		ultraModeActive = false;
-		updateActiveButton(standardBtn);
+        toggleContainer1.style.transition = "transform 0.4s ease-in-out, opacity 0.4s ease-in-out";
+    });
 
-		// Light Trail Effect বন্ধ করা
-		document.removeEventListener("mousemove", createLightTrail);
-	});
-	standardBtn1.addEventListener("click", function () {
-		body.classList.add("no-animation");
-		body.classList.remove("black-white");
-		ultraModeActive = false;
-		updateActiveButton(standardBtn1);
+    smoothBtn1.addEventListener("click", function () {
+        body.classList.add("no-animation");
+        ultraModeActive = false;
+        updateActiveButton(smoothBtn1);
+        disableLightTrail();
 
-		// Light Trail Effect বন্ধ করা
-		document.removeEventListener("mousemove", createLightTrail);
-	});
+        // ✅ New Colors for Smooth Mode
+        applySmoothModeColors();
 
-	// Active button highlight করার জন্য ফাংশন
-	function updateActiveButton(activeBtn) {
-		[smoothBtn, standardBtn, ultraBtn].forEach((btn) =>
-			btn.classList.remove("selected")
-		);
-		activeBtn.classList.add("selected");
-	}
+        toggleContainer1.style.transition = "transform 0.4s ease-in-out, opacity 0.4s ease-in-out";
+    });
+
+    // Standard Mode: Reset colors to default
+    standardBtn.addEventListener("click", function () {
+        body.classList.add("no-animation");
+        body.classList.remove("black-white");
+        ultraModeActive = false;
+        updateActiveButton(standardBtn);
+        disableLightTrail();
+
+        // ✅ Reset Colors to Default
+        resetColors();
+
+        toggleContainer1.style.transition = "transform 0.4s ease-in-out, opacity 0.4s ease-in-out";
+    });
+
+    standardBtn1.addEventListener("click", function () {
+        body.classList.add("no-animation");
+        body.classList.remove("black-white");
+        ultraModeActive = false;
+        updateActiveButton(standardBtn1);
+        disableLightTrail();
+
+        // ✅ Reset Colors to Default
+        resetColors();
+
+        toggleContainer1.style.transition = "transform 0.4s ease-in-out, opacity 0.4s ease-in-out";
+    });
+
+    // Active button highlight function
+    function updateActiveButton(activeBtn) {
+        [smoothBtn, standardBtn, ultraBtn, smoothBtn1, standardBtn1, ultraBtn1].forEach((btn) =>
+            btn.classList.remove("selected")
+        );
+        activeBtn.classList.add("selected");
+    }
+
+    // ✅ Function to Apply Smooth Mode Colors (New)
+    function applySmoothModeColors() {
+
+        document.querySelector(".home-page").style.background = "#fff"; // Light Brown
+        document.querySelector(".home-page").style.color = "#FFFF";
+
+        document.querySelector(".about-section").style.background = "#d1e8e2"; // Light Green
+        document.querySelector(".about-section").style.color = "#ffff";
+
+        document.querySelector(".contact-section").style.background = "#cce7ff"; // Light Blue
+
+
+        // ✅ Buttons inside Smooth Mode
+        document.querySelectorAll("button").forEach((btn) => {
+            btn.style.backgroundColor = "#666";
+            btn.style.color = "white";
+        });
+    }
+
+    // ✅ Function to Reset Colors to Default
+    function resetColors() {
+        document.querySelector("nav").style.backgroundColor = "";
+        document.querySelector("nav").style.color = "";
+
+        document.querySelector(".home-page").style.backgroundColor = "";
+        document.querySelector(".home-page").style.color = "";
+
+        document.querySelector(".about-section").style.background = "";
+        document.querySelector(".about-section").style.color = "";
+
+        document.querySelector(".contact-section").style.backgroundColor = "";
+        document.querySelector(".contact-section").style.color = "";
+
+        // ✅ Reset button styles
+        document.querySelectorAll("button").forEach((btn) => {
+            btn.style.backgroundColor = "";
+            btn.style.color = "";
+        });
+    }
 });
+
+
