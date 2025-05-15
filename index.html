@@ -299,9 +299,6 @@
 					<button class="AI-btn" id="ai_btn1">Click Me</button>
 				</div>
 
-				<!--Wellcome txt Box-->
-				<div class="Rawson-txt-wl" id="Rawson_txt"></div>
-
 				<!--Second Home Section End-->
 			</div>
 		</div>
@@ -487,49 +484,71 @@
 		</div>
 		<!--Full Project Section End-->
 
-		<!--Full Contact Section Start-->
+		<!-- Contact Section Start -->
 		<div class="body1" id="ContactSection">
 			<section class="contact-section">
+				<!-- Background layers for animation -->
 				<div class="background">
 					<div id="layer1" class="layer"></div>
 					<div id="layer2" class="layer"></div>
 					<div id="layer3" class="layer"></div>
 				</div>
-
 				<div class="contact-box">
 					<h2>Let's Connect</h2>
 					<div class="contact-links">
+						<!-- Social media links -->
 						<div class="Clinks">
-							<h4 style="margin-top: -10px">
-								Contact by Social Media
-							</h4>
+							<h4>Contact by Social Media</h4>
 							<div class="C">
-								<i class="fa-brands fa-whatsapp"></i>
-								<i class="fa-brands fa-telegram"></i>
+								<a
+									href="https://wa.me/your-number"
+									target="_blank"
+									><i class="fa-brands fa-whatsapp"></i
+								></a>
+								<a
+									href="https://t.me/your-username"
+									target="_blank"
+									><i class="fa-brands fa-telegram"></i
+								></a>
 							</div>
 						</div>
-						<div class="Email">
-							<h4 style="margin-bottom: 13px">
-								Contact by Email
-							</h4>
-							<input type="name" placeholder="Name:" />
-							<input type="email" placeholder="Email: " />
-							<input type="text" placeholder="Type Something" />
-							<button>Send</button>
-						</div>
+						<!-- Contact form -->
+						<form id="contact-form" class="Email">
+							<h4>Contact by Email</h4>
+							<input
+								type="text"
+								name="name"
+								class="form-input"
+								placeholder="Name:"
+								required
+							/>
+							<input
+								type="email"
+								name="email"
+								class="form-input"
+								placeholder="Email:"
+								required
+							/>
+							<textarea
+								name="message"
+								class="form-input"
+								placeholder="Type Something"
+								required
+							></textarea>
+							<button type="submit" class="form-btn">Send</button>
+						</form>
 					</div>
 				</div>
 			</section>
 		</div>
+		<!-- Feedback box in footer -->
 		<footer>
 			<div class="feedback-box keep-animation">
-				<input type="text" id="fdbtn" /><i
-					id="fdcbtn"
-					class="fa-solid fa-paper-plane"
-				></i>
+				<input type="text" id="fdbtn" placeholder="Feedback" />
+				<i id="fdcbtn" class="fa-solid fa-paper-plane"></i>
 			</div>
 		</footer>
-		<!--Full Contact Section End-->
+		<!-- Contact Section End -->
 
 		<script src="test.js"></script>
 	</body>
