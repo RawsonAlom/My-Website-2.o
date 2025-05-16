@@ -683,6 +683,16 @@ document.addEventListener("DOMContentLoaded", function () {
 // Example: document.getElementById("themeButton").addEventListener("click", changeColors);
 // Example: document.getElementById("resetButton").addEventListener("click", resetColors);
 
+// Add event listeners for theme buttons
+const themeButton = document.getElementById("themeButton");
+const resetButton = document.getElementById("resetButton");
+if (themeButton) {
+	themeButton.addEventListener("click", changeColors);
+}
+if (resetButton) {
+	resetButton.addEventListener("click", resetColors);
+}
+
 // Handle feedback box animation
 const feedbackInput = document.getElementById("fdbtn");
 const feedbackIcon = document.getElementById("fdcbtn");
@@ -721,7 +731,15 @@ if (contactForm) {
 			name: formData.get("name"),
 			email: formData.get("email"),
 			message: formData.get("message"),
+			recaptchaToken: grecaptcha.getResponse(), // reCAPTCHA টোকেন যোগ করা
 		};
+
+		if (!data.recaptchaToken) {
+			alert("Please complete the reCAPTCHA");
+			submitBtn.disabled = false;
+			submitBtn.innerText = "Send";
+			return;
+		}
 
 		try {
 			const response = await fetch(
@@ -739,6 +757,7 @@ if (contactForm) {
 			if (response.ok) {
 				alert("Message sent successfully!");
 				contactForm.reset();
+				grecaptcha.reset(); // reCAPTCHA রিসেট
 			} else {
 				alert(`Failed to send message: ${result.error}`);
 			}
@@ -761,6 +780,12 @@ if (feedbackIcon && feedbackInput) {
 			return;
 		}
 
+		const recaptchaToken = grecaptcha.getResponse(); // reCAPTCHA টোকেন যোগ করা
+		if (!recaptchaToken) {
+			alert("Please complete the reCAPTCHA");
+			return;
+		}
+
 		feedbackIcon.disabled = true;
 		feedbackIcon.style.opacity = "0.5";
 
@@ -772,7 +797,7 @@ if (feedbackIcon && feedbackInput) {
 					headers: {
 						"Content-Type": "application/json",
 					},
-					body: JSON.stringify({ feedback }),
+					body: JSON.stringify({ feedback, recaptchaToken }),
 				}
 			);
 
@@ -783,6 +808,7 @@ if (feedbackIcon && feedbackInput) {
 				feedbackInput.style.width = "18px";
 				feedbackInput.style.opacity = "0.3";
 				feedbackIcon.classList.remove("show");
+				grecaptcha.reset(); // reCAPTCHA রিসেট
 			} else {
 				alert(`Failed to send feedback: ${result.error}`);
 			}
