@@ -679,80 +679,107 @@ document.addEventListener("DOMContentLoaded", function () {
 	}
 });
 
-// Handle contact form submission
-document.addEventListener("DOMContentLoaded", () => {
-	const contactForm = document.getElementById("contact-form");
-	if (contactForm) {
-		contactForm.addEventListener("submit", async (e) => {
-			e.preventDefault(); // Prevent default form submission
+// Apply theme change (assuming you have a button or event to trigger this)
+    // Example: document.getElementById("themeButton").addEventListener("click", changeColors);
+    // Example: document.getElementById("resetButton").addEventListener("click", resetColors);
 
-			// Collect form data
-			const formData = new FormData(contactForm);
-			const data = {
-				name: formData.get("name"),
-				email: formData.get("email"),
-				message: formData.get("message"),
-			};
+    // Handle feedback box animation
+    const feedbackInput = document.getElementById("fdbtn");
+    const feedbackIcon = document.getElementById("fdcbtn");
 
-			try {
-				// Send data to backend
-				const response = await fetch(
-					"http://localhost:3000/api/contact",
-					{
-						method: "POST",
-						headers: {
-							"Content-Type": "application/json",
-						},
-						body: JSON.stringify(data),
-					}
-				);
+    if (feedbackInput && feedbackIcon) {
+        feedbackInput.addEventListener("click", (e) => {
+            e.stopPropagation();
+            feedbackInput.style.width = "180px";
+            feedbackInput.style.opacity = "1";
+            feedbackIcon.classList.add("show");
+        });
 
-				if (response.ok) {
-					alert("Message sent successfully!");
-					contactForm.reset(); // Clear form
-				} else {
-					alert("Failed to send message. Please try again.");
-				}
-			} catch (error) {
-				console.error("Error:", error);
-				alert("An error occurred. Please try again later.");
-			}
-		});
-	}
+        document.addEventListener("click", (e) => {
+            if (!feedbackInput.contains(e.target) && !feedbackIcon.contains(e.target)) {
+                feedbackInput.style.width = "18px";
+                feedbackInput.style.opacity = "0.3";
+                feedbackIcon.classList.remove("show");
+            }
+        });
+    }
 
-	// Handle feedback box submission
-	const feedbackBtn = document.getElementById("fdcbtn");
-	const feedbackInput = document.getElementById("fdbtn");
-	if (feedbackBtn && feedbackInput) {
-		feedbackBtn.addEventListener("click", async () => {
-			const feedback = feedbackInput.value.trim();
-			if (!feedback) {
-				alert("Please enter feedback");
-				return;
-			}
+    // Handle contact form submission
+    const contactForm = document.getElementById("contact-form");
+    if (contactForm) {
+        contactForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const submitBtn = contactForm.querySelector("button");
+            submitBtn.disabled = true;
+            submitBtn.innerText = "Sending...";
 
-			try {
-				const response = await fetch(
-					"http://localhost:3000/api/feedback",
-					{
-						method: "POST",
-						headers: {
-							"Content-Type": "application/json",
-						},
-						body: JSON.stringify({ feedback }),
-					}
-				);
+            const formData = new FormData(contactForm);
+            const data = {
+                name: formData.get("name"),
+                email: formData.get("email"),
+                message: formData.get("message"),
+            };
 
-				if (response.ok) {
-					alert("Feedback sent successfully!");
-					feedbackInput.value = ""; // Clear input
-				} else {
-					alert("Failed to send feedback.");
-				}
-			} catch (error) {
-				console.error("Error:", error);
-				alert("An error occurred.");
-			}
-		});
-	}
-});
+            try {
+                const response = await fetch("https://programmer-bd-backend.onrender.com/api/contact", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(data),
+                });
+
+                const result = await response.json();
+                if (response.ok) {
+                    alert("Message sent successfully!");
+                    contactForm.reset();
+                } else {
+                    alert(`Failed to send message: ${result.error}`);
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("An error occurred. Please try again later.");
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerText = "Send";
+            }
+        });
+    }
+
+    // Handle feedback box submission
+    if (feedbackBtn && feedbackInput) {
+        feedbackBtn.addEventListener("click", async () => {
+            const feedback = feedbackInput.value.trim();
+            if (!feedback) {
+                alert("Please enter feedback");
+                return;
+            }
+
+            feedbackBtn.disabled = true;
+            feedbackBtn.style.opacity = "0.5";
+
+            try {
+                const response = await fetch("https://programmer-bd-backend.onrender.com/api/feedback", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ feedback }),
+                });
+
+                const result = await response.json();
+                if (response.ok) {
+                    alert("Feedback sent successfully!");
+                    feedbackInput.value = "";
+                } else {
+                    alert(`Failed to send feedback: ${result.error}`);
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("An error occurred.");
+            } finally {
+                feedbackBtn.disabled = false;
+                feedbackBtn.style.opacity = "1";
+            }
+        });
+    }
