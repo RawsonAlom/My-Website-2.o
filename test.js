@@ -684,140 +684,131 @@ document.addEventListener("DOMContentLoaded", function () {
 // Example: document.getElementById("resetButton").addEventListener("click", resetColors);
 
 // Add event listeners for theme buttons
-const themeButton = document.getElementById("themeButton");
-const resetButton = document.getElementById("resetButton");
-if (themeButton) {
-	themeButton.addEventListener("click", changeColors);
-}
-if (resetButton) {
-	resetButton.addEventListener("click", resetColors);
-}
+    const themeButton = document.getElementById("themeButton");
+    const resetButton = document.getElementById("resetButton");
+    if (themeButton) {
+        themeButton.addEventListener("click", changeColors);
+    }
+    if (resetButton) {
+        resetButton.addEventListener("click", resetColors);
+    }
 
-// Handle feedback box animation
-const feedbackInput = document.getElementById("fdbtn");
-const feedbackIcon = document.getElementById("fdcbtn");
+    // Handle feedback box animation
+    const feedbackInput = document.getElementById("fdbtn");
+    const feedbackIcon = document.getElementById("fdcbtn");
 
-if (feedbackInput && feedbackIcon) {
-	feedbackInput.addEventListener("click", (e) => {
-		e.stopPropagation();
-		feedbackInput.style.width = "180px";
-		feedbackInput.style.opacity = "1";
-		feedbackIcon.classList.add("show");
-	});
+    if (feedbackInput && feedbackIcon) {
+        feedbackInput.addEventListener("click", (e) => {
+            e.stopPropagation();
+            feedbackInput.style.width = "180px";
+            feedbackInput.style.opacity = "1";
+            feedbackIcon.classList.add("show");
+        });
 
-	document.addEventListener("click", (e) => {
-		if (
-			!feedbackInput.contains(e.target) &&
-			!feedbackIcon.contains(e.target)
-		) {
-			feedbackInput.style.width = "18px";
-			feedbackInput.style.opacity = "0.3";
-			feedbackIcon.classList.remove("show");
-		}
-	});
-}
+        document.addEventListener("click", (e) => {
+            if (!feedbackInput.contains(e.target) && !feedbackIcon.contains(e.target)) {
+                feedbackInput.style.width = "18px";
+                feedbackInput.style.opacity = "0.3";
+                feedbackIcon.classList.remove("show");
+            }
+        });
+    }
 
-// Handle contact form submission
-const contactForm = document.getElementById("contact-form");
-if (contactForm) {
-	contactForm.addEventListener("submit", async (e) => {
-		e.preventDefault();
-		const submitBtn = contactForm.querySelector("button");
-		submitBtn.disabled = true;
-		submitBtn.innerText = "Sending...";
+    // Handle contact form submission
+    const contactForm = document.getElementById("contact-form");
+    if (contactForm) {
+        contactForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const submitBtn = contactForm.querySelector("button");
+            submitBtn.disabled = true;
+            submitBtn.innerText = "Sending...";
 
-		const formData = new FormData(contactForm);
-		const data = {
-			name: formData.get("name"),
-			email: formData.get("email"),
-			message: formData.get("message"),
-			recaptchaToken: grecaptcha.getResponse(), // reCAPTCHA টোকেন যোগ করা
-		};
+            const formData = new FormData(contactForm);
+            const data = {
+                name: formData.get("name"),
+                email: formData.get("email"),
+                message: formData.get("message")
+                /* recaptchaToken: grecaptcha.getResponse() // reCAPTCHA টোকেন যোগ করা */
+            };
 
-		if (!data.recaptchaToken) {
-			alert("Please complete the reCAPTCHA");
-			submitBtn.disabled = false;
-			submitBtn.innerText = "Send";
-			return;
-		}
+            /* if (!data.recaptchaToken) {
+                alert("Please complete the reCAPTCHA");
+                submitBtn.disabled = false;
+                submitBtn.innerText = "Send";
+                return;
+            } */
 
-		try {
-			const response = await fetch(
-				"https://programmer-bd-backend.onrender.com/api/contact",
-				{
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify(data),
-				}
-			);
+            try {
+                const response = await fetch("https://programmer-bd-backend.onrender.com/api/contact", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(data),
+                });
 
-			const result = await response.json();
-			if (response.ok) {
-				alert("Message sent successfully!");
-				contactForm.reset();
-				grecaptcha.reset(); // reCAPTCHA রিসেট
-			} else {
-				alert(`Failed to send message: ${result.error}`);
-			}
-		} catch (error) {
-			console.error("Error:", error);
-			alert("An error occurred. Please try again later.");
-		} finally {
-			submitBtn.disabled = false;
-			submitBtn.innerText = "Send";
-		}
-	});
-}
+                const result = await response.json();
+                if (response.ok) {
+                    alert("Message sent successfully!");
+                    contactForm.reset();
+                    /* grecaptcha.reset(); // reCAPTCHA রিসেট */
+                } else {
+                    alert(`Failed to send message: ${result.error}`);
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("An error occurred. Please try again later.");
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerText = "Send";
+            }
+        });
+    }
 
-// Handle feedback box submission
-if (feedbackIcon && feedbackInput) {
-	feedbackIcon.addEventListener("click", async () => {
-		const feedback = feedbackInput.value.trim();
-		if (!feedback) {
-			alert("Please enter feedback");
-			return;
-		}
+    // Handle feedback box submission
+    if (feedbackIcon && feedbackInput) {
+        feedbackIcon.addEventListener("click", async () => {
+            const feedback = feedbackInput.value.trim();
+            if (!feedback) {
+                alert("Please enter feedback");
+                return;
+            }
 
-		const recaptchaToken = grecaptcha.getResponse(); // reCAPTCHA টোকেন যোগ করা
-		if (!recaptchaToken) {
-			alert("Please complete the reCAPTCHA");
-			return;
-		}
+            /* const recaptchaToken = grecaptcha.getResponse(); // reCAPTCHA টোকেন যোগ করা
+            if (!recaptchaToken) {
+                alert("Please complete the reCAPTCHA");
+                return;
+            } */
 
-		feedbackIcon.disabled = true;
-		feedbackIcon.style.opacity = "0.5";
+            feedbackIcon.disabled = true;
+            feedbackIcon.style.opacity = "0.5";
 
-		try {
-			const response = await fetch(
-				"https://programmer-bd-backend.onrender.com/api/feedback",
-				{
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({ feedback, recaptchaToken }),
-				}
-			);
+            try {
+                const response = await fetch("https://programmer-bd-backend.onrender.com/api/feedback", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ feedback /*, recaptchaToken */ }),
+                });
 
-			const result = await response.json();
-			if (response.ok) {
-				alert("Feedback sent successfully!");
-				feedbackInput.value = "";
-				feedbackInput.style.width = "18px";
-				feedbackInput.style.opacity = "0.3";
-				feedbackIcon.classList.remove("show");
-				grecaptcha.reset(); // reCAPTCHA রিসেট
-			} else {
-				alert(`Failed to send feedback: ${result.error}`);
-			}
-		} catch (error) {
-			console.error("Error:", error);
-			alert("An error occurred.");
-		} finally {
-			feedbackIcon.disabled = false;
-			feedbackIcon.style.opacity = "1";
-		}
-	});
-}
+                const result = await response.json();
+                if (response.ok) {
+                    alert("Feedback sent successfully!");
+                    feedbackInput.value = "";
+                    feedbackInput.style.width = "18px";
+                    feedbackInput.style.opacity = "0.3";
+                    feedbackIcon.classList.remove("show");
+                    /* grecaptcha.reset(); // reCAPTCHA রিসেট */
+                } else {
+                    alert(`Failed to send feedback: ${result.error}`);
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("An error occurred.");
+            } finally {
+                feedbackIcon.disabled = false;
+                feedbackIcon.style.opacity = "1";
+            }
+        });
+    }
