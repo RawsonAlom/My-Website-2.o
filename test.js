@@ -64,25 +64,6 @@ bars1.addEventListener("click", function () {
 	}
 	bars1.classList.toggle("active");
 });
-document.addEventListener("DOMContentLoaded", function () {
-	const circles = document.querySelectorAll(".progress");
-	const observerOptions = { root: null, rootMargin: "0px", threshold: 0.1 };
-	const observer = new IntersectionObserver((entries, observer) => {
-		entries.forEach((entry) => {
-			if (entry.isIntersecting) {
-				let circle = entry.target;
-				let percent = circle.getAttribute("data-fill");
-				let circumference = 314;
-				let offset = circumference - (percent / 100) * circumference;
-				circle.style.strokeDashoffset = offset;
-				observer.unobserve(circle);
-			}
-		});
-	}, observerOptions);
-	circles.forEach((circle) => {
-		observer.observe(circle);
-	});
-});
 const targetDiv = document.getElementById("targetDiv");
 const quality_box = document.getElementById("quality_box");
 const show_mbna = document.getElementById("show_mbna");
@@ -219,7 +200,7 @@ document.getElementById("Rtxt").addEventListener("click", function () {
 				left: "0%",
 				width: "100%",
 				borderTopLeftRadius: "100px",
-				borderBottomLefttRadius: "100px",
+				borderBottomLeftRadius: "100px",
 				zIndex: "6",
 			},
 			{
@@ -330,7 +311,6 @@ document.getElementById("ai_btn1").addEventListener("click", function () {
 		);
 	}
 });
-let selectedIndex = 1;
 const toggleBtn = document.getElementById("toggle-btn");
 const options = document.querySelectorAll(".option");
 const toggleBtn1 = document.getElementById("toggle-btn1");
@@ -364,6 +344,310 @@ function toggleSwitch(index) {
 		opt.classList.toggle("unselected", i !== index);
 	});
 }
+
+// Device capability detection function
+function getDeviceScore() {
+	let score = 0;
+
+	// Check RAM (navigator.deviceMemory, returns GB, Chrome/Edge only)
+	const ram = navigator.deviceMemory || 4; // Fallback to 4GB if not supported
+	score += ram >= 8 ? 3 : ram >= 4 ? 2 : 1;
+
+	// Check CPU cores (navigator.hardwareConcurrency)
+	const cores = navigator.hardwareConcurrency || 2; // Fallback to 2 cores
+	score += cores >= 8 ? 3 : cores >= 4 ? 2 : 1;
+
+	// Check screen resolution
+	const screenWidth = window.screen.width || 1280; // Fallback to 1280px
+	const screenHeight = window.screen.height || 720; // Fallback to 720px
+	const isHighRes = screenWidth >= 1920 && screenHeight >= 1080;
+	score += isHighRes ? 2 : 1;
+
+	// Check WebGL support
+	const canvas = document.createElement("canvas");
+	const gl =
+		canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+	score += gl ? 2 : 0;
+
+	return score; // Max score: 10 (3+3+2+2), Min score: 3 (1+1+1+0)
+}
+
+// Determine default mode based on device score
+function getDefaultMode() {
+	const savedMode = localStorage.getItem("selectedMode");
+	if (savedMode) return savedMode; // Prioritize user preference
+
+	const score = getDeviceScore();
+	return score >= 6 ? "ultra" : "standard"; // Ultra for high-end, Standard for low-end
+}
+
+// Mode changer section
+document.addEventListener("DOMContentLoaded", function () {
+	const body = document.body;
+	const toggleContainer1 = document.querySelector(".toggle-container1");
+	const smoothBtn = document.getElementById("smoothbtn");
+	const standardBtn = document.getElementById("standardbtn");
+	const ultraBtn = document.getElementById("ultrabtn");
+	const smoothBtn1 = document.getElementById("smoothbtn1");
+	const standardBtn1 = document.getElementById("standardbtn1");
+	const ultraBtn1 = document.getElementById("ultrabtn1");
+	let ultraModeActive = false;
+
+	// Set default mode based on device capability
+	const defaultMode = getDefaultMode();
+	body.classList.add("no-animation"); // Start with no animations
+	if (defaultMode === "ultra") {
+		ultraBtn.classList.add("selected");
+		ultraBtn1.classList.add("selected");
+		body.classList.remove("no-animation", "black-white");
+		ultraModeActive = true;
+		enableLightTrail();
+		toggleSwitch(2); // Set toggle to Ultra (index 2)
+	} else if (defaultMode === "standard") {
+		standardBtn.classList.add("selected");
+		standardBtn1.classList.add("selected");
+		body.classList.remove("black-white");
+		ultraModeActive = false;
+		disableLightTrail();
+		resetColors();
+		toggleSwitch(1); // Set toggle to Standard (index 1)
+	} else if (defaultMode === "smooth") {
+		smoothBtn.classList.add("selected");
+		smoothBtn1.classList.add("selected");
+		ultraModeActive = false;
+		disableLightTrail();
+		applySmoothModeColors();
+		toggleSwitch(0); // Set toggle to Smooth (index 0)
+	}
+
+	function createLightTrail(event) {
+		const trail = document.createElement("div");
+		trail.className = "light-trail";
+		trail.style.left = `${event.pageX}px`;
+		trail.style.top = `${event.pageY}px`;
+		document.body.appendChild(trail);
+		setTimeout(() => {
+			trail.remove();
+		}, 500);
+	}
+
+	function enableLightTrail() {
+		document.addEventListener("mousemove", createLightTrail);
+	}
+
+	function disableLightTrail() {
+		document.removeEventListener("mousemove", createLightTrail);
+	}
+
+	ultraBtn.addEventListener("click", function () {
+		body.classList.remove("no-animation", "black-white");
+		ultraModeActive = true;
+		updateActiveButton(ultraBtn);
+		resetColors();
+		enableLightTrail();
+		toggleContainer1.style.transition =
+			"transform 0.4s ease-in-out, opacity 0.4s ease-in-out";
+		localStorage.setItem("selectedMode", "ultra"); // Save user preference
+		toggleSwitch(2); // Set toggle to Ultra
+	});
+
+	ultraBtn1.addEventListener("click", function () {
+		body.classList.remove("no-animation", "black-white");
+		ultraModeActive = true;
+		updateActiveButton(ultraBtn1);
+		resetColors();
+		enableLightTrail();
+		toggleContainer1.style.transition =
+			"transform 0.4s ease-in-out, opacity 0.4s ease-in-out";
+		localStorage.setItem("selectedMode", "ultra");
+		toggleSwitch(2); // Set toggle to Ultra
+	});
+
+	smoothBtn.addEventListener("click", function () {
+		body.classList.add("no-animation");
+		ultraModeActive = false;
+		updateActiveButton(smoothBtn);
+		disableLightTrail();
+		applySmoothModeColors();
+		toggleContainer1.style.transition =
+			"transform 0.4s ease-in-out, opacity 0.4s ease-in-out";
+		localStorage.setItem("selectedMode", "smooth");
+		toggleSwitch(0); // Set toggle to Smooth
+	});
+
+	smoothBtn1.addEventListener("click", function () {
+		body.classList.add("no-animation");
+		ultraModeActive = false;
+		updateActiveButton(smoothBtn1);
+		disableLightTrail();
+		applySmoothModeColors();
+		toggleContainer1.style.transition =
+			"transform 0.4s ease-in-out, opacity 0.4s ease-in-out";
+		localStorage.setItem("selectedMode", "smooth");
+		toggleSwitch(0); // Set toggle to Smooth
+	});
+
+	standardBtn.addEventListener("click", function () {
+		body.classList.add("no-animation");
+		body.classList.remove("black-white");
+		ultraModeActive = false;
+		updateActiveButton(standardBtn);
+		disableLightTrail();
+		resetColors();
+		toggleContainer1.style.transition =
+			"transform 0.4s ease-in-out, opacity 0.4s ease-in-out";
+		localStorage.setItem("selectedMode", "standard");
+		toggleSwitch(1); // Set toggle to Standard
+	});
+
+	standardBtn1.addEventListener("click", function () {
+		body.classList.add("no-animation");
+		body.classList.remove("black-white");
+		ultraModeActive = false;
+		updateActiveButton(standardBtn1);
+		disableLightTrail();
+		resetColors();
+		toggleContainer1.style.transition =
+			"transform 0.4s ease-in-out, opacity 0.4s ease-in-out";
+		localStorage.setItem("selectedMode", "standard");
+		toggleSwitch(1); // Set toggle to Standard
+	});
+
+	function updateActiveButton(activeBtn) {
+		[
+			smoothBtn,
+			standardBtn,
+			ultraBtn,
+			smoothBtn1,
+			standardBtn1,
+			ultraBtn1,
+		].forEach((btn) => btn.classList.remove("selected"));
+		activeBtn.classList.add("selected");
+	}
+
+	function applySmoothModeColors() {
+		document.querySelector(".logo-box").style.background =
+			"linear-gradient(135deg,rgb(254, 243, 255),rgba(183, 193, 255, 0.415))";
+		document.querySelector(".logo-box").style.boxShadow =
+			"inset 0px 0px 6px rgb(6, 39, 172)";
+		document.querySelector(".wave-text").style.color = "rgb(50, 50, 50)";
+		document.querySelector(".option1").style.background =
+			"linear-gradient(45deg, rgb(240, 255, 241), rgb(255, 220, 242))";
+		document.querySelector(".home-page").style.background =
+			"rgb(220, 250, 248)";
+		document.querySelector("#designShape1").style.background = "none";
+		document.querySelector("#designShape2").style.background = "none";
+		document.querySelector("#designShape3").style.background = "none";
+		document.querySelector(".my-img-box").style.boxShadow =
+			"0 0 50px rgb(0, 0, 0)";
+		document.querySelector(".Wellcome-txt").style.background =
+			"linear-gradient(45deg, #ffe5ed, #def2ff)";
+		document.querySelector(".Wellcome-txt").style.boxShadow =
+			"0 10px 25px rgb(0, 0, 0), inset 0 0 20px rgb(139, 139, 139)";
+		document.querySelector(".Wellcome-txt").style.border =
+			"5px solid rgba(208, 210, 225, 0.772)";
+		document.querySelector(".my-img-box-wl").style.boxShadow =
+			"0 0 50px rgb(0, 0, 0)";
+		document.querySelector(".about-section").style.background =
+			"linear-gradient(135deg, #f6ff0033, #00ffee41)";
+		document.querySelector(".aimg").style.boxShadow =
+			"0 0 50px rgb(0, 0, 0)";
+		document.querySelector(".aboutRightH2").style.color =
+			"rgb(21, 68, 235)";
+		document.querySelector(".aboutRightP").style.color = "rgb(49, 49, 49)";
+		document.querySelector(".floating-shape1").style.background = "none";
+		document.querySelector(".floating-shape2").style.background = "none";
+		document.querySelector(".floating-shape3").style.background = "none";
+		document.querySelector(".Skill-Section").style.background =
+			"rgb(235, 243, 243)";
+		document.querySelector(".skills-box").style.background =
+			"rgb(51, 51, 51)";
+		document.querySelector(".skills-box").style.boxShadow =
+			"0 0 20px rgba(0, 149, 255, 0.579)";
+		document.querySelector("#skillsBox").style.background =
+			"rgb(51, 51, 51)";
+		document.querySelector("#skillsBox").style.boxShadow =
+			"0 0 20px rgba(0, 149, 255, 0.579)";
+		document.querySelector("#ProjectSection").style.background =
+			"linear-gradient(135deg, #332c7459, #8afb8a38, #4c7b8889)";
+		document.querySelector(".title").style.color = "rgb(171, 36, 255)";
+		document.querySelector("#projectCard1").style.background =
+			"rgba(13, 39, 235, 0.836)";
+		document.querySelector("#projectCard2").style.background =
+			"rgba(13, 39, 235, 0.836)";
+		document.querySelector("#projectCard3").style.background =
+			"rgba(13, 39, 235, 0.836)";
+		document.querySelector("#btn11").style.background =
+			"linear-gradient(45deg, #db3f8d80, #ffceae85)";
+		document.querySelector("#btn22").style.background =
+			"linear-gradient(45deg, #db3f8d80, #ffceae85)";
+		document.querySelector("#btn33").style.background =
+			"linear-gradient(45deg, #db3f8d80, #ffceae85)";
+		document.querySelector(".githubL").style.color = "#0062ff";
+		document.querySelector("#ContactSection").style.background =
+			"rgb(229, 252, 255)";
+		document.querySelector("#layer1").style.background =
+			"rgba(255, 0, 0, 0.123)";
+		document.querySelector("#layer2").style.background =
+			"rgba(255, 0, 0, 0.123)";
+		document.querySelector("#layer3").style.background =
+			"rgba(255, 0, 0, 0.123)";
+		document.querySelector(".contact-box").style.background =
+			"rgb(40, 40, 40)";
+		document.querySelectorAll("button").forEach((btn) => {
+			btn.style.backgroundColor = "#666";
+			btn.style.color = "white";
+		});
+	}
+
+	function resetColors() {
+		document.querySelector(".logo-box").style.background = "";
+		document.querySelector(".logo-box").style.boxShadow = "";
+		document.querySelector(".wave-text").style.color = "";
+		document.querySelector(".option1").style.background = "";
+		document.querySelector(".home-page").style.background = "";
+		document.querySelector("#designShape1").style.background = "";
+		document.querySelector("#designShape2").style.background = "";
+		document.querySelector("#designShape3").style.background = "";
+		document.querySelector(".my-img-box").style.boxShadow = "";
+		document.querySelector(".Wellcome-txt").style.background = "";
+		document.querySelector(".Wellcome-txt").style.boxShadow = "";
+		document.querySelector(".Wellcome-txt").style.border = "";
+		document.querySelector(".my-img-box-wl").style.boxShadow = "";
+		document.querySelector(".about-section").style.background = "";
+		document.querySelector(".aimg").style.boxShadow = "";
+		document.querySelector(".aboutRightH2").style.color = "";
+		document.querySelector(".aboutRightP").style.color = "";
+		document.querySelector(".floating-shape1").style.background = "";
+		document.querySelector(".floating-shape2").style.background = "";
+		document.querySelector(".floating-shape3").style.background = "";
+		document.querySelector(".Skill-Section").style.background = "";
+		document.querySelector(".skills-box").style.background = "";
+		document.querySelector(".skills-box").style.boxShadow = "";
+		document.querySelector("#skillsBox").style.background = "";
+		document.querySelector("#skillsBox").style.boxShadow = "";
+		document.querySelector("#ProjectSection").style.background = "";
+		document.querySelector(".title").style.color = "";
+		document.querySelector("#projectCard1").style.background = "";
+		document.querySelector("#projectCard2").style.background = "";
+		document.querySelector("#projectCard3").style.background = "";
+		document.querySelector("#btn11").style.background = "";
+		document.querySelector("#btn22").style.background = "";
+		document.querySelector("#btn33").style.background = "";
+		document.querySelector(".githubL").style.color = "";
+		document.querySelector("#ContactSection").style.background = "";
+		document.querySelector("#layer1").style.background = "";
+		document.querySelector("#layer2").style.background = "";
+		document.querySelector("#layer3").style.background = "";
+		document.querySelector(".contact-box").style.background = "";
+		document.querySelectorAll("button").forEach((btn) => {
+			btn.style.backgroundColor = "";
+			btn.style.color = "";
+		});
+	}
+});
+
+// Handle feedback box animation
 document.addEventListener("DOMContentLoaded", function () {
 	const feedbackInput = document.getElementById("fdbtn");
 	const closeButton = document.getElementById("fdcbtn");
@@ -462,238 +746,8 @@ document.addEventListener("DOMContentLoaded", function () {
 		closeButton.style.display = "none";
 	});
 });
-document.addEventListener("DOMContentLoaded", function () {
-	const body = document.body;
-	const toggleContainer1 = document.querySelector(".toggle-container1");
-	const smoothBtn = document.getElementById("smoothbtn");
-	const standardBtn = document.getElementById("standardbtn");
-	const ultraBtn = document.getElementById("ultrabtn");
-	const smoothBtn1 = document.getElementById("smoothbtn1");
-	const standardBtn1 = document.getElementById("standardbtn1");
-	const ultraBtn1 = document.getElementById("ultrabtn1");
-	let ultraModeActive = !1;
-	body.classList.add("no-animation");
-	standardBtn.classList.add("selected");
-	standardBtn1.classList.add("selected");
-	function createLightTrail(event) {
-		const trail = document.createElement("div");
-		trail.className = "light-trail";
-		trail.style.left = `${event.pageX}px`;
-		trail.style.top = `${event.pageY}px`;
-		document.body.appendChild(trail);
-		setTimeout(() => {
-			trail.remove();
-		}, 500);
-	}
-	function enableLightTrail() {
-		document.addEventListener("mousemove", createLightTrail);
-	}
-	function disableLightTrail() {
-		document.removeEventListener("mousemove", createLightTrail);
-	}
-	ultraBtn.addEventListener("click", function () {
-		body.classList.remove("no-animation", "black-white");
-		ultraModeActive = !0;
-		updateActiveButton(ultraBtn);
-		resetColors();
-		enableLightTrail();
-		toggleContainer1.style.transition =
-			"transform 0.4s ease-in-out, opacity 0.4s ease-in-out";
-	});
-	ultraBtn1.addEventListener("click", function () {
-		body.classList.remove("no-animation", "black-white");
-		ultraModeActive = !0;
-		updateActiveButton(ultraBtn1);
-		resetColors();
-		enableLightTrail();
-		toggleContainer1.style.transition =
-			"transform 0.4s ease-in-out, opacity 0.4s ease-in-out";
-	});
-	smoothBtn.addEventListener("click", function () {
-		body.classList.add("no-animation");
-		ultraModeActive = !1;
-		updateActiveButton(smoothBtn);
-		disableLightTrail();
-		applySmoothModeColors();
-		toggleContainer1.style.transition =
-			"transform 0.4s ease-in-out, opacity 0.4s ease-in-out";
-	});
-	smoothBtn1.addEventListener("click", function () {
-		body.classList.add("no-animation");
-		ultraModeActive = !1;
-		updateActiveButton(smoothBtn1);
-		disableLightTrail();
-		applySmoothModeColors();
-		toggleContainer1.style.transition =
-			"transform 0.4s ease-in-out, opacity 0.4s ease-in-out";
-	});
-	standardBtn.addEventListener("click", function () {
-		body.classList.add("no-animation");
-		body.classList.remove("black-white");
-		ultraModeActive = !1;
-		updateActiveButton(standardBtn);
-		disableLightTrail();
-		resetColors();
-		toggleContainer1.style.transition =
-			"transform 0.4s ease-in-out, opacity 0.4s ease-in-out";
-	});
-	standardBtn1.addEventListener("click", function () {
-		body.classList.add("no-animation");
-		body.classList.remove("black-white");
-		ultraModeActive = !1;
-		updateActiveButton(standardBtn1);
-		disableLightTrail();
-		resetColors();
-		toggleContainer1.style.transition =
-			"transform 0.4s ease-in-out, opacity 0.4s ease-in-out";
-	});
-	function updateActiveButton(activeBtn) {
-		[
-			smoothBtn,
-			standardBtn,
-			ultraBtn,
-			smoothBtn1,
-			standardBtn1,
-			ultraBtn1,
-		].forEach((btn) => btn.classList.remove("selected"));
-		activeBtn.classList.add("selected");
-	}
-	function applySmoothModeColors() {
-		document.querySelector(".logo-box").style.background =
-			"linear-gradient(135deg,rgb(254, 243, 255),rgba(183, 193, 255, 0.415))";
-		document.querySelector(".logo-box").style.boxShadow =
-			"inset 0px 0px 6px rgb(6, 39, 172)";
-		document.querySelector(".wave-text").style.color = "rgb(50, 50, 50)";
-		document.querySelector(".option1").style.background =
-			"linear-gradient(45deg, rgb(240, 255, 241), rgb(255, 220, 242))";
-		document.querySelector(".home-page").style.background =
-			" rgb(220, 250, 248)";
-		document.querySelector("#designShape1").style.background = "none";
-		document.querySelector("#designShape2").style.background = "none";
-		document.querySelector("#designShape3").style.background = "none";
-		document.querySelector(".my-img-box").style.boxShadow =
-			" 0 0 50px rgb(0, 0, 0)";
-		document.querySelector(".Wellcome-txt").style.background =
-			" linear-gradient(45deg, #ffe5ed, #def2ff)";
-		document.querySelector(".Wellcome-txt").style.boxShadow =
-			" 0 10px 25px rgb(0, 0, 0), inset 0 0 20px rgb(139, 139, 139)";
-		document.querySelector(".Wellcome-txt").style.border =
-			" 5px solid rgba(208, 210, 225, 0.772)";
-		document.querySelector(".my-img-box-wl").style.boxShadow =
-			" 0 0 50px rgb(0, 0, 0)";
-		document.querySelector(".about-section").style.background =
-			" linear-gradient(135deg, #f6ff0033, #00ffee41)";
-		document.querySelector(".aimg").style.boxShadow =
-			" 0 0 50px rgb(0, 0, 0)";
-		document.querySelector(".aboutRightH2").style.color =
-			" rgb(21, 68, 235)";
-		document.querySelector(".aboutRightP").style.color = " rgb(49, 49, 49)";
-		document.querySelector(".floating-shape1").style.background = "none";
-		document.querySelector(".floating-shape2").style.background = "none";
-		document.querySelector(".floating-shape3").style.background = "none";
-		document.querySelector(".Skill-Section").style.background =
-			" rgb(235, 243, 243)";
-		document.querySelector(".skills-box").style.background =
-			" rgb(51, 51, 51)";
-		document.querySelector(".skills-box").style.boxShadow =
-			" 0 0 20px rgba(0, 149, 255, 0.579)";
-		document.querySelector("#skillsBox").style.background =
-			" rgb(51, 51, 51)";
-		document.querySelector("#skillsBox").style.boxShadow =
-			" 0 0 20px rgba(0, 149, 255, 0.579)";
-		document.querySelector("#ProjectSection").style.background =
-			" linear-gradient(135deg, #332c7459, #8afb8a38, #4c7b8889)";
-		document.querySelector(".title").style.color = " rgb(171, 36, 255)";
-		document.querySelector("#projectCard1").style.background =
-			" rgba(13, 39, 235, 0.836)";
-		document.querySelector("#projectCard2").style.background =
-			" rgba(13, 39, 235, 0.836)";
-		document.querySelector("#projectCard3").style.background =
-			" rgba(13, 39, 235, 0.836)";
-		document.querySelector("#btn11").style.background =
-			" linear-gradient(45deg, #db3f8d80, #ffceae85)";
-		document.querySelector("#btn22").style.background =
-			" linear-gradient(45deg, #db3f8d80, #ffceae85)";
-		document.querySelector("#btn33").style.background =
-			" linear-gradient(45deg, #db3f8d80, #ffceae85)";
-		document.querySelector(".githubL").style.color = " #0062ff";
-		document.querySelector("#ContactSection").style.background =
-			" rgb(229, 252, 255)";
-		document.querySelector("#layer1").style.background =
-			" rgba(255, 0, 0, 0.123)";
-		document.querySelector("#layer2").style.background =
-			" rgba(255, 0, 0, 0.123)";
-		document.querySelector("#layer3").style.background =
-			" rgba(255, 0, 0, 0.123)";
-		document.querySelector(".contact-box").style.background =
-			" rgb(40, 40, 40)";
-		document.querySelectorAll("button").forEach((btn) => {
-			btn.style.backgroundColor = "#666";
-			btn.style.color = "white";
-		});
-	}
-	function resetColors() {
-		document.querySelector(".logo-box").style.background = "";
-		document.querySelector(".logo-box").style.boxShadow = "";
-		document.querySelector(".wave-text").style.color = "";
-		document.querySelector(".option1").style.background = "";
-		document.querySelector(".home-page").style.background = "";
-		document.querySelector("#designShape1").style.background = "";
-		document.querySelector("#designShape2").style.background = "";
-		document.querySelector("#designShape3").style.background = "";
-		document.querySelector(".my-img-box").style.boxShadow = "";
-		document.querySelector(".Wellcome-txt").style.background = "";
-		document.querySelector(".Wellcome-txt").style.boxShadow = "";
-		document.querySelector(".Wellcome-txt").style.border = "";
-		document.querySelector(".my-img-box-wl").style.boxShadow = "";
-		document.querySelector(".about-section").style.background = "";
-		document.querySelector(".aimg").style.boxShadow = "";
-		document.querySelector(".aboutRightH2").style.color = "";
-		document.querySelector(".aboutRightP").style.color = "";
-		document.querySelector(".floating-shape1").style.background = "";
-		document.querySelector(".floating-shape2").style.background = "";
-		document.querySelector(".floating-shape3").style.background = "";
-		document.querySelector(".Skill-Section").style.background = "";
-		document.querySelector(".skills-box").style.background = "";
-		document.querySelector(".skills-box").style.boxShadow = "";
-		document.querySelector("#skillsBox").style.background = "";
-		document.querySelector("#skillsBox").style.boxShadow = "";
-		document.querySelector("#ProjectSection").style.background = "";
-		document.querySelector(".title").style.color = "";
-		document.querySelector("#projectCard1").style.background = "";
-		document.querySelector("#projectCard2").style.background = "";
-		document.querySelector("#projectCard3").style.background = "";
-		document.querySelector("#btn11").style.background = "";
-		document.querySelector("#btn22").style.background = "";
-		document.querySelector("#btn33").style.background = "";
-		document.querySelector(".githubL").style.color = "";
-		document.querySelector("#ContactSection").style.background = "";
-		document.querySelector("#layer1").style.background = "";
-		document.querySelector("#layer2").style.background = "";
-		document.querySelector("#layer3").style.background = "";
-		document.querySelector(".contact-box").style.background = "";
-		document.querySelectorAll("button").forEach((btn) => {
-			btn.style.backgroundColor = "";
-			btn.style.color = "";
-		});
-	}
-});
 
-// Apply theme change (assuming you have a button or event to trigger this)
-// Example: document.getElementById("themeButton").addEventListener("click", changeColors);
-// Example: document.getElementById("resetButton").addEventListener("click", resetColors);
-
-// Add event listeners for theme buttons
-const themeButton = document.getElementById("themeButton");
-const resetButton = document.getElementById("resetButton");
-if (themeButton) {
-	themeButton.addEventListener("click", changeColors);
-}
-if (resetButton) {
-	resetButton.addEventListener("click", resetColors);
-}
-
-// Handle feedback box animation
+// Handle feedback box animation (second instance)
 const feedbackInput = document.getElementById("fdbtn");
 const feedbackIcon = document.getElementById("fdcbtn");
 
@@ -731,15 +785,7 @@ if (contactForm) {
 			name: formData.get("name"),
 			email: formData.get("email"),
 			message: formData.get("message"),
-			/* recaptchaToken: grecaptcha.getResponse() // reCAPTCHA টোকেন যোগ করা */
 		};
-
-		/* if (!data.recaptchaToken) {
-                alert("Please complete the reCAPTCHA");
-                submitBtn.disabled = false;
-                submitBtn.innerText = "Send";
-                return;
-            } */
 
 		try {
 			const response = await fetch(
@@ -757,7 +803,6 @@ if (contactForm) {
 			if (response.ok) {
 				alert("Message sent successfully!");
 				contactForm.reset();
-				/* grecaptcha.reset(); // reCAPTCHA রিসেট */
 			} else {
 				alert(`Failed to send message: ${result.error}`);
 			}
@@ -780,12 +825,6 @@ if (feedbackIcon && feedbackInput) {
 			return;
 		}
 
-		/* const recaptchaToken = grecaptcha.getResponse(); // reCAPTCHA টোকেন যোগ করা
-            if (!recaptchaToken) {
-                alert("Please complete the reCAPTCHA");
-                return;
-            } */
-
 		feedbackIcon.disabled = true;
 		feedbackIcon.style.opacity = "0.5";
 
@@ -797,7 +836,7 @@ if (feedbackIcon && feedbackInput) {
 					headers: {
 						"Content-Type": "application/json",
 					},
-					body: JSON.stringify({ feedback /*, recaptchaToken */ }),
+					body: JSON.stringify({ feedback }),
 				}
 			);
 
@@ -808,7 +847,6 @@ if (feedbackIcon && feedbackInput) {
 				feedbackInput.style.width = "18px";
 				feedbackInput.style.opacity = "0.3";
 				feedbackIcon.classList.remove("show");
-				/* grecaptcha.reset(); // reCAPTCHA রিসেট */
 			} else {
 				alert(`Failed to send feedback: ${result.error}`);
 			}
@@ -821,8 +859,57 @@ if (feedbackIcon && feedbackInput) {
 		}
 	});
 }
-//close btn for Discrive More
+
+// Handle skills tab functionality
 document.addEventListener("DOMContentLoaded", () => {
+	function setupSkillsTabs() {
+		const tabButtons = document.querySelectorAll(".tab-btn");
+		const tabContents = document.querySelectorAll(".tab-content");
+
+		tabButtons.forEach((button) => {
+			button.addEventListener("click", () => {
+				// Remove active class from all buttons and contents
+				tabButtons.forEach((btn) => btn.classList.remove("active"));
+				tabContents.forEach((content) =>
+					content.classList.remove("active")
+				);
+
+				// Add active class to clicked button and corresponding content
+				button.classList.add("active");
+				const tabId = button.getAttribute("data-tab");
+				document.getElementById(tabId).classList.add("active");
+
+				// Trigger progress circle animation for active tab
+				animateProgressCircles(tabId);
+			});
+		});
+	}
+
+	function animateProgressCircles(tabId) {
+		if (document.body.classList.contains("no-animation")) return; // Standard/Smooth মোডে বন্ধ
+		const circles = document.querySelectorAll(
+			`#${tabId} .circle-container .progress`
+		);
+		circles.forEach((circle) => {
+			const observer = new IntersectionObserver(
+				(entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							const fill = circle.getAttribute("data-fill");
+							circle.style.setProperty("--fill", fill);
+							circle.classList.add("animate");
+							observer.unobserve(circle);
+						}
+					});
+				},
+				{ threshold: 0.5, rootMargin: "50px" }
+			);
+			observer.observe(circle);
+		});
+	}
+
+	setupSkillsTabs();
+	animateProgressCircles("programming"); // Initial animation for default tab
 	async function pingBackend() {
 		try {
 			await fetch("https://programmer-bd-backend.onrender.com/ping");
@@ -830,3 +917,61 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 	pingBackend();
 });
+
+// Skill box animation
+document.addEventListener("DOMContentLoaded", function () {
+	const circles = document.querySelectorAll(".progress");
+	const observerOptions = { root: null, rootMargin: "0px", threshold: 0.1 };
+	const observer = new IntersectionObserver((entries, observer) => {
+		entries.forEach((entry) => {
+			if (entry.isIntersecting) {
+				let circle = entry.target;
+				let percent = circle.getAttribute("data-fill");
+				let circumference = 314;
+				let offset = circumference - (percent / 100) * circumference;
+				circle.style.strokeDashoffset = offset;
+				observer.unobserve(circle);
+			}
+		});
+	}, observerOptions);
+	circles.forEach((circle) => {
+		observer.observe(circle);
+	});
+});
+
+function setupSkillTabs() {
+	const tabButtons = document.querySelectorAll(".tab-btn");
+	const programming = document.getElementById("programming");
+	const others = document.getElementById("others");
+	const developer = document.getElementById("developer");
+	const youtuber = document.getElementById("youtuber");
+
+	tabButtons.forEach((btn) => {
+		btn.addEventListener("click", function () {
+			// Active class handle
+			tabButtons.forEach((b) => b.classList.remove("active"));
+			this.classList.add("active");
+
+			// Show/hide skill content
+			if (this.dataset.tab === "programming") {
+				programming.style.display = "flex";
+				others.style.display = "none";
+				developer.style.display = "block";
+				youtuber.style.display = "none";
+			} else if (this.dataset.tab === "others") {
+				programming.style.display = "none";
+				others.style.display = "flex";
+				developer.style.display = "none";
+				youtuber.style.display = "block";
+			}
+		});
+	});
+
+	// Initial state
+	programming.style.display = "flex";
+	others.style.display = "none";
+	developer.style.display = "block";
+	youtuber.style.display = "none";
+}
+
+document.addEventListener("DOMContentLoaded", setupSkillTabs);
