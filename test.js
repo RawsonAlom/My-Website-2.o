@@ -93,7 +93,7 @@ function updateScrollEffects() {
 		show_mbna.style.marginTop = "10px";
 	}
 }
-document.getElementById("show_mbna").addEventListener("click", function () {
+document.getElementById("show_mbna").addEventListener("click", function (event) {
 	let mbna = document.getElementById("mbna");
 	mbna.style.display = "flex";
 	setTimeout(() => {
@@ -747,29 +747,9 @@ document.addEventListener("DOMContentLoaded", function () {
 	});
 });
 
-// Handle feedback box animation (second instance)
+// Feedback elements for submission
 const feedbackInput = document.getElementById("fdbtn");
 const feedbackIcon = document.getElementById("fdcbtn");
-
-if (feedbackInput && feedbackIcon) {
-	feedbackInput.addEventListener("click", (e) => {
-		e.stopPropagation();
-		feedbackInput.style.width = "180px";
-		feedbackInput.style.opacity = "1";
-		feedbackIcon.classList.add("show");
-	});
-
-	document.addEventListener("click", (e) => {
-		if (
-			!feedbackInput.contains(e.target) &&
-			!feedbackIcon.contains(e.target)
-		) {
-			feedbackInput.style.width = "18px";
-			feedbackInput.style.opacity = "0.3";
-			feedbackIcon.classList.remove("show");
-		}
-	});
-}
 
 // Handle contact form submission
 const contactForm = document.getElementById("contact-form");
@@ -860,37 +840,30 @@ if (feedbackIcon && feedbackInput) {
 	});
 }
 
-// Handle skills tab functionality
+// Handle skills tab functionality + progress animation
 document.addEventListener("DOMContentLoaded", () => {
-	function setupSkillsTabs() {
-		const tabButtons = document.querySelectorAll(".tab-btn");
-		const tabContents = document.querySelectorAll(".tab-content");
+	const tabButtons = document.querySelectorAll(".tab-btn");
+	const programming = document.getElementById("programming");
+	const others = document.getElementById("others");
+	const developer = document.getElementById("developer");
+	const youtuber = document.getElementById("youtuber");
+	const circles = document.querySelectorAll(".progress");
 
-		tabButtons.forEach((button) => {
-			button.addEventListener("click", () => {
-				// Remove active class from all buttons and contents
-				tabButtons.forEach((btn) => btn.classList.remove("active"));
-				tabContents.forEach((content) =>
-					content.classList.remove("active")
-				);
-
-				// Add active class to clicked button and corresponding content
-				button.classList.add("active");
-				const tabId = button.getAttribute("data-tab");
-				document.getElementById(tabId).classList.add("active");
-
-				// Trigger progress circle animation for active tab
-				animateProgressCircles(tabId);
-			});
-		});
+	function setCircleProgress(circle) {
+		const percent = circle.getAttribute("data-fill");
+		const circumference = 314;
+		const offset = circumference - (percent / 100) * circumference;
+		circle.style.strokeDashoffset = offset;
 	}
 
 	function animateProgressCircles(tabId) {
-		if (document.body.classList.contains("no-animation")) return; // Standard/Smooth মোডে বন্ধ
-		const circles = document.querySelectorAll(
-			`#${tabId} .circle-container .progress`
-		);
-		circles.forEach((circle) => {
+		if (document.body.classList.contains("no-animation")) {
+			// keep progress visible even in standard/smooth mode
+			document.querySelectorAll(`#${tabId} .progress`).forEach(setCircleProgress);
+			return;
+		}
+
+		document.querySelectorAll(`#${tabId} .progress`).forEach((circle) => {
 			const observer = new IntersectionObserver(
 				(entries) => {
 					entries.forEach((entry) => {
@@ -898,6 +871,7 @@ document.addEventListener("DOMContentLoaded", () => {
 							const fill = circle.getAttribute("data-fill");
 							circle.style.setProperty("--fill", fill);
 							circle.classList.add("animate");
+							setCircleProgress(circle);
 							observer.unobserve(circle);
 						}
 					});
@@ -908,70 +882,36 @@ document.addEventListener("DOMContentLoaded", () => {
 		});
 	}
 
-	setupSkillsTabs();
-	animateProgressCircles("programming"); // Initial animation for default tab
+	function updateSkillView(tabId) {
+		if (!programming || !others || !developer || !youtuber) return;
+		const showProgramming = tabId === "programming";
+		programming.style.display = showProgramming ? "flex" : "none";
+		others.style.display = showProgramming ? "none" : "flex";
+		developer.style.display = showProgramming ? "block" : "none";
+		youtuber.style.display = showProgramming ? "none" : "block";
+	}
+
+	tabButtons.forEach((button) => {
+		button.addEventListener("click", () => {
+			tabButtons.forEach((btn) => btn.classList.remove("active"));
+			button.classList.add("active");
+
+			const tabId = button.getAttribute("data-tab");
+			updateSkillView(tabId);
+			animateProgressCircles(tabId);
+		});
+	});
+
+	// Initial state
+	updateSkillView("programming");
+	circles.forEach(setCircleProgress);
+	animateProgressCircles("programming");
+
 	async function pingBackend() {
 		try {
 			await fetch("https://programmer-bd-backend.onrender.com/ping");
 		} catch (error) {}
 	}
+
 	pingBackend();
 });
-
-// Skill box animation
-document.addEventListener("DOMContentLoaded", function () {
-	const circles = document.querySelectorAll(".progress");
-	const observerOptions = { root: null, rootMargin: "0px", threshold: 0.1 };
-	const observer = new IntersectionObserver((entries, observer) => {
-		entries.forEach((entry) => {
-			if (entry.isIntersecting) {
-				let circle = entry.target;
-				let percent = circle.getAttribute("data-fill");
-				let circumference = 314;
-				let offset = circumference - (percent / 100) * circumference;
-				circle.style.strokeDashoffset = offset;
-				observer.unobserve(circle);
-			}
-		});
-	}, observerOptions);
-	circles.forEach((circle) => {
-		observer.observe(circle);
-	});
-});
-
-function setupSkillTabs() {
-	const tabButtons = document.querySelectorAll(".tab-btn");
-	const programming = document.getElementById("programming");
-	const others = document.getElementById("others");
-	const developer = document.getElementById("developer");
-	const youtuber = document.getElementById("youtuber");
-
-	tabButtons.forEach((btn) => {
-		btn.addEventListener("click", function () {
-			// Active class handle
-			tabButtons.forEach((b) => b.classList.remove("active"));
-			this.classList.add("active");
-
-			// Show/hide skill content
-			if (this.dataset.tab === "programming") {
-				programming.style.display = "flex";
-				others.style.display = "none";
-				developer.style.display = "block";
-				youtuber.style.display = "none";
-			} else if (this.dataset.tab === "others") {
-				programming.style.display = "none";
-				others.style.display = "flex";
-				developer.style.display = "none";
-				youtuber.style.display = "block";
-			}
-		});
-	});
-
-	// Initial state
-	programming.style.display = "flex";
-	others.style.display = "none";
-	developer.style.display = "block";
-	youtuber.style.display = "none";
-}
-
-document.addEventListener("DOMContentLoaded", setupSkillTabs);
