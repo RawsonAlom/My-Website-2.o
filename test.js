@@ -93,7 +93,7 @@ function updateScrollEffects() {
 		show_mbna.style.marginTop = "10px";
 	}
 }
-document.getElementById("show_mbna").addEventListener("click", function () {
+document.getElementById("show_mbna").addEventListener("click", function (event) {
 	let mbna = document.getElementById("mbna");
 	mbna.style.display = "flex";
 	setTimeout(() => {
@@ -860,56 +860,8 @@ if (feedbackIcon && feedbackInput) {
 	});
 }
 
-// Handle skills tab functionality
+// Ping backend on load
 document.addEventListener("DOMContentLoaded", () => {
-	function setupSkillsTabs() {
-		const tabButtons = document.querySelectorAll(".tab-btn");
-		const tabContents = document.querySelectorAll(".tab-content");
-
-		tabButtons.forEach((button) => {
-			button.addEventListener("click", () => {
-				// Remove active class from all buttons and contents
-				tabButtons.forEach((btn) => btn.classList.remove("active"));
-				tabContents.forEach((content) =>
-					content.classList.remove("active")
-				);
-
-				// Add active class to clicked button and corresponding content
-				button.classList.add("active");
-				const tabId = button.getAttribute("data-tab");
-				document.getElementById(tabId).classList.add("active");
-
-				// Trigger progress circle animation for active tab
-				animateProgressCircles(tabId);
-			});
-		});
-	}
-
-	function animateProgressCircles(tabId) {
-		if (document.body.classList.contains("no-animation")) return; // Standard/Smooth মোডে বন্ধ
-		const circles = document.querySelectorAll(
-			`#${tabId} .circle-container .progress`
-		);
-		circles.forEach((circle) => {
-			const observer = new IntersectionObserver(
-				(entries) => {
-					entries.forEach((entry) => {
-						if (entry.isIntersecting) {
-							const fill = circle.getAttribute("data-fill");
-							circle.style.setProperty("--fill", fill);
-							circle.classList.add("animate");
-							observer.unobserve(circle);
-						}
-					});
-				},
-				{ threshold: 0.5, rootMargin: "50px" }
-			);
-			observer.observe(circle);
-		});
-	}
-
-	setupSkillsTabs();
-	animateProgressCircles("programming"); // Initial animation for default tab
 	async function pingBackend() {
 		try {
 			await fetch("https://programmer-bd-backend.onrender.com/ping");
@@ -917,6 +869,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 	pingBackend();
 });
+
 
 // Skill box animation
 document.addEventListener("DOMContentLoaded", function () {
